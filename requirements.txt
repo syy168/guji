@@ -1,0 +1,49 @@
+# guji
+
+睿尔曼机械臂 ROS2 控制验证项目
+
+## 目录结构
+
+```
+guji/
+├── README.md          # 详细使用文档
+├── arm_monitor.py     # 机械臂状态监控程序
+└── requirements.txt   # Python 依赖
+```
+
+## 快速开始
+
+### 1. 安装依赖
+
+```bash
+pip install -r requirements.txt
+```
+
+### 2. 启动机械臂驱动
+
+```bash
+cd ~/ros2_ws
+source /opt/ros/humble/setup.bash
+source ./install/setup.bash
+ros2 launch rm_driver rm_65_driver.launch.py
+```
+
+### 3. 运行验证程序
+
+```bash
+# 在另一个终端中
+cd ~/ros2_ws
+source /opt/ros/humble/setup.bash
+source ./install/setup.bash
+python3 arm_monitor.py
+```
+
+## 依赖说明
+
+- **ROS2 Humble** - 机器人操作系统
+- **rclpy** - ROS2 Python 客户端库
+- **sensor_msgs** - 标准关节状态消息
+- **geometry_msgs** - 几何消息类型
+- **rm_ros_interfaces** - 睿尔曼自定义消息（需编译 ros2_rm_robot）
+
+详细说明请参阅 [README.md](README.md)

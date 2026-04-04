@@ -1,0 +1,14 @@
+# DetectAruco Service Definition
+# 用于 ArUco 标记检测服务
+
+# 请求（Request）
+int32 marker_id       # ArUco 标记 ID，如 11, 12, 21
+float64 timeout       # 检测超时时间（秒），超时返回 found=False
+
+---
+# 响应（Response）
+bool found            # 是否检测到标记
+
+# 标记在 base_frame 下的 6DOF 位姿
+geometry_msgs/Pose pose       # 位置 + 姿态（四元数方向）
+std_msgs/Header header        # 时间戳和参考坐标系
