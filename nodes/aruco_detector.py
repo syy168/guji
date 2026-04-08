@@ -23,7 +23,7 @@ ArUco 标记检测节点
 
 运行前检查：
   ros2 run guji aruco_detector
-  ros2 service call /right_arm/detect_aruco guji/srv/DetectAruco "{marker_id: 11, timeout: 5.0}"
+  ros2 service call /right_arm_controller/detect_aruco guji/srv/DetectAruco "{marker_id: 11, timeout: 5.0}"
   ros2 run tf2_ros tf2_echo right_base target_right_camera
 
 依赖：
@@ -131,7 +131,7 @@ class ArucoDetector(Node):
         # ==========================================
         # 发布检测结果可视化（调试用）
         # ==========================================
-        self._debug_pub = self.create_publisher(Image, '/right_arm/aruco/debug_image', 10)
+        self._debug_pub = self.create_publisher(Image, '/right_arm_controller/aruco/debug_image', 10)
 
         # ==========================================
         # 提供 ArUco 检测 Service
@@ -139,13 +139,13 @@ class ArucoDetector(Node):
         from guji.srv import DetectAruco
         self._detect_srv = self.create_service(
             DetectAruco,
-            '/right_arm/detect_aruco',
+            '/right_arm_controller/detect_aruco',
             self._detect_callback
         )
 
         self.get_logger().info('ArUco 检测节点已启动')
         self.get_logger().info(f'  监听话题: {self.topic_prefix}/color/image_raw')
-        self.get_logger().info(f'  发布 Service: /right_arm/detect_aruco')
+        self.get_logger().info(f'  发布 Service: /right_arm_controller/detect_aruco')
         self.get_logger().info(f'  发布 TF: base_frame → target_camera_frame')
         self.get_logger().info(f'  期望帧率: ≥15Hz, 超时: {self.vision_timeout}s')
         self.get_logger().info(
@@ -231,11 +231,35 @@ class ArucoDetector(Node):
     def _image_callback(self, msg: Image):
         try:
             self._latest_image = self._bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
+        except cv_bridge.CvBridgeError as e:
+            self.get_logger().error(f'图像转换失败: {e}')
+            return
+        if self._camera_matrix is not None:
             self.get_logger().info(
                 f'相机内参已就绪: fx={self._camera_matrix[0,0]:.1f}, '
                 f'fy={self._camera_matrix[1,1]:.1f}, '
                 f'cx={self._camera_matrix[0,2]:.1f}, cy={self._camera_matrix[1,2]:.1f}'
             )
+
+    # ==========================================
+    # CameraInfo 回调 — 从运行时话题提取内参矩阵
+    # ==========================================
+    def _info_callback(self, msg: CameraInfo):
+        """从 CameraInfo 话题提取相机内参（K）和畸变系数（D），供 ArUco PnP 使用"""
+        if self._camera_matrix is not None:
+            return  # 已初始化，无需重复设置
+        if len(msg.k) != 9:
+            self.get_logger().warn(f'CameraInfo K 数组长度异常: {len(msg.k)}，跳过内参初始化')
+            return
+        import numpy as np
+        self._camera_matrix = np.array(msg.k, dtype=np.float64).reshape(3, 3)
+        self._dist_coeffs = np.array(msg.d, dtype=np.float64)
+        self._camera_frame_id = msg.header.frame_id
+        self.get_logger().info(
+            f'相机内参已就绪: fx={self._camera_matrix[0,0]:.1f}, '
+            f'fy={self._camera_matrix[1,1]:.1f}, '
+            f'cx={self._camera_matrix[0,2]:.1f}, cy={self._camera_matrix[1,2]:.1f}'
+        )
 
     # ==========================================
     # Service 回调（核心检测逻辑）
@@ -494,7 +518,7 @@ def main(args=None):
     print("========================================")
     print()
     print("  Service 调用示例:")
-    print("    ros2 service call /right_arm/detect_aruco guji/srv/DetectAruco \\")
+    print("    ros2 service call /right_arm_controller/detect_aruco guji/srv/DetectAruco \\")
     print("      \"{marker_id: 11, timeout: 5.0}\"")
     print()
     print("  TF 验证:")
@@ -502,7 +526,7 @@ def main(args=None):
     print("    ros2 run tf2_ros view_frames")
     print()
     print("  调试话题:")
-    print("    /right_arm/aruco/debug_image")
+    print("    /right_arm_controller/aruco/debug_image")
     print()
     print("========================================")
     print()

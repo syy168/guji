@@ -5,24 +5,30 @@
 双臂取放料视觉流水线 launch 启动文件
 
 启动顺序：
-  1. realsense2_camera      — D435 相机驱动
-  2. camera_bridge          — 相机诊断节点
-  3. tf_broadcaster          — 手眼标定 TF 广播
-  4. aruco_detector           — ArUco 视觉识别节点
-  5. dual_arm_pick_place     — 主控制器
+  1. rm_driver (双臂)          — 左臂 + 右臂 驱动（left_arm_controller / right_arm_controller）
+  2. realsense2_camera        — D435 相机驱动
+  3. camera_bridge            — 相机诊断节点
+  4. tf_broadcaster           — 手眼标定 TF 广播
+  5. aruco_detector           — ArUco 视觉识别节点
+  6. dual_arm_pick_place      — 主控制器
 
 使用方法：
+  # 一键启动（推荐）
   ros2 launch guji vision_pipeline.launch.py
 
   # 指定参数
   ros2 launch guji vision_pipeline.launch.py \
     camera_serial:=123422072697 \
-    left_ns:=l_arm \
-    right_ns:=r_arm
+    left_ns:=left_arm_controller \
+    right_ns:=right_arm_controller \
+    computer_ip:=192.168.151.119 \
+    left_arm_ip:=192.168.150.111 \
+    right_arm_ip:=192.168.150.112
 
   # 仅启动视觉部分（不含双臂控制）
   ros2 launch guji vision_pipeline.launch.py \
-    launch_controller:=false
+    launch_controller:=false \
+    launch_drivers:=false
 """
 
 import os
@@ -45,12 +51,12 @@ def generate_launch_description():
     )
     left_ns = DeclareLaunchArgument(
         'left_ns',
-        default_value='l_arm',
+        default_value='left_arm_controller',
         description='左臂 ROS namespace'
     )
     right_ns = DeclareLaunchArgument(
         'right_ns',
-        default_value='r_arm',
+        default_value='right_arm_controller',
         description='右臂 ROS namespace'
     )
     camera_prefix = DeclareLaunchArgument(
@@ -62,6 +68,91 @@ def generate_launch_description():
         'launch_controller',
         default_value='true',
         description='是否同时启动主控制器节点'
+    )
+    launch_drivers = DeclareLaunchArgument(
+        'launch_drivers',
+        default_value='true',
+        description='是否同时启动双臂驱动节点'
+    )
+    computer_ip = DeclareLaunchArgument(
+        'computer_ip',
+        default_value='192.168.151.119',
+        description='计算机 IP（双臂 UDP 上报目标）'
+    )
+    left_arm_ip = DeclareLaunchArgument(
+        'left_arm_ip',
+        default_value='192.168.150.111',
+        description='左臂 TCP 连接 IP'
+    )
+    right_arm_ip = DeclareLaunchArgument(
+        'right_arm_ip',
+        default_value='192.168.150.112',
+        description='右臂 TCP 连接 IP'
+    )
+
+    # ==========================================
+    # 0. 双臂驱动（rm_driver x2）
+    # ==========================================
+    left_arm_params = {
+        'arm_ip': LaunchConfiguration('left_arm_ip'),
+        'tcp_port': 8080,
+        'arm_type': 'RM_65',
+        'arm_dof': 6,
+        'udp_ip': LaunchConfiguration('computer_ip'),
+        'udp_cycle': 5,
+        'udp_port': 8089,
+        'udp_force_coordinate': 0,
+        'udp_hand': False,
+        'udp_plus_base': False,
+        'udp_plus_state': False,
+        'udp_joint_speed_state': True,
+        'udp_lift_state': False,
+        'udp_expand_state': False,
+        'udp_arm_current_status': True,
+        'udp_aloha_state': False,
+        'trajectory_mode': 0,
+        'radio': 0,
+        'arm_joints': ['joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'joint6'],
+    }
+    right_arm_params = {
+        'arm_ip': LaunchConfiguration('right_arm_ip'),
+        'tcp_port': 8080,
+        'arm_type': 'RM_65',
+        'arm_dof': 6,
+        'udp_ip': LaunchConfiguration('computer_ip'),
+        'udp_cycle': 5,
+        'udp_port': 8089,
+        'udp_force_coordinate': 0,
+        'udp_hand': False,
+        'udp_plus_base': False,
+        'udp_plus_state': False,
+        'udp_joint_speed_state': True,
+        'udp_lift_state': False,
+        'udp_expand_state': False,
+        'udp_arm_current_status': True,
+        'udp_aloha_state': False,
+        'trajectory_mode': 0,
+        'radio': 0,
+        'arm_joints': ['joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'joint6'],
+    }
+
+    left_driver_node = Node(
+        package='rm_driver',
+        executable='rm_driver',
+        namespace=LaunchConfiguration('left_ns'),
+        parameters=[left_arm_params],
+        output='screen',
+        emulate_tty=True,
+        condition=launch.actions.IfCondition(LaunchConfiguration('launch_drivers')),
+    )
+    right_driver_node = Node(
+        package='rm_driver',
+        executable='rm_driver',
+        namespace=LaunchConfiguration('right_ns'),
+        parameters=[right_arm_params],
+        output='screen',
+        emulate_tty=True,
+        condition=launch.actions.IfCondition(LaunchConfiguration('launch_drivers')),
     )
 
     # ==========================================
@@ -151,9 +242,8 @@ def generate_launch_description():
     )
 
     # ==========================================
-    # 6. Lifecycle 管理（确保节点按顺序启动）
+    # Lifecycle 管理（确保节点按顺序启动）
     # ==========================================
-    # 等待相机节点启动后再启动 camera_bridge
     camera_bridge_spawner = RegisterEventHandler(
         OnProcessStart(
             target_action=realsense_node,
@@ -171,6 +261,8 @@ def generate_launch_description():
         LogInfo(msg='========================================'),
         LogInfo(msg='  双臂取放料视觉流水线启动'),
         LogInfo(msg='========================================'),
+        LogInfo(msg='  0. rm_driver (left_arm_controller) — 左臂驱动'),
+        LogInfo(msg='  0. rm_driver (right_arm_controller) — 右臂驱动'),
         LogInfo(msg='  1. realsense2_camera — D435 相机驱动'),
         LogInfo(msg='  2. camera_bridge    — 相机诊断'),
         LogInfo(msg='  3. tf_broadcaster   — 手眼标定 TF'),
@@ -184,8 +276,14 @@ def generate_launch_description():
         right_ns,
         camera_prefix,
         launch_controller,
+        launch_drivers,
+        computer_ip,
+        left_arm_ip,
+        right_arm_ip,
 
         # 节点启动
+        left_driver_node,
+        right_driver_node,
         realsense_node,
         camera_bridge_node,
         tf_broadcaster_node,

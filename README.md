@@ -145,25 +145,17 @@ sudo bash ros2_install.sh
 # 或参考官方文档：https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html
 ```
 
-### 3.2 编译 ros2_rm_robot 功能包
+### 3.2 编译 ros2_ws 功能包
+
+设备上已预置 ros2_ws 工作空间，路径为 `C:\Users\suo\Desktop\realman\ros2_ws`。
+
+如果需要重新编译：
 
 ```bash
-# 创建工作空间
-mkdir -p ~/ros2_ws/src
-cd ~/ros2_ws/src
-
-# 克隆仓库
-git clone https://github.com/RealManRobot/ros2_rm_robot.git
-
-# 或者使用本地仓库（如果已克隆到本地）
-# cp -r /path/to/ros2_rm_robot ~/ros2_ws/src/
-
-# 编译
 cd ~/ros2_ws
 source /opt/ros/foxy/setup.bash
-colcon build --packages-select rm_ros_interfaces
+colcon build --packages-select ros2_rm_robot
 source ./install/setup.bash
-colcon build
 ```
 
 ### 3.4 配置机械臂 IP
@@ -176,9 +168,9 @@ colcon build
 | 左臂 | `192.168.150.111` |
 | 右臂 | `192.168.150.112` |
 
-编辑左臂配置文件：
+编辑配置文件：
 ```bash
-nano ~/ros2_ws/src/ros2_rm_robot/rm_driver/config/rm_65_config.yaml
+nano ~/ros2_ws/src/ros2_rm_robot/dual_rm_driver/config/dual_65_left_config.yaml
 ```
 
 修改 `arm_ip` 和 `udp_ip` 为实际 IP：
@@ -195,7 +187,7 @@ rm_driver:
     udp_port: 8089
 ```
 
-> 双臂模式需要分别为左臂和右臂创建两套配置文件和 launch 文件，使用不同的 namespace（如 `l_arm`、`r_arm`）进行区分。
+> 双臂模式使用 `left_arm_controller` 和 `right_arm_controller` 作为 namespace，与 ros2_total_demo 保持一致。
 
 ### 3.4 安装 Python 依赖
 
@@ -402,8 +394,8 @@ ros2 topic pub /rm_driver/movel_cmd rm_ros_interfaces/msg/Movel \
 python3 teach_record.py
 
 # 指定 namespace (双臂模式)
-python3 teach_record.py --namespace l_arm
-python3 teach_record.py --namespace r_arm
+python3 teach_record.py --namespace left_arm_controller
+python3 teach_record.py --namespace right_arm_controller
 
 # 程序启动后自动开始记录
 python3 teach_record.py --auto-start
@@ -574,7 +566,7 @@ source ./install/setup.bash
 python3 guji/dual_arm_pick_place.py
 
 # 方式2：指定 namespace
-python3 guji/dual_arm_pick_place.py l_arm r_arm
+python3 guji/dual_arm_pick_place.py left_arm_controller right_arm_controller
 
 # 方式3：交互式使用
 python3
@@ -639,7 +631,7 @@ Step 8:  右臂移动到安全位
 ```
 RealSense D435 ──(USB)──► realsense2_camera ──(image)──► aruco_detector
                                                           │
-                                                          ├──► /right_arm/detect_aruco (Service)
+                                                          ├──► /right_arm_controller/detect_aruco (Service)
                                                           │
                                                           └──► TF: camera_right → target_right_camera
 
@@ -658,7 +650,7 @@ tf_broadcaster ──(static TF)──► right_base → camera_right
 | `config/system.yaml` | 系统全局参数（速度、夹爪、视觉参数） |
 | `nodes/camera_bridge.py` | 相机诊断节点，验证图像流、帧率、深度有效性 |
 | `nodes/tf_broadcaster.py` | 手眼标定 TF 广播节点 |
-| `nodes/aruco_detector.py` | ArUco 标记检测节点，发布 `/right_arm/detect_aruco` Service |
+| `nodes/aruco_detector.py` | ArUco 标记检测节点，发布 `/right_arm_controller/detect_aruco` Service |
 | `srv/DetectAruco.srv` | 视觉识别 Service 接口定义 |
 
 ### 12.3 启动方法
@@ -692,11 +684,11 @@ ros2 run guji dual_arm_pick_place
 
 ```bash
 # 调用 ArUco 检测（识别 ID=12 的标记，超时 5 秒）
-ros2 service call /right_arm/detect_aruco guji/srv/DetectAruco \
+ros2 service call /right_arm_controller/detect_aruco guji/srv/DetectAruco \
   "{marker_id: 12, timeout: 5.0}"
 
 # 查询相机状态
-ros2 service call /right_arm/get_camera_status std_srvs/srv/Trigger "{}"
+ros2 service call /right_arm_controller/get_camera_status std_srvs/srv/Trigger "{}"
 ```
 
 ### 12.5 相机诊断检查项目
@@ -803,7 +795,7 @@ controller.run(skip_checks=True)  # 调试模式，跳过检查
 | 1 | 启动 realsense2_camera | `ros2 topic list` 看到 `/camera_right/...` |
 | 2 | 启动 camera_bridge | 每 5s 输出诊断日志，无 `[WARN]` |
 | 3 | 启动 tf_broadcaster | `ros2 run tf2_ros tf2_echo right_base camera_right` |
-| 4 | 启动 aruco_detector | `ros2 service list` 看到 `/right_arm/detect_aruco` |
+| 4 | 启动 aruco_detector | `ros2 service list` 看到 `/right_arm_controller/detect_aruco` |
 | 5 | 调用视觉 Service | 放置 ArUco 标记，`ros2 service call ...` 返回 `found=True` |
 | 6 | 启动主控制器 | `startup_checks()` 全部通过 |
 | 7 | 运行完整流程 | `controller.run()` 无报错 |
@@ -821,6 +813,6 @@ controller.run(skip_checks=True)  # 调试模式，跳过检查
 
 ## 十五、参考链接
 
-- [睿尔曼 ROS2 功能包](https://github.com/RealManRobot/ros2_rm_robot)
+- [睿尔曼 ROS2 功能包（官方）](https://github.com/RealManRobot/ros2_rm_robot)
 - [ROS2 Foxy 官方文档](https://docs.ros.org/en/foxy/)
 - [MoveIt2 官方文档](https://moveit.ros.org/)

@@ -28,36 +28,11 @@ camera:
 
   # D435 序列号（在 realsense-viewer 或设备标签上查看）
   # 示例格式：'123422072697'
-  serial_number: "REPLACE_WITH_YOUR_SERIAL_NUMBER"
+  serial_number: "401522071650"
 
   # 相机话题前缀（realsense2_camera 节点会发布到此前缀下）
   # 注意：launch 文件中 realsense2_camera 节点的 namespace 需要与此一致
   topic_prefix: "/camera_right"
-
-  # =========================================================
-  # 相机内参（由 realsense2_camera 自动发布到 /camera_info 话题）
-  # 此处仅作为参考，实际以 /camera_info 话题数据为准
-  # =========================================================
-
-  intrinsic:
-    # 分辨率
-    width: 640
-    height: 480
-    # 帧率
-    fps: 30
-
-    # 内参矩阵 K（3x3）—— 供参考，以实际运行时 topic 数据为准
-    # fx,  0, cx
-    #  0, fy, cy
-    #  0,  0,  1
-    fx: 615.0
-    fy: 615.0
-    cx: 320.0
-    cy: 240.0
-
-    # 畸变系数 D（5个参数）
-    # [k1, k2, p1, p2, k3]
-    distortion_coeffs: [0.0, 0.0, 0.0, 0.0, 0.0]
 
   # =========================================================
   # 手眼标定结果（仅右臂有相机）

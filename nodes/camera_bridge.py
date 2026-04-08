@@ -20,7 +20,7 @@
   ros2 run guji camera_bridge
   ros2 topic hz /camera_right/color/image_raw     # 应 ≥ 15Hz
   ros2 topic echo /camera_right/color/camera_info  # 应有完整 K/D
-  ros2 service call /right_arm/get_camera_status std_srvs/srv/Trigger {}  # 查询状态
+  ros2 service call /right_arm_controller/get_camera_status std_srvs/srv/Trigger {}  # 查询状态
 
 依赖：
   - realsense2_camera 节点已启动并发布 /camera_right/* 话题
@@ -92,7 +92,7 @@ class CameraBridge(Node):
         # ==========================================
         self._status_srv = self.create_service(
             Trigger,
-            '/right_arm/get_camera_status',
+            '/right_arm_controller/get_camera_status',
             self._status_callback
         )
 
@@ -322,12 +322,12 @@ def main(args=None):
     print("    /camera_right/color/camera_info")
     print()
     print("  Service:")
-    print("    /right_arm/get_camera_status")
+    print("    /right_arm_controller/get_camera_status")
     print()
     print("  诊断命令:")
     print("    ros2 topic hz /camera_right/color/image_raw")
     print("    ros2 topic echo /camera_right/color/camera_info")
-    print("    ros2 service call /right_arm/get_camera_status std_srvs/srv/Trigger {}")
+    print("    ros2 service call /right_arm_controller/get_camera_status std_srvs/srv/Trigger {}")
     print()
     print("========================================")
     print()

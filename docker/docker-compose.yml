@@ -1,0 +1,85 @@
+# ============================================================
+# RealMan 双臂机器人仿真 Docker Compose 配置
+# ============================================================
+#
+# 使用方法：
+#   # 构建镜像
+#   docker-compose build
+#
+#   # 运行仿真容器
+#   docker-compose up sim
+#
+#   # 后台运行
+#   docker-compose up -d sim
+#
+#   # 进入容器
+#   docker-compose exec sim bash
+#
+#   # 停止
+#   docker-compose down
+
+version: '3.8'
+
+services:
+  # ==========================================
+  # 仿真容器
+  # ==========================================
+  sim:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.sim
+    image: realman-sim:latest
+    container_name: realman-sim
+    environment:
+      - DISPLAY=${DISPLAY}
+      - ROS_DOMAIN_ID=42
+    volumes:
+      # ROS2 工作空间（挂载本地目录）
+      - ../ros2_ws:/root/ros2_ws:ro
+      # guji 项目（挂载本地目录）
+      - ..:/root/guji:rw
+      # Gazebo 模型
+      - ~/.gazebo/models:/root/.gazebo/models:rw
+      # 显示相关
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    networks:
+      - ros2_net
+    privileged: true
+    # 使用主机网络（ROS2 DDS 需要）
+    network_mode: host
+    # GPU 支持（需要 nvidia-container-toolkit）
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+  # ==========================================
+  # 可选：开发容器（带有 VSCode Server）
+  # ==========================================
+  dev:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.sim
+    image: realman-sim:latest
+    container_name: realman-dev
+    environment:
+      - DISPLAY=${DISPLAY}
+      - ROS_DOMAIN_ID=42
+      - PASSWORD=realman
+    volumes:
+      - ../ros2_ws:/root/ros2_ws:rw
+      - ..:/root/guji:rw
+      - ~/.gazebo/models:/root/.gazebo/models:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    networks:
+      - ros2_net
+    privileged: true
+    network_mode: host
+    command: tail -f /dev/null
+
+networks:
+  ros2_net:
+    driver: bridge

@@ -8,17 +8,23 @@
 1. 双臂协同完成取料-放料全流程
 2. 支持关节运动（MoveJ）和直线运动（MoveL）
 3. 支持夹爪控制和力位混合搜索
-4. ArUco 视觉识别（通过 /right_arm/detect_aruco Service）
+4. ArUco 视觉识别（通过 /right_arm_controller/detect_aruco Service）
 5. TF 坐标变换（相机坐标系 → 基坐标系）
 6. YAML 配置管理（点位、系统参数）
+7. AGV 导航集成（通过 navigation.yaml 配置）
 
 前置条件：
 - ROS2 Foxy 环境已启动
 - rm_driver 驱动已启动（双臂，各自独立 namespace）
 - realsense2_camera 已启动并发布 /camera_right/* 话题
-- aruco_detector 节点已启动（提供 /right_arm/detect_aruco Service）
+- aruco_detector 节点已启动（提供 /right_arm_controller/detect_aruco Service）
 - 手眼标定 TF 节点已启动
 - 网络连接到两个机械臂
+
+（可选）AGV 导航：
+- ros2_agv_robot 已启动
+- Woosh AGV 底盘已连接
+- navigation.yaml 已配置目标点位
 """
 
 import rclpy
@@ -46,7 +52,7 @@ Forcepositionmovepose_msg = None
 class DualArmPickPlaceController(Node):
     """双臂取放料控制节点"""
 
-    def __init__(self, left_ns: str = "l_arm", right_ns: str = "r_arm"):
+    def __init__(self, left_ns: str = "left_arm_controller", right_ns: str = "right_arm_controller"):
         super().__init__('dual_arm_pick_place_controller')
 
         self.left_ns = left_ns
@@ -185,15 +191,23 @@ class DualArmPickPlaceController(Node):
         # ArUco 视觉识别 Service Client
         # ==========================================
         self._aruco_client = None
-        self._aruco_srv_name = '/right_arm/detect_aruco'
+        self._aruco_srv_name = '/right_arm_controller/detect_aruco'
         self._wait_for_aruco_service()
 
         # ==========================================
         # 相机状态 Service Client（用于启动检查）
         # ==========================================
         self._camera_status_client = self.create_client(
-            Trigger, '/right_arm/get_camera_status'
+            Trigger, '/right_arm_controller/get_camera_status'
         )
+
+        # ==========================================
+        # AGV 导航控制器初始化
+        # ==========================================
+        self._agv_enabled = False
+        self._nav = None
+        self._nav_cfg = {}
+        self._init_agv_navigator()
 
     # ==========================================
     # 配置加载与 Service 连接
@@ -249,6 +263,26 @@ class DualArmPickPlaceController(Node):
             self.get_logger().warn(f'加载 camera.yaml 失败: {e}，使用默认值')
             self.CAM = {}
 
+        # 加载 navigation.yaml（AGV 导航配置）
+        try:
+            nav_path = cfg_paths.get('navigation',
+                os.path.join(node_dir, 'config', 'navigation.yaml'))
+            if not os.path.exists(nav_path):
+                alt_nav = os.path.join(node_dir, '..', 'config', 'navigation.yaml')
+                if os.path.exists(alt_nav):
+                    nav_path = alt_nav
+            if os.path.exists(nav_path):
+                with open(nav_path, 'r', encoding='utf-8') as f:
+                    raw = yaml.safe_load(f)
+                self._nav_cfg = raw.get('agv', {})
+                self.get_logger().info(f'已加载导航配置: {nav_path}')
+            else:
+                self.get_logger().warn('navigation.yaml 未找到，AGV 导航功能将禁用')
+                self._nav_cfg = {}
+        except Exception as e:
+            self.get_logger().warn(f'加载 navigation.yaml 失败: {e}，AGV 导航功能将禁用')
+            self._nav_cfg = {}
+
     def _hardcoded_poses(self):
         """硬编码默认值（当 YAML 加载失败时使用）"""
         return {
@@ -294,6 +328,45 @@ class DualArmPickPlaceController(Node):
         except Exception as e:
             self.get_logger().warn(f'无法创建 ArUco Service Client: {e}，视觉将使用 Mock')
 
+    def _init_agv_navigator(self):
+        """初始化 AGV 导航控制器"""
+        if not self._nav_cfg.get('enabled', False):
+            self.get_logger().info('AGV 导航功能已禁用')
+            return
+
+        try:
+            # 延迟导入，避免循环依赖
+            from guji.nodes.agv_navigator import AGVNavigator, AGVNavigatorSimulated
+
+            debug_cfg = self._nav_cfg.get('debug', {})
+            topics_cfg = self._nav_cfg.get('topics', {})
+
+            if debug_cfg.get('simulation', False):
+                self._nav = AGVNavigatorSimulated(
+                    mark_topic=topics_cfg.get('mark_topic', 'goto_mark/go'),
+                    result_topic=topics_cfg.get('result_topic', 'goto_mark/result'),
+                    default_timeout=self._nav_cfg.get('navigation_timeout', 120.0),
+                )
+                self.get_logger().info('AGV 导航控制器已初始化（模拟模式）')
+            else:
+                self._nav = AGVNavigator(
+                    mark_topic=topics_cfg.get('mark_topic', 'goto_mark/go'),
+                    result_topic=topics_cfg.get('result_topic', 'goto_mark/result'),
+                    status_topic=topics_cfg.get('status_topic', 'robot_status'),
+                    speed_topic=topics_cfg.get('speed_topic', 'cmd_vel'),
+                    default_timeout=self._nav_cfg.get('navigation_timeout', 120.0),
+                )
+                self.get_logger().info('AGV 导航控制器已初始化（真实 AGV）')
+
+            self._agv_enabled = True
+
+        except ImportError:
+            self.get_logger().warn('无法导入 agv_navigator，请确保 guji 在 PYTHONPATH 中，AGV 导航功能将禁用')
+            self._agv_enabled = False
+        except Exception as e:
+            self.get_logger().warn(f'初始化 AGV 导航控制器失败: {e}，AGV 导航功能将禁用')
+            self._agv_enabled = False
+
     # ==========================================
     # 启动检查
     # ==========================================
@@ -317,6 +390,7 @@ class DualArmPickPlaceController(Node):
             ('_check_aruco_service', 'ArUco 视觉服务'),
             ('_check_tf_tree',       'TF 变换树'),
             ('_check_camera_status', '相机状态'),
+            ('_check_agv_navigation', 'AGV 导航'),
         ]
 
         all_passed = True
@@ -414,6 +488,20 @@ class DualArmPickPlaceController(Node):
             return resp.success
         self.get_logger().warn('    相机状态查询超时（跳过）')
         return True  # 超时不强制失败
+
+    def _check_agv_navigation(self):
+        """检查 5：AGV 导航状态"""
+        self.get_logger().info('  [检查5] AGV 导航...')
+        if not self.is_agv_enabled():
+            self.get_logger().warn('    AGV 导航未启用（跳过）')
+            return True  # 非必需，不强制失败
+        if self._nav is None:
+            self.get_logger().warn('    AGV 导航控制器未初始化（跳过）')
+            return True
+        self.get_logger().info(f'    AGV 导航已就绪')
+        self.get_logger().info(f'    task_state={self._nav.get_task_state()}, '
+                              f'robot_state={self._nav.get_robot_state()}')
+        return True
 
     # ==========================================
     # 回调函数
@@ -635,9 +723,210 @@ class DualArmPickPlaceController(Node):
         return mock_offsets.get(code, {'x': 0.0, 'y': 0.0, 'z': 0.0,
                                        'roll': 0.0, 'pitch': 0.0, 'yaw': 0.0})
 
+    # ==========================================
+    # AGV 导航方法
+    # ==========================================
+    def is_agv_enabled(self) -> bool:
+        """返回 AGV 导航是否启用"""
+        return self._agv_enabled and self._nav is not None
+
+    def agv_navigate(self, mark_no: str, task_type: int = 1, timeout: float = None) -> bool:
+        """
+        导航到指定点位并等待到达（组合调用）
+
+        参数:
+            mark_no: 目标点位名称，如 '11', '110', '120'
+            task_type: 任务类型（1=普通, 3=充电）
+            timeout: 超时时间（秒），None 则使用默认值
+
+        返回:
+            bool: True=导航成功到达，False=导航失败或超时
+        """
+        if not self.is_agv_enabled():
+            self.get_logger().warn(f'AGV 导航未启用，跳过导航到 {mark_no}')
+            return True  # 不阻塞流程
+
+        if timeout is None:
+            timeout = self._nav_cfg.get('navigation_timeout', 120.0)
+
+        self.get_logger().info(f'>>> [导航] 开始导航到 {mark_no} (task_type={task_type}, timeout={timeout}s)')
+        result = self._nav.navigate_wait(mark_no, task_type=task_type, timeout=timeout)
+        if result:
+            self.get_logger().info(f'<<< [导航] 到达 {mark_no} 成功')
+        else:
+            self.get_logger().error(f'<<< [导航] 到达 {mark_no} 失败或超时')
+        return result
+
+    def agv_navigate_sequence(self, sequence: list, stop_on_error: bool = True) -> bool:
+        """
+        按序列依次导航到多个点位
+
+        参数:
+            sequence: 点位序列，每个元素为 dict 或 str
+                - dict: {'mark': '110', 'task_type': 1, 'description': '...'}
+                - str:  直接为点位名称
+            stop_on_error: 导航失败时是否停止
+
+        返回:
+            bool: True=所有点位导航成功，False=有导航失败
+        """
+        if not self.is_agv_enabled():
+            self.get_logger().warn('AGV 导航未启用，跳过序列导航')
+            return True
+
+        for i, item in enumerate(sequence):
+            if isinstance(item, str):
+                mark_no = item
+                task_type = 1
+                description = f'点位 {i+1}'
+            else:
+                mark_no = item.get('mark', '')
+                task_type = item.get('task_type', 1)
+                description = item.get('description', f'点位 {i+1}')
+
+            if not mark_no:
+                continue
+
+            self.get_logger().info(f'>>> [导航序列 {i+1}/{len(sequence)}] {description}: {mark_no}')
+            success = self.agv_navigate(mark_no, task_type=task_type)
+            if not success:
+                self.get_logger().error(f'<<< [导航序列 {i+1}] 失败: {mark_no}')
+                if stop_on_error:
+                    return False
+            else:
+                self.get_logger().info(f'<<< [导航序列 {i+1}] 成功: {mark_no}')
+
+            # 导航间隔（让 AGV 稳定）
+            settle_delay = self._nav_cfg.get('coordination', {}).get('settle_delay', 1.0)
+            if settle_delay > 0:
+                time.sleep(settle_delay)
+
+        return True
+
+    def agv_cancel(self) -> None:
+        """取消当前导航任务"""
+        if self.is_agv_enabled() and self._nav:
+            self._nav.cancel_navigation()
+
+    def agv_stop(self) -> None:
+        """立即停止 AGV 移动"""
+        if self.is_agv_enabled() and self._nav:
+            self._nav.stop()
+
+    def run_with_navigation(self, skip_checks: bool = False):
+        """
+        执行完整的取放料流程（含 AGV 导航）
+
+        流程：
+        1. 启动检查（可选）
+        2. 导航到取料区
+        3. 双臂回到初始位置
+        4. 进入识别位置
+        5. 识别 ARcode12
+        6. 推对齐
+        7. 取料（11步）
+        8. 导航到放料区
+        9. 进入放料位置
+        10. 识别 ARcode21
+        11. 放料（力位混合）
+        12. 导航到取料区归位
+
+        参数:
+            skip_checks: True=跳过启动检查，False=执行所有检查
+        """
+        if not self.is_agv_enabled():
+            self.get_logger().warn('AGV 导航未启用，调用 run_with_navigation() 等价于 run()')
+            self.run(skip_checks=skip_checks)
+            return
+
+        self.get_logger().info('========================================')
+        self.get_logger().info('  双臂取放料流程开始（含 AGV 导航）')
+        self.get_logger().info('========================================')
+
+        try:
+            # 启动检查
+            if not skip_checks:
+                if not self.startup_checks():
+                    self.get_logger().error('启动检查未通过，请修复后重试')
+                    return
+            else:
+                self.get_logger().warn('已跳过启动检查（调试模式）')
+                self.get_logger().info('等待机械臂状态数据...')
+                start = time.time()
+                while rclpy.ok():
+                    if self.has_left_joint and self.has_right_joint:
+                        break
+                    if time.time() - start > 10.0:
+                        self.get_logger().warn('等待超时，继续执行...')
+                        break
+                    rclpy.sleep(0.1)
+
+            # 从 navigation.yaml 读取流程点位
+            workflow = self._nav_cfg.get('coordination', {}).get('workflow', {})
+            pick_seq = workflow.get('pick_sequence', [])
+            place_seq = workflow.get('place_sequence', [])
+            home_seq = workflow.get('home_sequence', [])
+
+            # ====== 阶段1: 导航到取料区 ======
+            if pick_seq:
+                if not self.agv_navigate_sequence(pick_seq):
+                    self.get_logger().error('导航到取料区失败，终止流程')
+                    return
+            else:
+                self.get_logger().warn('pick_sequence 未配置，跳过导航到取料区')
+
+            # ====== 阶段2: 机械臂取料 ======
+            self.go_initial_position()
+            rclpy.sleep(0.5)
+
+            self.go_recognize_position()
+            rclpy.sleep(0.5)
+
+            self.recognize_arcode()
+            rclpy.sleep(0.5)
+
+            self.pre_grasp_alignment()
+            rclpy.sleep(0.5)
+
+            self.pick_workpiece()
+            rclpy.sleep(0.5)
+
+            # ====== 阶段3: 导航到放料区 ======
+            if place_seq:
+                if not self.agv_navigate_sequence(place_seq):
+                    self.get_logger().error('导航到放料区失败，终止流程')
+                    return
+            else:
+                self.get_logger().warn('place_sequence 未配置，跳过导航到放料区')
+
+            # ====== 阶段4: 机械臂放料 ======
+            self.go_place_position()
+            rclpy.sleep(0.5)
+
+            self.recognize_arcode21()
+            rclpy.sleep(0.5)
+
+            self.place_workpiece()
+            rclpy.sleep(0.5)
+
+            # ====== 阶段5: 导航归位 ======
+            if home_seq:
+                if not self.agv_navigate_sequence(home_seq):
+                    self.get_logger().warn('导航归位失败，继续结束流程')
+            else:
+                self.get_logger().warn('home_sequence 未配置，跳过导航归位')
+
+            self.get_logger().info('========================================')
+            self.get_logger().info('  双臂取放料流程完成（含 AGV 导航）')
+            self.get_logger().info('========================================')
+
+        except KeyboardInterrupt:
+            self.get_logger().info('用户中断执行')
+            self.agv_stop()
+
     def detect_arcode(self, arm: str, code: str):
         """
-        ARcode 识别：通过 /right_arm/detect_aruco Service 获取真实位置。
+        ARcode 识别：通过 /right_arm_controller/detect_aruco Service 获取真实位置。
         当 Service 不可用时，自动降级为 Mock。
 
         参数:
@@ -1087,8 +1376,8 @@ class DualArmPickPlaceController(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    left_ns = 'l_arm'
-    right_ns = 'r_arm'
+    left_ns = 'left_arm_controller'
+    right_ns = 'right_arm_controller'
 
     if len(sys.argv) > 1:
         left_ns = sys.argv[1]
@@ -1120,6 +1409,16 @@ def main(args=None):
         print("  执行完整流程:")
         print("    controller.run()              # 含启动检查")
         print("    controller.run(skip_checks=True)  # 跳过检查（调试用）")
+        print()
+        print("  AGV 导航流程:")
+        print("    controller.run_with_navigation()  # 含 AGV 导航的完整流程")
+        print("    controller.run_with_navigation(skip_checks=True)")
+        print()
+        print("  导航控制:")
+        print("    controller.agv_navigate('110')   # 导航到指定点位")
+        print("    controller.agv_navigate_sequence([{'mark':'110','task_type':1}])")
+        print("    controller.agv_cancel()          # 取消当前导航")
+        print("    controller.agv_stop()            # 立即停止 AGV")
         print()
         print("========================================")
         print()

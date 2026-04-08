@@ -97,7 +97,7 @@ class HandEyeTFBroadcaster(Node):
                 cfg = yaml.safe_load(f)
 
             cam_cfg = cfg['camera']
-            self.right_ns = 'r_arm'  # 右臂 namespace
+            self.right_ns = 'right_arm_controller'  # 右臂 namespace
 
             # 手眼标定参数
             t = cam_cfg['hand_eye_right']['translation']
@@ -124,7 +124,7 @@ class HandEyeTFBroadcaster(Node):
 
     def _use_default_calibration(self):
         """使用默认标定参数（相机垂直朝下安装）"""
-        self.right_ns = 'r_arm'
+        self.right_ns = 'right_arm_controller'
         self.cam_tx = 0.085
         self.cam_ty = -0.040
         self.cam_tz = 0.010

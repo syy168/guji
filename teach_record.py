@@ -461,7 +461,7 @@ def main(args=None):
 
     parser = argparse.ArgumentParser(description='睿尔曼机械臂示教记录程序')
     parser.add_argument('--namespace', '-n', type=str, default='',
-                        help='机械臂 namespace (如 l_arm, r_arm)')
+                        help='机械臂 namespace (如 left_arm_controller, right_arm_controller)')
     parser.add_argument('--auto-start', '-a', action='store_true',
                         help='程序启动后自动开始记录')
     args, unknown = parser.parse_known_args()

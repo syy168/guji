@@ -14,7 +14,7 @@
 2. 运行本程序
 
   单臂: python3 arm_monitor.py
-  双臂: python3 arm_monitor.py l_arm r_arm
+  双臂: python3 arm_monitor.py left_arm_controller right_arm_controller
 
 依赖：
 - ROS2 Foxy
@@ -41,7 +41,7 @@ class ArmMonitor(Node):
         初始化监控节点
 
         参数:
-            namespaces: namespace 列表，如 ['l_arm', 'r_arm']
+            namespaces: namespace 列表，如 ['left_arm_controller', 'right_arm_controller']
                        默认 None 表示单臂（无 namespace）
         """
         super().__init__('arm_monitor')

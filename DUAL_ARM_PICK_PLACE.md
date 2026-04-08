@@ -1,6 +1,6 @@
 # 双臂取放料系统 — 完整实现文档
 
-> 本文档是 `dual_arm_pick_place.py` 及相关视觉系统的完整技术参考手册，
+> 本文档是 `dualeft_arm_controller_pick_place.py` 及相关视觉系统的完整技术参考手册，
 > 参照 `Warehouse_handling_robot` 项目的文档风格编写，涵盖架构设计、
 > 硬件连接、软件流程、配置文件说明、启动检查与调试方法。
 
@@ -37,7 +37,7 @@
 
 ### 1.2 与 Warehouse 项目的对比
 
-| 对比项 | Warehouse_handling_robot | dual_arm_pick_place |
+| 对比项 | Warehouse_handling_robot | dualeft_arm_controller_pick_place |
 |--------|--------------------------|---------------------|
 | 导航系统 | Woosh AGV + SLAM | 本项目不含导航（留待后续扩展） |
 | 升降机控制 | 有（多层货架） | 无（单层工作台） |
@@ -47,7 +47,7 @@
 | 坐标系管理 | tf_transform（C++） | tf_broadcaster（Python） |
 | 配置管理 | launch 混合 | YAML 独立配置 |
 | 标定方式 | 手动标定参数 | 手眼标定结果写入 YAML |
-| 主控制器 | body_handling_action | dual_arm_pick_place |
+| 主控制器 | body_handling_action | dualeft_arm_controller_pick_place |
 
 ### 1.3 硬件配置
 
@@ -143,18 +143,18 @@ Jetson/PC
 
 ┌─────────────────┐    TCP (8080/8089)    ┌─────────────────┐
 │   rm_driver     │◄─────────────────────►│   rm_driver     │
-│  (l_arm ns)     │                       │  (r_arm ns)     │
+│  (left_arm_controller ns)     │                       │  (right_arm_controller ns)     │
 └────────┬────────┘                       └────────┬────────┘
          │                                         │
-         │  /l_arm/joint_states                    │  /r_arm/joint_states
-         │  /l_arm/rm_driver/...                   │  /r_arm/rm_driver/...
+         │  /left_arm_controller/joint_states                    │  /right_arm_controller/joint_states
+         │  /left_arm_controller/rm_driver/...                   │  /right_arm_controller/rm_driver/...
          ▼                                         ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│              dual_arm_pick_place (主控制器)                      │
+│              dualeft_arm_controller_pick_place (主控制器)                      │
 │                                                                  │
 │  - 订阅左右臂关节状态                                             │
 │  - 发布 MoveJ/MoveL/Gripper/Force 控制指令                        │
-│  - 调用 /right_arm/detect_aruco Service                          │
+│  - 调用 /right_arm_controller/detect_aruco Service                          │
 │  - 监听 TF 变换                                                  │
 │  - 执行完整取放料状态机                                           │
 └────────────────────────────┬────────────────────────────────────┘
@@ -168,7 +168,7 @@ Jetson/PC
 └──────┬───────┘  └────────┬────────┘  └──────────┬──────────┘
        │                    │                      │
        │                    │  static TF           │  Service
-       │                    │  right_base──►       │  /right_arm/detect_aruco
+       │                    │  right_base──►       │  /right_arm_controller/detect_aruco
        ▼                    ▼  camera_right        ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                  realsense2_camera (D435 驱动)                   │
@@ -186,7 +186,7 @@ Jetson/PC
         │
         ├── RGB 图像 ──────► [camera_bridge] ──诊断──► [终端日志]
         │                              │
-        │                              └──► /right_arm/get_camera_status (Service)
+        │                              └──► /right_arm_controller/get_camera_status (Service)
         │
         ├── RGB 图像 ──────► [aruco_detector]
         │                         │
@@ -195,34 +195,34 @@ Jetson/PC
         │                         ├── TF 发布
         │                         │   camera_right → target_right_camera
         │                         │
-        │                         └──► /right_arm/detect_aruco (Service)
+        │                         └──► /right_arm_controller/detect_aruco (Service)
         │                                   │
-        │                                   └───► [dual_arm_pick_place]
+        │                                   └───► [dualeft_arm_controller_pick_place]
         │                                              │
         ├── 深度对齐图 ──► [camera_bridge] ──诊断──► [终端日志]
         │
         └── CameraInfo ──► [aruco_detector]（PnP 姿态估计用）
 
-[dual_arm_pick_place]
+[dualeft_arm_controller_pick_place]
         │
-        ├── 订阅 /r_arm/joint_states
-        ├── 订阅 /l_arm/joint_states
+        ├── 订阅 /right_arm_controller/joint_states
+        ├── 订阅 /left_arm_controller/joint_states
         │
-        ├── 发布 /r_arm/rm_driver/movej_cmd
-        ├── 发布 /r_arm/rm_driver/movel_cmd
-        ├── 发布 /r_arm/rm_driver/set_gripper_*_cmd
-        ├── 发布 /r_arm/rm_driver/force_position_move_pose_cmd
+        ├── 发布 /right_arm_controller/rm_driver/movej_cmd
+        ├── 发布 /right_arm_controller/rm_driver/movel_cmd
+        ├── 发布 /right_arm_controller/rm_driver/set_gripper_*_cmd
+        ├── 发布 /right_arm_controller/rm_driver/force_position_move_pose_cmd
         │
         ├── TF 监听：
         │   target_right_camera → right_base
         │
-        └── 接收 /right_arm/detect_aruco 响应
+        └── 接收 /right_arm_controller/detect_aruco 响应
 ```
 
 ### 3.3 模块依赖关系
 
 ```
-dual_arm_pick_place.py
+dualeft_arm_controller_pick_place.py
   ├── rm_ros_interfaces（Movej/Movel/Gripper/Force 消息）
   ├── tf2_ros（Buffer + TransformListener）
   ├── geometry_msgs（Pose）
@@ -260,7 +260,7 @@ tf_broadcaster.py
 
 ## 4. 软件模块详解
 
-### 4.1 主控制器 `dual_arm_pick_place.py`
+### 4.1 主控制器 `dualeft_arm_controller_pick_place.py`
 
 **类名：** `DualArmPickPlaceController`
 
@@ -271,11 +271,11 @@ tf_broadcaster.py
 ```
 DualArmPickPlaceController.__init__()
     │
-    ├── 设置 namespace（默认 l_arm / r_arm）
+    ├── 设置 namespace（默认 left_arm_controller / right_arm_controller）
     │
     ├── 创建左右臂订阅者
-    │   ├── left_joint_sub   → /l_arm/joint_states
-    │   └── right_joint_sub  → /r_arm/joint_states
+    │   ├── left_joint_sub   → /left_arm_controller/joint_states
+    │   └── right_joint_sub  → /right_arm_controller/joint_states
     │
     ├── 创建左右臂发布者
     │   ├── left/right_movej_pub      → /{ns}/rm_driver/movej_cmd
@@ -294,7 +294,7 @@ DualArmPickPlaceController.__init__()
     │   └── self._tf_buffer + self._tf_listener
     │
     └── ArUco Service Client
-        └── self._aruco_client → /right_arm/detect_aruco
+        └── self._aruco_client → /right_arm_controller/detect_aruco
 ```
 
 #### 4.1.2 启动检查机制
@@ -410,12 +410,12 @@ run()
 
 #### 4.2.4 Service 接口
 
-**`/right_arm/get_camera_status`**（类型：`std_srvs/Trigger`）
+**`/right_arm_controller/get_camera_status`**（类型：`std_srvs/Trigger`）
 
 调用示例：
 
 ```bash
-ros2 service call /right_arm/get_camera_status std_srvs/srv/Trigger "{}"
+ros2 service call /right_arm_controller/get_camera_status std_srvs/srv/Trigger "{}"
 ```
 
 返回：
@@ -551,7 +551,7 @@ std_msgs/Header header   # 时间戳和参考坐标系
 
 ```bash
 # 识别 ID=12 的标记，超时 5 秒
-ros2 service call /right_arm/detect_aruco guji/srv/DetectAruco \
+ros2 service call /right_arm_controller/detect_aruco guji/srv/DetectAruco \
   "{marker_id: 12, timeout: 5.0}"
 
 # 响应示例
@@ -922,14 +922,14 @@ source ./install/setup.bash
 # 2. 一键启动所有节点
 ros2 launch guji vision_pipeline.launch.py \
   camera_serial:=123422072697 \
-  left_ns:=l_arm \
-  right_ns:=r_arm
+  left_ns:=left_arm_controller \
+  right_ns:=right_arm_controller
 ```
 
 ### 8.2 分步启动（便于排查问题）
 
 ```bash
-# 终端1：启动机械臂驱动（参考 ros2_rm_robot 文档）
+# 终端1：启动机械臂驱动（参考 ros2_ws 文档）
 ros2 launch rm_driver rm_65_driver.launch.py
 
 # 终端2：启动相机驱动
@@ -950,7 +950,7 @@ ros2 run guji tf_broadcaster
 ros2 run guji aruco_detector
 
 # 终端6：启动主控制器
-ros2 run guji dual_arm_pick_place
+ros2 run guji dualeft_arm_controller_pick_place
 ```
 
 ### 8.3 快速验证命令
@@ -975,7 +975,7 @@ ros2 service list | grep detect_aruco
 ros2 run tf2_ros tf2_echo right_base camera_right
 
 # 测试 ArUco 识别（放置标记后在另一终端运行）
-ros2 service call /right_arm/detect_aruco guji/srv/DetectAruco \
+ros2 service call /right_arm_controller/detect_aruco guji/srv/DetectAruco \
   "{marker_id: 11, timeout: 5.0}"
 ```
 
@@ -988,8 +988,8 @@ ros2 service call /right_arm/detect_aruco guji/srv/DetectAruco \
 | 步骤 | 检查项 | 验证命令 | 期望结果 |
 |------|--------|---------|---------|
 | **1** | ROS2 环境 | `ros2 topic list` | 显示话题列表 |
-| **2** | 左臂驱动 | `ros2 topic echo /l_arm/joint_states` | 有数据输出 |
-| **3** | 右臂驱动 | `ros2 topic echo /r_arm/joint_states` | 有数据输出 |
+| **2** | 左臂驱动 | `ros2 topic echo /left_arm_controller/joint_states` | 有数据输出 |
+| **3** | 右臂驱动 | `ros2 topic echo /right_arm_controller/joint_states` | 有数据输出 |
 | **4** | 相机连接 | `lsusb \| grep -i realsense` | 显示 Intel 设备 |
 | **5** | 相机驱动 | `ros2 topic list \| grep camera_right` | 看到 `/camera_right/...` |
 | **6** | Color 帧率 | `ros2 topic hz /camera_right/color/image_raw` | ≥ 15Hz |
@@ -1000,7 +1000,7 @@ ros2 service call /right_arm/detect_aruco guji/srv/DetectAruco \
 | **11** | ArUco Service | `ros2 service list \| grep detect_aruco` | 看到服务 |
 | **12** | ArUco 识别 | 放置 ArUco 标记，`ros2 service call ...` | `found=True` |
 | **13** | TF 目标变换 | `ros2 run tf2_ros tf2_echo right_base target_right_camera` | 显示标记位置 |
-| **14** | 主控制器 | 运行 `dual_arm_pick_place.py` | 启动检查全部 OK |
+| **14** | 主控制器 | 运行 `dualeft_arm_controller_pick_place.py` | 启动检查全部 OK |
 | **15** | 完整流程 | `controller.run()` | 取放料流程无报错 |
 
 ### 9.2 相机诊断节点验证详解
@@ -1041,7 +1041,7 @@ ros2 run tf2_ros tf2_echo right_base target_right_camera
 ```python
 # 在 Python 中逐步检查
 import rclpy
-from guji.dual_arm_pick_place import DualArmPickPlaceController
+from guji.dualeft_arm_controller_pick_place import DualArmPickPlaceController
 
 rclpy.init()
 ctrl = DualArmPickPlaceController()
@@ -1250,7 +1250,7 @@ go_recognize_position()
 ```python
 recognize_arcode()
   └─► detect_arcode('right', 'ARcode12')
-        └─► 调用 /right_arm/detect_aruco Service
+        └─► 调用 /right_arm_controller/detect_aruco Service
               └─► 返回工件相对于基座的位置
 ```
 
@@ -1359,7 +1359,7 @@ return_to_pick_origin()
 | ArUco 检测 `found=False` | 标记不在视野 | 移动机械臂确认标记在相机中 | 调整 `recognize` 点位 |
 | TF 查询失败 | `right_base` 未广播 | `ros2 run tf2_ros tf2_echo right_base camera_right` | 检查 rm_driver 节点 |
 | YAML 加载失败 | 文件路径错误 | 查看终端错误日志 | 检查 config 目录位置 |
-| 关节数据无更新 | namespace 错误 | `ros2 topic echo /l_arm/joint_states` | 确认 namespace 配置 |
+| 关节数据无更新 | namespace 错误 | `ros2 topic echo /left_arm_controller/joint_states` | 确认 namespace 配置 |
 | Service 调用超时 | aruco_detector 未启动 | `ros2 service list \| grep detect` | 启动 aruco_detector 节点 |
 | 抓取偏移大 | 手眼标定未做 | 验证 TF Z 坐标 | 执行手眼标定 |
 
@@ -1392,7 +1392,7 @@ return_to_pick_origin()
 ```
 → 标记不在视野内，调整机械臂姿态
 
-**dual_arm_pick_place 日志：**
+**dualeft_arm_controller_pick_place 日志：**
 
 ```
 [INFO] >>> [状态5] 开始取料（11步核心逻辑）
@@ -1435,7 +1435,7 @@ ros2 topic list
 ros2 service list
 
 # 查看节点信息
-ros2 node info /dual_arm_pick_place_controller
+ros2 node info /dualeft_arm_controller_pick_place_controller
 
 # 查看话题带宽
 ros2 topic bw /camera_right/color/image_raw
@@ -1518,7 +1518,7 @@ class YoloDetector(Node):
 
         self._srv = self.create_service(
             DetectObject,
-            '/right_arm/detect_object',
+            '/right_arm_controller/detect_object',
             self._detect_callback
         )
 
@@ -1659,7 +1659,7 @@ class PickPlaceLogger:
 
 | 文件 | 说明 |
 |------|------|
-| `guji/dual_arm_pick_place.py` | 主控制器（1140 行） |
+| `guji/dualeft_arm_controller_pick_place.py` | 主控制器（1140 行） |
 | `guji/nodes/camera_bridge.py` | 相机诊断节点（345 行） |
 | `guji/nodes/aruco_detector.py` | ArUco 检测节点（520 行） |
 | `guji/nodes/tf_broadcaster.py` | 手眼标定 TF 广播（224 行） |
@@ -1679,29 +1679,29 @@ class PickPlaceLogger:
 /camera_right/aligned_depth_to_color/image_raw
 /camera_right/extrinsic/depth_to_color
 
-/l_arm/joint_states
-/l_arm/rm_driver/udp_arm_position
-/l_arm/rm_driver/udp_joint_pose_euler
-/l_arm/rm_driver/movej_cmd
-/l_arm/rm_driver/movel_cmd
-/l_arm/rm_driver/set_gripper_position_cmd
-/l_arm/rm_driver/set_gripper_pick_cmd
-/l_arm/rm_driver/set_hand_angle_cmd
-/l_arm/rm_driver/force_position_move_pose_cmd
+/left_arm_controller/joint_states
+/left_arm_controller/rm_driver/udp_arm_position
+/left_arm_controller/rm_driver/udp_joint_pose_euler
+/left_arm_controller/rm_driver/movej_cmd
+/left_arm_controller/rm_driver/movel_cmd
+/left_arm_controller/rm_driver/set_gripper_position_cmd
+/left_arm_controller/rm_driver/set_gripper_pick_cmd
+/left_arm_controller/rm_driver/set_hand_angle_cmd
+/left_arm_controller/rm_driver/force_position_move_pose_cmd
 
-/r_arm/joint_states
-/r_arm/rm_driver/udp_arm_position
-/r_arm/rm_driver/udp_joint_pose_euler
-/r_arm/rm_driver/movej_cmd
-/r_arm/rm_driver/movel_cmd
-/r_arm/rm_driver/set_gripper_position_cmd
-/r_arm/rm_driver/set_gripper_pick_cmd
-/r_arm/rm_driver/set_hand_angle_cmd
-/r_arm/rm_driver/force_position_move_pose_cmd
+/right_arm_controller/joint_states
+/right_arm_controller/rm_driver/udp_arm_position
+/right_arm_controller/rm_driver/udp_joint_pose_euler
+/right_arm_controller/rm_driver/movej_cmd
+/right_arm_controller/rm_driver/movel_cmd
+/right_arm_controller/rm_driver/set_gripper_position_cmd
+/right_arm_controller/rm_driver/set_gripper_pick_cmd
+/right_arm_controller/rm_driver/set_hand_angle_cmd
+/right_arm_controller/rm_driver/force_position_move_pose_cmd
 
-/right_arm/detect_aruco           # Service
-/right_arm/get_camera_status      # Service
-/right_arm/aruco/debug_image      # Image topic
+/right_arm_controller/detect_aruco           # Service
+/right_arm_controller/get_camera_status      # Service
+/right_arm_controller/aruco/debug_image      # Image topic
 ```
 
 ## 附录 C：坐标系汇总
@@ -1712,5 +1712,5 @@ class PickPlaceLogger:
 | `right_top` | 动态 | `rm_driver` | `right_base` | 右臂法兰 |
 | `camera_right` | 静态 | `tf_broadcaster` | `right_top` | D435 相机光学中心 |
 | `target_right_camera` | 动态 | `aruco_detector` | `camera_right` | 检测到的 ArUco 标记 |
-| `l_arm/*` | 动态 | `rm_driver` | - | 左臂相关坐标系 |
+| `left_arm_controller/*` | 动态 | `rm_driver` | - | 左臂相关坐标系 |
 | `base_link` | 动态 | `rm_driver` | - | 全局基座（参考） |

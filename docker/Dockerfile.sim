@@ -1,0 +1,129 @@
+# ============================================================
+# RealMan 双臂机器人仿真 Docker 环境
+# ============================================================
+# 基于 ROS2 Foxy Desktop 镜像，包含 Gazebo 仿真支持
+#
+# 构建：
+#   docker build -t realman-sim:latest .
+#
+# 运行（交互模式）：
+#   docker run --rm -it --net=host \
+#     --privileged \
+#     -e DISPLAY=$DISPLAY \
+#     -v /tmp/.X11-unix:/tmp/.X11-unix \
+#     realman-sim:latest
+#
+# 运行（带 GPU 加速）：
+#   docker run --rm -it --net=host \
+#     --privileged \
+#     --gpus all \
+#     -e DISPLAY=$DISPLAY \
+#     -v /tmp/.X11-unix:/tmp/.X11-unix \
+#     realman-sim:latest
+#
+# 进入容器后运行仿真：
+#   cd ~/ros2_ws
+#   source ./install/setup.bash
+#   ros2 launch dual_rm_gazebo dual_rm_65b_gazebo.launch.py
+
+FROM osrf/ros:foxy-desktop
+
+# ============================================================
+# 环境变量
+# ============================================================
+ENV DEBIAN_FRONTEND=noninteractive
+ENV ROS_DISTRO=foxy
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
+# ============================================================
+# 安装系统依赖
+# ============================================================
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    # 仿真相关
+    gazebo \
+    libgazebo-dev \
+    ros-foxy-gazebo-ros-pkgs \
+    ros-foxy-gazebo-ros2-control \
+    ros-foxy-ros2-control \
+    ros-foxy-ros2-controllers \
+    ros-foxy-moveit \
+    ros-foxy-moveit-ros-planning-interface \
+    ros-foxy-moveit-ros-move-group \
+    ros-foxy-moveit-ros-robot-state \
+    ros-foxy-moveit-ros-planning \
+    ros-foxy-moveit-ros-move-group \
+    ros-foxy-moveit-resources-robot-description \
+    ros-foxy-controller-manager \
+    ros-foxy-joint-state-broadcaster \
+    ros-foxy-joint-trajectory-controller \
+    ros-foxy-position-controllers \
+    ros-foxy-gripper-action-controller \
+    ros-foxy-robot-state-publisher \
+    ros-foxy-xacro \
+    # 相机支持
+    ros-foxy-realsense2-camera \
+    ros-foxy-image-transport \
+    ros-foxy-cv-bridge \
+    # OpenCV 和视觉
+    libopencv-dev \
+    python3-opencv \
+    python3-cv-bridge \
+    # 工具
+    python3-pip \
+    python3-yaml \
+    python3-numpy \
+    python3-scipy \
+    ros-foxy-tf-transformations \
+    ros-foxy-tf2-ros \
+    ros-foxy-tf2-geometry-msgs \
+    # Gazebo 模型工具
+    sdformat-tools \
+    # 通信
+    openssh-client \
+    curl \
+    git \
+    vim \
+    && rm -rf /var/lib/apt/lists/*
+
+# ============================================================
+# 安装 Python 依赖
+# ============================================================
+RUN pip3 install --no-cache-dir \
+    pyyaml \
+    numpy \
+    scipy \
+    matplotlib
+
+# ============================================================
+# 克隆工作空间
+# ============================================================
+WORKDIR /root
+
+# 克隆 ros2_ws（如果需要）
+# RUN git clone https://github.com/your-repo/ros2_ws.git /root/ros2_ws
+
+# 创建 guji 目录（挂载使用）
+RUN mkdir -p /root/guji
+
+# ============================================================
+# Gazebo 配置（允许外部连接）
+# ============================================================
+ENV GAZEBO_MODEL_PATH=/root/.gazebo/models:/usr/share/gazebo-11/models
+ENV GAZEBO_RESOURCE_PATH=/usr/share/gazebo-11
+
+# ============================================================
+# ROS2 配置
+# ============================================================
+# 自动 source ROS2 环境
+RUN echo 'source /opt/ros/foxy/setup.bash' >> /root/.bashrc
+
+# ============================================================
+# 工作目录
+# ============================================================
+WORKDIR /root
+
+# ============================================================
+# 默认启动命令
+# ============================================================
+CMD ["/bin/bash"]

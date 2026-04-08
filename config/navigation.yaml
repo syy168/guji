@@ -1,0 +1,209 @@
+# AGV 导航配置
+#
+# 本配置文件定义双臂取放料系统的 AGV 导航相关参数
+# 包括导航点位、速度、超时设置等
+#
+# 使用方法：
+#   1. 根据实际环境修改 mark_no（点位名称）
+#   2. 修改坐标系名称（agv_base_frame）
+#   3. 调整导航超时时间（navigation_timeout）
+#   4. 如使用 Woosh AGV 底盘，确认话题名称正确
+#
+# 注意：
+#   - 点位名称（mark_no）需要通过 Woosh Design 软件提前采集
+#   - 不同任务类型（task_type）：1=普通, 3=充电, 5=取货
+#   - 坐标系需要与 TF 树中的定义一致
+
+# ==========================================
+# 导航系统基本配置
+# ==========================================
+agv:
+  # 是否启用 AGV 导航功能
+  # false: 导航功能禁用（仅机械臂操作）
+  # true:  导航功能启用
+  enabled: true
+
+  # AGV 底盘基座坐标系名称
+  # 用于 TF 变换：world --> agv_base --> right_base / left_base
+  base_frame: 'agv_base'
+
+  # 默认导航超时时间（秒）
+  # 超过此时间未到达目标点则认为导航失败
+  navigation_timeout: 120.0
+
+  # 导航前是否等待 AGV 进入自动模式
+  # true:  等待 robot_mode=1 (自动模式)
+  # false: 直接下发导航指令
+  wait_auto_mode: true
+
+  # 自动模式超时时间（秒）
+  auto_mode_timeout: 30.0
+
+  # ==========================================
+  # ROS 话题配置
+  # ==========================================
+  topics:
+    # 导航目标点发布话题（发布目标点位名称 String）
+    mark_topic: 'goto_mark/go'
+
+    # 导航结果订阅话题（收到消息表示到达）
+    result_topic: 'goto_mark/result'
+
+    # 底盘状态话题（Int32，task_state）
+    # task_state: 0=空闲, 1=运行中, 2=暂停, 7=完成, 8=失败
+    status_topic: 'robot_status'
+
+    # 底盘速度控制话题（Twist）
+    speed_topic: 'cmd_vel'
+
+    # 底盘里程计话题（JointState）
+    odom_topic: '/odom'
+
+  # ==========================================
+  # 导航点位配置
+  # ==========================================
+  # 格式：mark_no: description
+  # mark_no 必须与 Woosh Design 软件中的点位名称一致
+  #
+  # 点位命名规则（参考 Warehouse_handling_robot）：
+  #   - 数字结尾+0: 货架过渡点（如 '10', '20'，用于调整升降机高度）
+  #   - 纯数字:     货架取货点（如 '1', '2'）
+  #   - 1xx:        物料放置点（如 '101', '102'）
+  #   - xxx:        充电点（如 '120'）
+  #
+  marks:
+    # 取料区导航点位
+    pick:
+      # 取料区过渡点（用于调整升降机高度）
+      transition: '110'
+      # 取料区主点（实际取货位置）
+      main: '11'
+      # 备用取料点1
+      alt1: '12'
+      # 备用取料点2
+      alt2: '13'
+
+    # 放料区导航点位
+    place:
+      # 放料区过渡点
+      transition: '210'
+      # 放料区主点
+      main: '21'
+      # 备用放料点1
+      alt1: '22'
+      # 备用放料点2
+      alt2: '23'
+
+    # 充电区导航点位
+    charge:
+      # 充电桩前点
+      main: '120'
+      # 备用充电点
+      alt1: '121'
+
+    # 归位点（系统初始化位置）
+    home:
+      main: '0'
+
+  # ==========================================
+  # 任务类型配置
+  # ==========================================
+  # task_type: Woosh AGV 的任务类型参数
+  # 参考 Woosh 官方文档
+  task_types:
+    # 普通导航任务（到货架点）
+    normal: 1
+    # 充电导航任务（到充电桩）
+    charge: 3
+    # 取货导航任务
+    pickup: 5
+
+  # ==========================================
+  # 速度配置
+  # ==========================================
+  speed:
+    # 导航移动速度（m/s）
+    navigation: 0.5
+
+    # 手动微调速度（m/s）
+    manual: 0.2
+
+    # 旋转速度（rad/s）
+    rotation: 0.3
+
+  # ==========================================
+  # 安全配置
+  # ==========================================
+  safety:
+    # 到达判定阈值（米）
+    # AGV 位置与目标位置距离小于此值认为到达
+    arrival_threshold: 0.05
+
+    # 导航失败重试次数
+    max_retries: 2
+
+    # 重试间隔时间（秒）
+    retry_interval: 5.0
+
+    # 是否在导航前执行停止命令
+    stop_before_navigate: true
+
+  # ==========================================
+  # 调试配置
+  # ==========================================
+  debug:
+    # 是否启用调试模式
+    enabled: false
+
+    # 是否显示详细日志
+    verbose: false
+
+    # 模拟模式（不连接真实 AGV）
+    # true:  使用 AGVNavigatorSimulated
+    # false: 使用 AGVNavigator（连接真实 AGV）
+    simulation: false
+
+    # 模拟模式下模拟移动速度（秒）
+    sim_speed: 2.0
+
+# ==========================================
+# 双臂与 AGV 协调配置
+# ==========================================
+coordination:
+  # 导航完成后到机械臂操作的间隔（秒）
+  # 用于 AGV 稳定后再进行机械臂操作
+  settle_delay: 1.0
+
+  # 机械臂操作完成后到导航的间隔（秒）
+  # 用于机械臂归位后再启动导航
+  arm_cooldown: 0.5
+
+  # 是否允许导航和机械臂操作并行
+  # true:  允许（导航的同时可以调整升降机高度）
+  # false: 不允许（必须等待导航完成）
+  allow_parallel: true
+
+  # ==========================================
+  # 完整工作流程点位序列
+  # ==========================================
+  # 定义取放料完整工作流程中的导航序列
+  # 用于 run_with_navigation() 方法
+  workflow:
+    # 取料流程（从 home 到 pick 区）
+    pick_sequence:
+      - { mark: '110', task_type: 1, description: '导航到取料区过渡点' }
+      - { mark: '11',  task_type: 1, description: '导航到取料点' }
+
+    # 放料流程（从 pick 区到 place 区）
+    place_sequence:
+      - { mark: '110', task_type: 1, description: '返回过渡点' }
+      - { mark: '210', task_type: 1, description: '导航到放料区过渡点' }
+      - { mark: '21',  task_type: 1, description: '导航到放料点' }
+
+    # 归位流程（从任意位置回到 home）
+    home_sequence:
+      - { mark: '0',   task_type: 1, description: '导航到归位点' }
+
+    # 充电流程
+    charge_sequence:
+      - { mark: '120', task_type: 3, description: '导航到充电桩' }
