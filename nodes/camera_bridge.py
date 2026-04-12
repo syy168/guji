@@ -110,17 +110,30 @@ class CameraBridge(Node):
         self.get_logger().info(f'  期望帧率: {self.expected_fps} Hz')
 
     def _load_config(self):
-        """从 system.yaml 加载配置"""
-        possible_paths = [
-            os.path.join(os.path.dirname(__file__), '..', 'config', 'system.yaml'),
-            os.path.join(os.path.dirname(__file__), '..', '..', 'config', 'system.yaml'),
+        """从 camera.yaml 和 system.yaml 分别加载配置"""
+        node_dir = os.path.dirname(__file__)
+        cfg_base = [
+            os.path.join(node_dir, '..', 'config'),
+            os.path.join(node_dir, '..', '..', 'config'),
         ]
-        config_path = None
-        for p in possible_paths:
+
+        # 相机配置路径
+        cam_cfg_path = None
+        for base in cfg_base:
+            p = os.path.join(base, 'camera.yaml')
             if os.path.exists(p):
-                config_path = p
+                cam_cfg_path = p
                 break
 
+        # 系统配置路径
+        sys_cfg_path = None
+        for base in cfg_base:
+            p = os.path.join(base, 'system.yaml')
+            if os.path.exists(p):
+                sys_cfg_path = p
+                break
+
+        # 默认值
         self.cfg = {}
         self.topic_prefix = '/camera_right'
         self.expected_fps = 30
@@ -128,28 +141,45 @@ class CameraBridge(Node):
         self.expected_height = 480
         self.depth_valid_ratio_threshold = 0.5  # 深度有效像素至少 50%
 
-        if config_path:
+        # 从 camera.yaml 加载相机配置
+        if cam_cfg_path:
             try:
-                with open(config_path, 'r', encoding='utf-8') as f:
-                    full_cfg = yaml.safe_load(f)
-                sys_cfg = full_cfg.get('system', {})
-                intr_cfg = full_cfg.get('camera', {}).get('intrinsic', {})
+                with open(cam_cfg_path, 'r', encoding='utf-8') as f:
+                    cam_full = yaml.safe_load(f)
+                cam_cfg = cam_full.get('camera', {})
+
+                # 话题前缀（camera.yaml 中的 topic_prefix 字段）
+                self.topic_prefix = cam_cfg.get('topic_prefix', self.topic_prefix)
+
+                # 内参（camera.yaml 中的 intrinsic 字段）
+                intr = cam_cfg.get('intrinsic', {})
+                self.expected_width = intr.get('width', self.expected_width)
+                self.expected_height = intr.get('height', self.expected_height)
+                self.expected_fps = intr.get('fps', self.expected_fps)
+
+                self.get_logger().info(f'已加载相机配置: {cam_cfg_path}')
+            except Exception as e:
+                self.get_logger().warn(f'加载 camera.yaml 失败: {e}')
+        else:
+            self.get_logger().warn('camera.yaml 未找到，使用默认相机配置')
+
+        # 从 system.yaml 加载系统配置
+        if sys_cfg_path:
+            try:
+                with open(sys_cfg_path, 'r', encoding='utf-8') as f:
+                    sys_full = yaml.safe_load(f)
+                sys_cfg = sys_full.get('system', {})
 
                 ros2_cfg = sys_cfg.get('ros2', {})
                 self.cfg['camera_diagnostic_interval'] = ros2_cfg.get('camera_diagnostic_interval', 5.0)
                 self.cfg['debug_enabled'] = sys_cfg.get('debug', {}).get('enabled', False)
                 self.cfg['show_image'] = sys_cfg.get('debug', {}).get('show_image', False)
 
-                cam_cfg = sys_cfg.get('camera', {})
-                self.topic_prefix = cam_cfg.get('topic_prefix', '/camera_right')
-                self.expected_fps = intr_cfg.get('fps', 30)
-                self.expected_width = intr_cfg.get('width', 640)
-                self.expected_height = intr_cfg.get('height', 480)
-                self.get_logger().info(f'已加载配置: {config_path}')
+                self.get_logger().info(f'已加载系统配置: {sys_cfg_path}')
             except Exception as e:
-                self.get_logger().warn(f'加载 system.yaml 失败: {e}，使用默认值')
+                self.get_logger().warn(f'加载 system.yaml 失败: {e}')
         else:
-            self.get_logger().warn('system.yaml 未找到，使用默认配置')
+            self.get_logger().warn('system.yaml 未找到，使用默认系统配置')
 
     # ==========================================
     # 回调函数
@@ -186,8 +216,7 @@ class CameraBridge(Node):
 
         # 检查内参完整性
         if len(msg.K) == 9 and len(msg.D) >= 5:
-            if self._camera_info is not None and len(self._camera_info.K) != 9:
-                self.get_logger().info('CameraInfo 内参已就绪')
+            self.get_logger().info('CameraInfo 内参已就绪')
         else:
             if self._diagnostic_ok:
                 self.get_logger().warn('CameraInfo 内参数据不完整！')

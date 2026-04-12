@@ -405,7 +405,7 @@ class ArucoDetector(Node):
                 resp.pose.position.y = tvec[1]
                 resp.pose.position.z = tvec[2]
                 resp.pose.orientation = self._rvec_to_quaternion_msg(rvec_smooth)
-                resp.header.stamp = self.get_clock().now().now().to_msg()
+                resp.header.stamp = self.get_clock().now().to_msg()
                 resp.header.frame_id = self.camera_frame
 
             # 发布调试图像
@@ -449,7 +449,7 @@ class ArucoDetector(Node):
             transform = self._tf_buffer.lookup_transform(
                 self.base_frame,
                 self.target_frame,
-                rclpy.time.Time(),
+                rclpy.time.Time(seconds=0),   # 0 = 获取最新可用变换
                 timeout=rclpy.duration.Duration(seconds=1.0)
             )
 

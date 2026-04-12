@@ -67,6 +67,16 @@ class DualArmPickPlaceController(Node):
         self.has_right_joint = False
 
         # ==========================================
+        # 视觉识别偏移量存储
+        # ==========================================
+        # 取料阶段：ARcode12 识别到的工件实际位置偏移（相机坐标系下）
+        self.pick_offset = {'x': 0.0, 'y': 0.0, 'z': 0.0,
+                            'roll': 0.0, 'pitch': 0.0, 'yaw': 0.0}
+        # 放料阶段：ARcode21 识别到的放料目标实际位置偏移
+        self.place_offset = {'x': 0.0, 'y': 0.0, 'z': 0.0,
+                             'roll': 0.0, 'pitch': 0.0, 'yaw': 0.0}
+
+        # ==========================================
         # 延迟导入所有消息类型
         # ==========================================
         global Movej_msg, Movel_msg, Gripperset_msg, Gripperpick_msg
@@ -282,6 +292,27 @@ class DualArmPickPlaceController(Node):
         except Exception as e:
             self.get_logger().warn(f'加载 navigation.yaml 失败: {e}，AGV 导航功能将禁用')
             self._nav_cfg = {}
+
+        # RM65 关节角度限位（单位：度），来自 URDF dual_rm_65b_description.urdf
+        self.JOINT_LIMITS = {
+            # {臂: [(j1_min, j1_max), (j2_min, j2_max), ...]}
+            'left': [
+                (-178.0, 178.0),  # l_joint1: ±3.11 rad
+                (-130.0, 130.0),  # l_joint2: ±2.27 rad
+                (-135.0, 135.0),  # l_joint3: ±2.36 rad
+                (-178.0, 178.0),  # l_joint4: ±3.11 rad
+                (-128.0, 128.0),  # l_joint5: ±2.23 rad
+                (-360.0, 360.0),  # l_joint6: ±6.28 rad (连续旋转)
+            ],
+            'right': [
+                (-178.0, 178.0),  # r_joint1: ±3.11 rad
+                (-130.0, 130.0),  # r_joint2: ±2.27 rad
+                (-135.0, 135.0),  # r_joint3: ±2.36 rad
+                (-178.0, 178.0),  # r_joint4: ±3.11 rad
+                (-128.0, 128.0),  # r_joint5: ±2.23 rad
+                (-360.0, 360.0),  # r_joint6: ±6.28 rad
+            ],
+        }
 
     def _hardcoded_poses(self):
         """硬编码默认值（当 YAML 加载失败时使用）"""
@@ -959,7 +990,7 @@ class DualArmPickPlaceController(Node):
 
             self.get_logger().info(f'调用 ArUco Service: marker_id={marker_id}, timeout={req.timeout}')
             future = self._aruco_client.call_async(req)
-            rclpy.spin_until_future_complete(self, future, timeout_sec=int(req.timeout) + 5)
+            rclpy.spin_until_future_complete(self, future, timeout_sec=req.timeout * 2 + 5)
 
             if future.result() is None:
                 self.get_logger().warn(f'ArUco Service 调用超时，使用 Mock')
@@ -998,16 +1029,100 @@ class DualArmPickPlaceController(Node):
     # ==========================================
     # 各状态流程方法
     # ==========================================
+    def _check_joint_limits(self, arm: str, joints: list) -> bool:
+        """
+        检查关节角度是否在安全范围内。
+
+        参数:
+            arm:   'left' 或 'right'
+            joints: 关节角度列表（6个值，单位：度）
+
+        返回:
+            bool: True=在安全范围内，False=超限
+        """
+        limits = self.JOINT_LIMITS.get(arm.lower())
+        if limits is None:
+            return True  # 未知臂名，跳过检查
+
+        violations = []
+        for i, (j_min, j_max) in enumerate(limits):
+            j_val = joints[i]
+            if j_val < j_min:
+                violations.append(f'J{i+1}={j_val:.1f}° < 下限{j_min:.1f}°')
+            elif j_val > j_max:
+                violations.append(f'J{i+1}={j_val:.1f}° > 上限{j_max:.1f}°')
+
+        if violations:
+            for v in violations:
+                self.get_logger().error(f'  [关节限位] {v}')
+            self.get_logger().error(
+                f'  [{arm}臂] 关节角度越限，共 {len(violations)} 个关节超出安全范围！'
+            )
+            return False
+        return True
+
     def _get_joints(self, arm: str, state: str):
         """从 POSES 配置中获取关节角度，带校验"""
         try:
             joints = self.POSES[arm][state]
             if joints is None or len(joints) != 6:
                 raise KeyError(f'点位 {arm}/{state} 格式错误: {joints}')
+            # 限位检查
+            if not self._check_joint_limits(arm, joints):
+                self.get_logger().warn(f'  [{arm}臂 {state}] 关节角度越限，跳过此步骤')
+                return None
             return joints
         except KeyError:
             self.get_logger().warn(f'点位配置缺失: {arm}/{state}，跳过此步骤')
             return None
+
+    def _apply_joint_offset(self, joints: list, offset: dict,
+                            use_xy: bool = True, use_z: bool = True) -> list:
+        """
+        将视觉偏移量应用到关节角度上（简化补偿）。
+
+        补偿策略：
+        - X 偏移：主要影响关节1（基座旋转），joint[0] += offset_x * scale
+        - Y 偏移：主要影响关节1 + 关节2，joint[0] += offset_y * scale，joint[1] += offset_y * scale * 0.5
+        - Z 偏移：主要影响关节3 + 关节5，joint[2] += offset_z * scale，joint[4] += offset_z * scale * 0.3
+
+        这种简化补偿适用于偏移量较小（<50mm）的情况，
+        实际生产中建议使用逆运动学（IK）求解精确补偿。
+
+        参数:
+            joints: 原始关节角度列表（6个值，单位：度）
+            offset: 偏移字典，{'x', 'y', 'z', 'roll', 'pitch', 'yaw'}（单位：米，弧度）
+            use_xy: 是否补偿 X/Y 方向的偏移
+            use_z: 是否补偿 Z 方向的偏移
+
+        返回:
+            list: 补偿后的关节角度列表
+        """
+        if not joints or not offset:
+            return joints
+
+        joints = list(joints)  # 复制，避免修改原列表
+        scale = self.SYS.get('vision', {}).get('joint_offset_scale', 30.0)
+
+        if use_xy:
+            # X 偏移 → 主要调整关节1
+            joints[0] += math.degrees(offset.get('x', 0.0)) * scale
+            # Y 偏移 → 关节1 + 关节2 共同补偿
+            joints[0] += math.degrees(offset.get('y', 0.0)) * scale * 0.5
+            joints[1] += math.degrees(offset.get('y', 0.0)) * scale * 0.3
+
+        if use_z:
+            # Z 偏移 → 关节3 + 关节5 共同补偿
+            joints[2] += math.degrees(offset.get('z', 0.0)) * scale * 0.5
+            joints[4] += math.degrees(offset.get('z', 0.0)) * scale * 0.2
+
+        self.get_logger().debug(
+            f'关节补偿: {[f"{j:.1f}°" for j in joints]} '
+            f'(偏移: {offset.get("x",0)*1000:.1f}mm, '
+            f'{offset.get("y",0)*1000:.1f}mm, '
+            f'{offset.get("z",0)*1000:.1f}mm)'
+        )
+        return joints
 
     def go_initial_position(self, speed: int = None):
         """双臂回到初始位置（上举姿态）"""
@@ -1043,11 +1158,20 @@ class DualArmPickPlaceController(Node):
         """
         视觉识别 ARcode：
         - 右臂相机识别 ARcode12（仅右臂有相机）
-        - 获得工件相对偏移
+        - 获得工件相对偏移，存入 self.pick_offset 供 pick_workpiece() 使用
         """
         self.get_logger().info('>>> [状态3] 识别 ARcode12（右臂相机）')
         offset = self.detect_arcode('right', 'ARcode12')
-        self.get_logger().info('<<< [状态3] 完成：已识别 ARcode12')
+        if offset:
+            self.pick_offset = offset
+            self.get_logger().info(
+                f'<<< [状态3] 完成：已识别 ARcode12，偏移量已存储 '
+                f'({offset["x"]*1000:.1f}mm, {offset["y"]*1000:.1f}mm, {offset["z"]*1000:.1f}mm)'
+            )
+        else:
+            self.pick_offset = {'x': 0.0, 'y': 0.0, 'z': 0.0,
+                               'roll': 0.0, 'pitch': 0.0, 'yaw': 0.0}
+            self.get_logger().warn('<<< [状态3] 完成：ARcode12 识别失败，使用零偏移')
         return offset
 
     def pre_grasp_alignment(self, speed: int = None):
@@ -1085,9 +1209,11 @@ class DualArmPickPlaceController(Node):
         核心取料逻辑（11步）：
 
         Step 1:  左臂 MoveJ → 目标点（左臂到达工件侧面托住位置）
+                【应用视觉偏移：左臂对准工件实际位置】
         Step 2:  左臂夹爪闭合（力控夹取，force=300）
         Step 3:  左臂 MoveJ → 抬起托住位（弧线抬起调整工件姿态）
         Step 4:  右臂 MoveJ → 插入位（右臂伸入工件下方）
+                【应用视觉偏移：右臂对准工件实际位置】
         Step 5:  右臂夹爪闭合（力控夹取，force=300）
         Step 6:  右臂 MoveJ → 垂直位（右臂夹爪回到垂直姿态）
         Step 7:  右臂夹爪松开（position=1000，开口最大）
@@ -1101,11 +1227,20 @@ class DualArmPickPlaceController(Node):
             speed = self.SYS.get('arm', {}).get('movej_default_speed', 30) * 2 // 3
 
         gripper_cfg = self.SYS.get('gripper', {})
+        offset = self.pick_offset
 
-        # Step 1: 左臂移动到托住位置
+        # 打印偏移量使用情况
+        if any(abs(v) > 0.001 for v in offset.values()):
+            self.get_logger().info(f'  [取料] 使用视觉偏移: '
+                f'x={offset["x"]*1000:.1f}mm, '
+                f'y={offset["y"]*1000:.1f}mm, '
+                f'z={offset["z"]*1000:.1f}mm')
+
+        # Step 1: 左臂移动到托住位置（【应用偏移】：左臂对准工件实际位置）
         left_support = self._get_joints('left', 'pick_left_support')
         if left_support:
-            self.get_logger().info('  [取料 Step 1] 左臂移动到托住位置')
+            left_support = self._apply_joint_offset(left_support, offset, use_xy=True, use_z=False)
+            self.get_logger().info('  [取料 Step 1] 左臂移动到托住位置（含视觉偏移）')
             self.movej('left', left_support, speed=speed, block=True)
 
         # Step 2: 左臂夹爪闭合（托住/按住工件）
@@ -1121,10 +1256,11 @@ class DualArmPickPlaceController(Node):
             self.get_logger().info('  [取料 Step 3] 左臂弧线抬起托住位')
             self.movej('left', left_lift, speed=speed, block=True)
 
-        # Step 4: 右臂伸入工件下方
+        # Step 4: 右臂伸入工件下方（【应用偏移】：右臂对准工件实际位置）
         right_insert = self._get_joints('right', 'pick_insert')
         if right_insert:
-            self.get_logger().info('  [取料 Step 4] 右臂伸入工件下方')
+            right_insert = self._apply_joint_offset(right_insert, offset, use_xy=True, use_z=True)
+            self.get_logger().info('  [取料 Step 4] 右臂伸入工件下方（含视觉偏移）')
             self.movej('right', right_insert, speed=speed, block=True)
 
         # Step 5: 右臂夹爪闭合（夹取工件）
@@ -1193,10 +1329,20 @@ class DualArmPickPlaceController(Node):
     def recognize_arcode21(self):
         """
         放料前识别 ARcode21（右臂相机）。
+        - 获得放料目标相对偏移，存入 self.place_offset 供 place_workpiece() 使用
         """
         self.get_logger().info('>>> [状态7] 识别 ARcode21（右臂相机识别目标位置）')
         place_offset = self.detect_arcode('right', 'ARcode21')
-        self.get_logger().info('<<< [状态7] 完成：已识别 ARcode21')
+        if place_offset:
+            self.place_offset = place_offset
+            self.get_logger().info(
+                f'<<< [状态7] 完成：已识别 ARcode21，偏移量已存储 '
+                f'({place_offset["x"]*1000:.1f}mm, {place_offset["y"]*1000:.1f}mm, {place_offset["z"]*1000:.1f}mm)'
+            )
+        else:
+            self.place_offset = {'x': 0.0, 'y': 0.0, 'z': 0.0,
+                                'roll': 0.0, 'pitch': 0.0, 'yaw': 0.0}
+            self.get_logger().warn('<<< [状态7] 完成：ARcode21 识别失败，使用零偏移')
         return place_offset
 
     def place_workpiece(self, speed: int = None):
@@ -1204,6 +1350,7 @@ class DualArmPickPlaceController(Node):
         力位混合放料流程（8步）：
 
         Step 1:  右臂 MoveJ → 放料上方位
+                【应用视觉偏移：右臂对准放料目标实际位置】
         Step 2:  右臂力位混合下移（搜索放置面）
         Step 3:  右臂夹爪张开（释放物料）
         Step 4:  右臂 MoveJ → 退出位
@@ -1218,19 +1365,31 @@ class DualArmPickPlaceController(Node):
 
         gripper_cfg = self.SYS.get('gripper', {})
         fp_cfg = self.SYS.get('force_position', {})
+        offset = self.place_offset
 
-        # Step 1: 右臂移动到放料上方位
+        # 打印偏移量使用情况
+        if any(abs(v) > 0.001 for v in offset.values()):
+            self.get_logger().info(f'  [放料] 使用视觉偏移: '
+                f'x={offset["x"]*1000:.1f}mm, '
+                f'y={offset["y"]*1000:.1f}mm, '
+                f'z={offset["z"]*1000:.1f}mm')
+
+        # Step 1: 右臂移动到放料上方位（【应用偏移】：右臂对准放料目标实际位置）
         place_above = self._get_joints('right', 'place_above')
         if place_above:
-            self.get_logger().info('  [放料 Step 1] 右臂移动到放料上方位')
+            place_above = self._apply_joint_offset(place_above, offset, use_xy=True, use_z=False)
+            self.get_logger().info('  [放料 Step 1] 右臂移动到放料上方位（含视觉偏移）')
             self.movej('right', place_above, speed=speed, block=True)
 
         # Step 2: 右臂力位混合下移搜索（Z方向，工具坐标系）
+        # 【应用偏移】：XY 调整起始对准，Z 通过力位混合自适应
         self.get_logger().info('  [放料 Step 2] 右臂力位混合下移搜索')
         target_pose = Pose()
-        target_pose.position.x = 0.0
-        target_pose.position.y = 0.0
-        target_pose.position.z = -0.05
+        target_pose.position.x = offset.get('x', 0.0) * 0.5
+        target_pose.position.y = offset.get('y', 0.0) * 0.5
+        # Z 偏移主要通过力位混合自适应（search until contact），
+        # 此处仅微调搜索起点，避免与力位混合的"搜索直到触发力"逻辑冲突
+        target_pose.position.z = -0.05 + offset.get('z', 0.0) * 0.2
         target_pose.orientation.w = 1.0
         self.force_position_move(
             'right',

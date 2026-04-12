@@ -1,0 +1,39 @@
+system:
+  arm:
+    movej_default_speed: 30          # MoveJ 默认速度（1~100）
+    movel_default_speed: 30
+    movej_timeout: 30.0              # 超时（秒）
+    joint_state_timeout: 10.0         # 等待关节状态超时
+
+  gripper:
+    position_open: 1000              # 夹爪全开（1~1000）
+    position_close: 0                # 夹爪全闭
+    position_half: 500               # 半开
+    pick_speed: 300                  # 力控夹取速度（1~1000）
+    pick_force: 300                  # 力控夹取力（1~1000）
+
+  force_position:
+    sensor_type: 0                   # 0=一维力, 1=六维力
+    coordinate_mode: 1               # 0=基坐标系, 1=工具坐标系
+    direction: 2                    # 0~5=X/Y/Z/RX/RY/RZ
+    force_threshold: 10              # 力阈值（0.1N）
+    follow_mode: true
+
+  vision:
+    timeout: 5.0                     # 识别超时（秒）
+    stability_threshold: 0.1         # 角度稳定性阈值（弧度）
+    history_size: 10                 # 滑动窗口大小（帧）
+    smoothing_factor: 0.8            # 平滑因子（0~1）
+    depth_averaging_radius: 3         # 深度平均半径（像素）
+
+  ros2:
+    camera_qos: "BEST_EFFORT"        # 图像流 QoS
+    arm_qos: "RELIABLE"              # 指令 QoS
+    tf_timeout: 1.0
+    service_timeout: 5.0
+
+  debug:
+    enabled: false
+    camera_diagnostic_interval: 5.0
+    show_image: false
+    image_window: "Right Arm Camera"

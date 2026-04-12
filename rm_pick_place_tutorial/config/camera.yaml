@@ -1,0 +1,35 @@
+camera:
+  model: "D435"                          # 相机型号
+  serial_number: "123422072697"          # ← 填入实际序列号
+  topic_prefix: "/camera_right"           # 话题前缀
+
+  intrinsic:                             # 内参（仅供参考）
+    width: 640
+    height: 480
+    fx: 615.0
+    fy: 615.0
+    cx: 320.0
+    cy: 240.0
+    distortion_coeffs: [0.0, 0.0, 0.0, 0.0, 0.0]
+
+  hand_eye_right:                         # 手眼标定结果
+    translation:
+      x: 0.0850    # ← 标定后填入
+      y: -0.0400   # ← 标定后填入
+      z: 0.0100    # ← 标定后填入
+    quaternion:
+      x: 0.0       # ← 标定后填入
+      y: 0.0       # ← 标定后填入
+      z: 0.0       # ← 标定后填入
+      w: 1.0       # ← 标定后填入
+
+  aruco:
+    dict_type: "DICT_5X5_1000"
+    marker_size: 0.030   # ← 填入实际打印的标记边长（米）
+    target_ids: [11, 12, 21]
+
+  frames:
+    base_frame: "right_base"
+    flange_frame: "right_top"
+    camera_frame: "camera_right"
+    target_frame: "target_right_camera"

@@ -432,7 +432,8 @@ ros2 service call /right_arm_controller/get_camera_status std_srvs/srv/Trigger "
 
 | 父坐标系 | 子坐标系 | 类型 | 说明 |
 |---------|---------|------|------|
-| `right_base` | `camera_right` | 静态（一次性广播） | 手眼标定结果 |
+| `right_base` | `right_top` | 动态（实时广播） | 法兰相对于基座的实时位姿，从 `rm_driver/udp_arm_position` 获取 |
+| `right_top` | `camera_right` | 静态（一次性广播） | 手眼标定结果：相机相对于法兰的偏移 |
 
 > 注意：`right_base → right_top`（法兰 TF）由 `rm_driver` 节点通过关节状态计算后发布，本节点不重复广播。
 
@@ -693,28 +694,33 @@ cv2.imwrite('aruco_11.png', img)
 ```
 right_base
     │
-    │  [rm_driver 节点通过关节状态计算并发布]
+    │  [tf_broadcaster 节点通过 rm_driver/udp_arm_position 实时发布]
     │
-    └──► right_top  （法兰坐标系）
+    └──► right_top  （右臂末端法兰坐标系，动态）
               │
-              │  [tf_broadcaster 节点发布静态 TF]
-              │  手眼标定结果: translation + quaternion
+              │  [tf_broadcaster 节点发布静态 TF，手眼标定结果]
+              │  right_top → camera_right
               │
-              └──► camera_right  （D435 相机坐标系）
+              └──► camera_right  （D435 相机光学中心）
                         │
-                        │  [aruco_detector 节点发布]
+                        │  [aruco_detector 节点发布，动态]
                         │
-                        └──► target_right_camera  （检测到的标记）
+                        └──► target_right_camera  （检测到的 ArUco 标记）
 ```
+
+> **重要说明：** 本系统采用 **Eye-in-Hand**（手眼在手上）配置，相机安装在右臂末端法兰上。
+> 因此 `camera_right` 坐标系相对于 `right_base` 是**动态变化**的，必须通过完整的坐标链
+> `right_base → right_top → camera_right → target_right_camera` 才能正确计算目标在基坐标系下的位姿。
+
 
 ### 6.2 各坐标系含义
 
-| 坐标系 | 定义 | 用途 |
-|--------|------|------|
-| `right_base` | 右臂基座坐标系原点 | 所有位姿的参考基准 |
-| `right_top` | 右臂末端法兰中心 | 描述机械臂末端位置 |
-| `camera_right` | D435 相机光学中心 | 相机视角下的位置 |
-| `target_right_camera` | ArUco 标记坐标系 | 标记物在相机中的位姿 |
+| 坐标系 | 类型 | 发布者 | 父坐标系 | 说明 |
+|--------|------|--------|---------|------|
+| `right_base` | 动态（固定参考） | URDF/robot_state_publisher | - | 右臂基座坐标系原点 |
+| `right_top` | 动态 | `tf_broadcaster`（订阅 `udp_arm_position`） | `right_base` | 右臂末端法兰中心 |
+| `camera_right` | 静态 | `tf_broadcaster`（手眼标定） | `right_top` | D435 相机光学中心 |
+| `target_right_camera` | 动态 | `aruco_detector` | `camera_right` | ArUco 标记在相机中的位姿 |
 
 ### 6.3 位姿变换流程
 
@@ -748,19 +754,26 @@ right_base ──► target_right_camera
 ### 6.4 TF 验证命令
 
 ```bash
-# 查看两个坐标系之间的实时变换
-ros2 run tf2_ros tf2_echo right_base camera_right
+# 查看法兰坐标系实时变换
+ros2 run tf2_ros tf2_echo right_base right_top
+
+# 查看相机标定静态变换
+ros2 run tf2_ros tf2_echo right_top camera_right
+
+# 查看目标标记实时变换（ArUco 检测后生效）
+ros2 run tf2_ros tf2_echo right_base target_right_camera
+
+# 查看完整变换链（一次性查看从基座到标记的完整路径）
 ros2 run tf2_ros tf2_echo right_base target_right_camera
 
 # 可视化整个 TF 树
 ros2 run tf2_ros view_frames
 
-# 列出所有可用坐标系
-ros2 run tf2_ros tf2_echo right_base right_top
-ros2 run tf2_ros tf2_echo right_base camera_right
-
 # 检查 TF 缓冲区的内容
 ros2 run tf2_ros tf2_monitor right_base target_right_camera
+
+# 检查 rm_driver 是否发布 udp_arm_position（法兰位姿的来源）
+ros2 topic echo /right_arm_controller/rm_driver/udp_arm_position
 ```
 
 ---
@@ -930,7 +943,7 @@ ros2 launch guji vision_pipeline.launch.py \
 
 ```bash
 # 终端1：启动机械臂驱动（参考 ros2_ws 文档）
-ros2 launch rm_driver rm_65_driver.launch.py
+ros2 launch rm_driver dual_rm_65_driver.launch.py
 
 # 终端2：启动相机驱动
 ros2 run realsense2_camera realsense2_camera_node \
@@ -996,12 +1009,13 @@ ros2 service call /right_arm_controller/detect_aruco guji/srv/DetectAruco \
 | **7** | Depth 帧率 | `ros2 topic hz /camera_right/aligned_depth...` | ≥ 15Hz |
 | **8** | 相机内参 | `ros2 topic echo /camera_right/color/camera_info` | K 矩阵 9 个数 |
 | **9** | Camera Bridge | 观察终端日志 | 每 5s 输出诊断 |
-| **10** | TF 广播 | `ros2 run tf2_ros tf2_echo right_base camera_right` | 显示实时变换 |
-| **11** | ArUco Service | `ros2 service list \| grep detect_aruco` | 看到服务 |
-| **12** | ArUco 识别 | 放置 ArUco 标记，`ros2 service call ...` | `found=True` |
-| **13** | TF 目标变换 | `ros2 run tf2_ros tf2_echo right_base target_right_camera` | 显示标记位置 |
-| **14** | 主控制器 | 运行 `dualeft_arm_controller_pick_place.py` | 启动检查全部 OK |
-| **15** | 完整流程 | `controller.run()` | 取放料流程无报错 |
+| **10** | TF 法兰广播 | `ros2 run tf2_ros tf2_echo right_base right_top` | 显示实时法兰位姿 |
+| **11** | TF 标定广播 | `ros2 run tf2_ros tf2_echo right_top camera_right` | 显示固定偏移 |
+| **12** | ArUco Service | `ros2 service list \| grep detect_aruco` | 看到服务 |
+| **13** | ArUco 识别 | 放置 ArUco 标记，`ros2 service call ...` | `found=True` |
+| **14** | TF 目标变换 | `ros2 run tf2_ros tf2_echo right_base target_right_camera` | 显示标记位置 |
+| **15** | 主控制器 | 运行 `dualeft_arm_controller_pick_place.py` | 启动检查全部 OK |
+| **16** | 完整流程 | `controller.run()` | 取放料流程无报错 |
 
 ### 9.2 相机诊断节点验证详解
 
@@ -1023,17 +1037,17 @@ ros2 service call /right_arm_controller/detect_aruco guji/srv/DetectAruco \
 ### 9.3 TF 验证详解
 
 ```bash
-# 验证手眼标定 TF（相机相对于基座）
-ros2 run tf2_ros tf2_echo right_base camera_right
+# 验证法兰动态 TF（tf_broadcaster 发布）
+ros2 run tf2_ros tf2_echo right_base right_top
+# 期望：当机械臂移动时，translation 和 rotation 实时变化
+
+# 验证手眼标定静态 TF（tf_broadcaster 发布）
+ros2 run tf2_ros tf2_echo right_top camera_right
 # 期望：translation 显示固定的偏移值
-# At time 0.000
-# - Translation: [0.085, -0.040, 0.010]
 
 # 验证标记检测 TF（标记相对于基座）
 ros2 run tf2_ros tf2_echo right_base target_right_camera
 # 期望：当 ArUco 标记在相机视野内时，显示实时跟踪的位姿
-# At time 1234.567
-# - Translation: [0.342, -0.089, 0.155]
 ```
 
 ### 9.4 主控制器启动检查详解
@@ -1708,9 +1722,8 @@ class PickPlaceLogger:
 
 | 坐标系名称 | 类型 | 发布者 | 父坐标系 | 说明 |
 |-----------|------|--------|---------|------|
-| `right_base` | 动态 | `rm_driver` | - | 右臂基座原点 |
-| `right_top` | 动态 | `rm_driver` | `right_base` | 右臂法兰 |
-| `camera_right` | 静态 | `tf_broadcaster` | `right_top` | D435 相机光学中心 |
-| `target_right_camera` | 动态 | `aruco_detector` | `camera_right` | 检测到的 ArUco 标记 |
-| `left_arm_controller/*` | 动态 | `rm_driver` | - | 左臂相关坐标系 |
-| `base_link` | 动态 | `rm_driver` | - | 全局基座（参考） |
+| `right_base` | 动态（参考） | URDF/robot_state_publisher | - | 右臂基座原点，所有位姿参考基准 |
+| `right_top` | 动态 | `tf_broadcaster`（订阅 `udp_arm_position`） | `right_base` | 右臂末端法兰，随机械臂运动实时变化 |
+| `camera_right` | 静态 | `tf_broadcaster`（手眼标定） | `right_top` | D435 相机光学中心，相对于法兰固定 |
+| `target_right_camera` | 动态 | `aruco_detector` | `camera_right` | 检测到的 ArUco 标记在相机中的位姿 |
+| `left_*` | 动态 | `rm_driver` | - | 左臂相关坐标系 |

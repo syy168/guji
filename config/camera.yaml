@@ -34,12 +34,24 @@ camera:
   # 注意：launch 文件中 realsense2_camera 节点的 namespace 需要与此一致
   topic_prefix: "/camera_right"
 
+  # 相机内参（仅供参考，运行时以内参由 /camera_right/color/camera_info 话题为准）
+  # camera_bridge 会读取 width/height/fps 用于诊断检查
+  intrinsic:
+    width: 640
+    height: 480
+    fps: 30
+
   # =========================================================
   # 手眼标定结果（仅右臂有相机）
   # =========================================================
 
   # 相机相对于法兰中心（right_top）的静态偏移
   # 此数据由手眼标定程序测定后填入
+  #
+  # 注意：quaternion 描述的是相机坐标系相对于法兰坐标系的旋转。
+  # tf_broadcaster 的默认四元数（用于未标定时）为绕 Y 轴旋转 90°（相机朝下）。
+  # 若 camera.yaml 中 quaternion 全为零（w=1），则相机坐标系与法兰坐标系完全对齐。
+  # 请确保此处填入的值与实际安装方向一致。
   hand_eye_right:
 
     # 平移向量（米）：相机原点相对于法兰坐标系的偏移

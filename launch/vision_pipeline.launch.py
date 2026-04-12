@@ -188,7 +188,7 @@ def generate_launch_description():
     # ==========================================
     camera_bridge_node = Node(
         package='guji',
-        executable='camera_bridge.py',
+        executable='camera_bridge',
         name='camera_bridge',
         parameters=[{
             'camera_prefix': LaunchConfiguration('camera_prefix'),
@@ -202,7 +202,7 @@ def generate_launch_description():
     # ==========================================
     tf_broadcaster_node = Node(
         package='guji',
-        executable='tf_broadcaster.py',
+        executable='tf_broadcaster',
         name='hand_eye_tf_broadcaster',
         parameters=[{
             'right_ns': LaunchConfiguration('right_ns'),
@@ -216,7 +216,7 @@ def generate_launch_description():
     # ==========================================
     aruco_detector_node = Node(
         package='guji',
-        executable='aruco_detector.py',
+        executable='aruco_detector',
         name='aruco_detector',
         parameters=[{
             'camera_prefix': LaunchConfiguration('camera_prefix'),
@@ -230,7 +230,7 @@ def generate_launch_description():
     # ==========================================
     controller_node = Node(
         package='guji',
-        executable='dual_arm_pick_place.py',
+        executable='dual_arm_pick_place',
         name='dual_arm_pick_place_controller',
         parameters=[{
             'left_ns': LaunchConfiguration('left_ns'),
