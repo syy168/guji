@@ -1,0 +1,121 @@
+[0.551s] [34mcolcon[0m [1;30mDEBUG[0m [32mCommand line arguments: ['/usr/local/bin/colcon', 'build', '--packages-select', 'ros2_total_demo'][0m
+[0.552s] [34mcolcon[0m [1;30mDEBUG[0m [32mParsed command line arguments: Namespace(allow_overriding=[], ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffff842d0fa0>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=['ros2_total_demo'], packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=12, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffff842d0fa0>, verb_name='build', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0xffff8420a730>)[0m
+[0.894s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(colcon_meta) check parameters
+[0.895s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) check parameters
+[0.895s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) check parameters
+[0.895s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) check parameters
+[0.895s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(colcon_meta) discover
+[0.895s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) discover
+[0.896s] [34mcolcon.colcon_core.package_discovery[0m [1;30mINFO[0m Crawling recursively for packages in '/home/rm/ros2_ws/src/ros2_total_demo'
+[0.896s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.896s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ignore'
+[0.896s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ignore_ament_install'
+[0.896s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['colcon_pkg']
+[0.896s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'colcon_pkg'
+[0.897s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['colcon_meta']
+[0.897s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'colcon_meta'
+[0.897s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['ros']
+[0.897s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ros'
+[0.928s] [34mcolcon.colcon_core.package_identification[0m [1;30mDEBUG[0m [32mPackage '.' with type 'ros.ament_cmake' and name 'ros2_total_demo'[0m
+[0.928s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) using defaults
+[0.928s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) discover
+[0.928s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) using defaults
+[0.928s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) discover
+[0.928s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) using defaults
+[0.965s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(prefix_path) check parameters
+[0.966s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(prefix_path) discover
+[0.971s] [34mcolcon.colcon_installed_package_information.package_discovery[0m [1;30mDEBUG[0m [32mFound 1 installed packages in /home/rm/ros2_ws/src/ros2_total_demo/install[0m
+[0.973s] [34mcolcon.colcon_installed_package_information.package_discovery[0m [1;30mDEBUG[0m [32mFound 22 installed packages in /home/rm/ros2_ws/install[0m
+[0.977s] [34mcolcon.colcon_installed_package_information.package_discovery[0m [1;30mDEBUG[0m [32mFound 330 installed packages in /opt/ros/foxy[0m
+[0.981s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(prefix_path) using defaults
+[1.173s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'ros2_total_demo' build argument 'cmake_args' from command line to 'None'
+[1.173s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'ros2_total_demo' build argument 'cmake_target' from command line to 'None'
+[1.173s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'ros2_total_demo' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.173s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'ros2_total_demo' build argument 'cmake_clean_cache' from command line to 'False'
+[1.174s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'ros2_total_demo' build argument 'cmake_clean_first' from command line to 'False'
+[1.174s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'ros2_total_demo' build argument 'cmake_force_configure' from command line to 'False'
+[1.174s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'ros2_total_demo' build argument 'ament_cmake_args' from command line to 'None'
+[1.174s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'ros2_total_demo' build argument 'catkin_cmake_args' from command line to 'None'
+[1.174s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'ros2_total_demo' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.174s] [34mcolcon.colcon_core.verb[0m [1;30mDEBUG[0m [32mBuilding package 'ros2_total_demo' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo', 'merge_install': False, 'path': '/home/rm/ros2_ws/src/ros2_total_demo', 'symlink_install': False, 'test_result_base': None}[0m
+[1.174s] [34mcolcon.colcon_core.executor[0m [1;30mINFO[0m Executing jobs using 'parallel' executor
+[1.177s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mrun_until_complete[0m
+[1.177s] [34mcolcon.colcon_ros.task.ament_cmake.build[0m [1;30mINFO[0m Building ROS package in '/home/rm/ros2_ws/src/ros2_total_demo' with build type 'ament_cmake'
+[1.178s] [34mcolcon.colcon_cmake.task.cmake.build[0m [1;30mINFO[0m Building CMake package in '/home/rm/ros2_ws/src/ros2_total_demo'
+[1.182s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[1.182s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.182s] [34mcolcon.colcon_core.shell[0m [1;30mDEBUG[0m [32mSkip shell extension 'dsv' for command environment[0m
+[1.210s] [34mcolcon.colcon_core.event_handler.log_command[0m [1;30mDEBUG[0m [32mInvoking command in '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/rm/ros2_ws/install/rm_camera_demo:/opt/ros/foxy /usr/bin/cmake --build /home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo -- -j12 -l12[0m
+[1.772s] [34mcolcon.colcon_core.event_handler.log_command[0m [1;30mDEBUG[0m [32mInvoked command in '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/rm/ros2_ws/install/rm_camera_demo:/opt/ros/foxy /usr/bin/cmake --build /home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo -- -j12 -l12[0m
+[1.808s] [34mcolcon.colcon_core.event_handler.log_command[0m [1;30mDEBUG[0m [32mInvoking command in '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/rm/ros2_ws/install/rm_camera_demo:/opt/ros/foxy /usr/bin/cmake --install /home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo[0m
+[2.022s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m create_environment_scripts_only(ros2_total_demo)
+[2.024s] [34mcolcon.colcon_core.event_handler.log_command[0m [1;30mDEBUG[0m [32mInvoked command in '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/rm/ros2_ws/install/rm_camera_demo:/opt/ros/foxy /usr/bin/cmake --install /home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo[0m
+[2.030s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo' for CMake module files
+[2.031s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo' for CMake config files
+[2.033s] [34mcolcon.colcon_core.shell[0m [1;30mLevel 1[0m create_environment_hook('ros2_total_demo', 'cmake_prefix_path')
+[2.033s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/cmake_prefix_path.ps1'
+[2.035s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment descriptor '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/cmake_prefix_path.dsv'
+[2.036s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/cmake_prefix_path.sh'
+[2.038s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib'
+[2.039s] [34mcolcon.colcon_core.shell[0m [1;30mLevel 1[0m create_environment_hook('ros2_total_demo', 'ld_library_path_lib')
+[2.039s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/ld_library_path_lib.ps1'
+[2.040s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment descriptor '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/ld_library_path_lib.dsv'
+[2.041s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/ld_library_path_lib.sh'
+[2.042s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/bin'
+[2.043s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/pkgconfig/ros2_total_demo.pc'
+[2.043s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages'
+[2.043s] [34mcolcon.colcon_core.shell[0m [1;30mLevel 1[0m create_environment_hook('ros2_total_demo', 'pythonpath')
+[2.044s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/pythonpath.ps1'
+[2.045s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment descriptor '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/pythonpath.dsv'
+[2.046s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/pythonpath.sh'
+[2.048s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/bin'
+[2.048s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.ps1'
+[2.051s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package descriptor '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.dsv'
+[2.053s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.sh'
+[2.054s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.bash'
+[2.056s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.zsh'
+[2.057s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m create_file_with_runtime_dependencies(/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/colcon-core/packages/ros2_total_demo)
+[2.059s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m create_environment_scripts_only(ros2_total_demo)
+[2.059s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo' for CMake module files
+[2.061s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo' for CMake config files
+[2.062s] [34mcolcon.colcon_core.shell[0m [1;30mLevel 1[0m create_environment_hook('ros2_total_demo', 'cmake_prefix_path')
+[2.062s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/cmake_prefix_path.ps1'
+[2.063s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment descriptor '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/cmake_prefix_path.dsv'
+[2.064s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/cmake_prefix_path.sh'
+[2.065s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib'
+[2.065s] [34mcolcon.colcon_core.shell[0m [1;30mLevel 1[0m create_environment_hook('ros2_total_demo', 'ld_library_path_lib')
+[2.066s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/ld_library_path_lib.ps1'
+[2.066s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment descriptor '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/ld_library_path_lib.dsv'
+[2.067s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/ld_library_path_lib.sh'
+[2.068s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/bin'
+[2.068s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/pkgconfig/ros2_total_demo.pc'
+[2.069s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages'
+[2.069s] [34mcolcon.colcon_core.shell[0m [1;30mLevel 1[0m create_environment_hook('ros2_total_demo', 'pythonpath')
+[2.069s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/pythonpath.ps1'
+[2.070s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment descriptor '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/pythonpath.dsv'
+[2.071s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/hook/pythonpath.sh'
+[2.072s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/bin'
+[2.073s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.ps1'
+[2.075s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package descriptor '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.dsv'
+[2.076s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.sh'
+[2.077s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.bash'
+[2.079s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.zsh'
+[2.080s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m create_file_with_runtime_dependencies(/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/colcon-core/packages/ros2_total_demo)
+[2.081s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mclosing loop[0m
+[2.082s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mloop closed[0m
+[2.082s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mrun_until_complete finished with '0'[0m
+[2.083s] [34mcolcon.colcon_core.event_reactor[0m [1;30mDEBUG[0m [32mjoining thread[0m
+[2.103s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[2.103s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[2.104s] [34mcolcon.colcon_notification.desktop_notification[0m [1;30mINFO[0m Sending desktop notification using 'notify2'
+[2.147s] [34mcolcon.colcon_core.event_reactor[0m [1;30mDEBUG[0m [32mjoined thread[0m
+[2.148s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/home/rm/ros2_ws/src/ros2_total_demo/install/local_setup.ps1'
+[2.151s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix util module '/home/rm/ros2_ws/src/ros2_total_demo/install/_local_setup_util_ps1.py'
+[2.154s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/home/rm/ros2_ws/src/ros2_total_demo/install/setup.ps1'
+[2.159s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/home/rm/ros2_ws/src/ros2_total_demo/install/local_setup.sh'
+[2.160s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix util module '/home/rm/ros2_ws/src/ros2_total_demo/install/_local_setup_util_sh.py'
+[2.161s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/home/rm/ros2_ws/src/ros2_total_demo/install/setup.sh'
+[2.165s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/home/rm/ros2_ws/src/ros2_total_demo/install/local_setup.bash'
+[2.166s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/home/rm/ros2_ws/src/ros2_total_demo/install/setup.bash'
+[2.170s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/home/rm/ros2_ws/src/ros2_total_demo/install/local_setup.zsh'
+[2.171s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/home/rm/ros2_ws/src/ros2_total_demo/install/setup.zsh'

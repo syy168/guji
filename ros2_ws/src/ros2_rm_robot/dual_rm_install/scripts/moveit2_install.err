@@ -1,0 +1,9 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2487  100  2487    0     0  16361      0 --:--:-- --:--:-- --:--:-- 16361
+debconf: delaying package configuration, since apt-utils is not installed
+E: Failed to fetch http://packages.ros.org/ros2/ubuntu/pool/main/r/ros-foxy-moveit-planners-ompl/ros-foxy-moveit-planners-ompl-dbgsym_2.2.3-1focal.20230606.055655_arm64.deb  Connection failed [IP: 64.50.236.52 80]
+E: Failed to fetch http://packages.ros.org/ros2/ubuntu/pool/main/r/ros-foxy-moveit-ros-occupancy-map-monitor/ros-foxy-moveit-ros-occupancy-map-monitor-dbgsym_2.2.3-1focal.20230606.051729_arm64.deb  Connection failed [IP: 64.50.233.100 80]
+E: Failed to fetch http://packages.ros.org/ros2/ubuntu/pool/main/r/ros-foxy-moveit-ros-planning/ros-foxy-moveit-ros-planning-dbgsym_2.2.3-1focal.20230606.052137_arm64.deb  Connection failed [IP: 64.50.233.100 80]
+E: Failed to fetch http://packages.ros.org/ros2/ubuntu/pool/main/r/ros-foxy-moveit-ros-warehouse/ros-foxy-moveit-ros-warehouse-dbgsym_2.2.3-1focal.20230606.054620_arm64.deb  Connection failed [IP: 64.50.233.100 80]
+E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?

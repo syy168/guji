@@ -1,0 +1,6 @@
+{
+  "package_name": "ros2_total_demo",
+  "non_idl_tuples": [
+    "/home/rm/ros2_ws/src/ros2_total_demo:msg/ObjectPose.msg"
+  ]
+}

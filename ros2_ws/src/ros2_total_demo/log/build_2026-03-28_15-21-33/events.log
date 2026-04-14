@@ -1,0 +1,563 @@
+[0.000000] (-) TimerEvent: {}
+[0.000750] (ros2_total_demo) JobQueued: {'identifier': 'ros2_total_demo', 'dependencies': OrderedDict()}
+[0.001343] (ros2_total_demo) JobStarted: {'identifier': 'ros2_total_demo'}
+[0.026893] (ros2_total_demo) JobProgress: {'identifier': 'ros2_total_demo', 'progress': 'cmake'}
+[0.028139] (ros2_total_demo) Command: {'cmd': ['/usr/bin/cmake', '/home/rm/ros2_ws/src/ros2_total_demo', '-DCMAKE_INSTALL_PREFIX=/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo'], 'cwd': '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US:en'), ('USER', 'rm'), ('LC_TIME', 'zh_CN.UTF-8'), ('BUILD_VERSION', '0.16.0'), ('SSH_AGENT_PID', '3145'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/rm/ros2_ws/install/ros2_total_demo/lib:/home/rm/ros2_ws/install/servo_interfaces/lib:/home/rm/ros2_ws/install/serial/lib:/home/rm/ros2_ws/install/rm_ros_interfaces/lib:/home/rm/ros2_ws/install/realsense2_camera/lib:/home/rm/ros2_ws/install/realsense2_camera_msgs/lib:/home/rm/ros2_ws/install/dual_rm_gazebo/lib:/usr/lib/aarch64-linux-gnu/gazebo-11/plugins:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib:/usr/local/cuda-11.4/lib64:'), ('HOME', '/home/rm'), ('OLDPWD', '/home/rm/ros2_ws/src'), ('DESKTOP_SESSION', 'ubuntu'), ('JETSON_L4T', '35.4.1'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/terminator.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('JETSON_MODEL', 'Jetson AGX Orin Developer Kit'), ('LC_MONETARY', 'zh_CN.UTF-8'), ('MANAGERPID', '2023'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator21a9d5db22c73a993ff0b42f64b396873'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '8930'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/rm/ros2_ws/install'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'rm'), ('JETSON_MODULE', 'NVIDIA Jetson AGX Orin (64GB ram)'), ('JETSON_SERIAL_NUMBER', '1423725017385'), ('JOURNAL_STREAM', '8:65201'), ('_', '/usr/local/bin/colcon'), ('ROS_VERSION', '2'), ('JETSON_CODENAME', 'Concord'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'rm'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/foxy/bin:/usr/local/cuda-11.4/bin:/home/rm/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/ubuntu:@/tmp/.ICE-unix/3180,unix/ubuntu:/tmp/.ICE-unix/3180'), ('INVOCATION_ID', 'a8addbb995d7480eb449a2e696b7f0a8'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'zh_CN.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'zh_CN.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('JETSON_SOC', 'tegra23x'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/rm/ros2_ws/install/servo_example:/home/rm/ros2_ws/install/servo_driver:/home/rm/ros2_ws/install/ros2_total_demo:/home/rm/ros2_ws/install/servo_interfaces:/home/rm/ros2_ws/install/serial:/home/rm/ros2_ws/install/ros2_agv_robot:/home/rm/ros2_ws/install/rm_driver:/home/rm/ros2_ws/install/dual_rm_control:/home/rm/ros2_ws/install/rm_ros_interfaces:/home/rm/ros2_ws/install/rm_camera_demo:/home/rm/ros2_ws/install/realsense2_description:/home/rm/ros2_ws/install/realsense2_camera:/home/rm/ros2_ws/install/realsense2_camera_msgs:/home/rm/ros2_ws/install/dual_rm_moveit_demo:/home/rm/ros2_ws/install/dual_rm_install:/home/rm/ros2_ws/install/dual_rm_gazebo:/home/rm/ros2_ws/install/dual_rm_75b_rmg24_gripper_moveit_config:/home/rm/ros2_ws/install/dual_rm_75b_moveit_config:/home/rm/ros2_ws/install/dual_rm_75b_description:/home/rm/ros2_ws/install/dual_rm_65b_rmg24_gripper_moveit_config:/home/rm/ros2_ws/install/dual_rm_65b_moveit_config:/home/rm/ros2_ws/install/dual_rm_65b_description:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('LC_NAME', 'zh_CN.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:1764ec84-1406-47bf-8523-d061579a1958'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'zh_CN.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('LC_IDENTIFICATION', 'zh_CN.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('JETSON_CUDA_ARCH_BIN', '8.7'), ('PWD', '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/rm/ros2_ws/install/ros2_total_demo/lib/python3.8/site-packages:/home/rm/ros2_ws/install/servo_interfaces/lib/python3.8/site-packages:/home/rm/ros2_ws/install/rm_ros_interfaces/lib/python3.8/site-packages:/home/rm/ros2_ws/install/rm_camera_demo/lib/python3.8/site-packages:/home/rm/ros2_ws/install/realsense2_camera_msgs/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('LC_NUMERIC', 'zh_CN.UTF-8'), ('LC_PAPER', 'zh_CN.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('JETSON_JETPACK', '5.1.2'), ('CMAKE_PREFIX_PATH', '/home/rm/ros2_ws/install/servo_example:/home/rm/ros2_ws/install/servo_driver:/home/rm/ros2_ws/install/ros2_total_demo:/home/rm/ros2_ws/install/servo_interfaces:/home/rm/ros2_ws/install/serial:/home/rm/ros2_ws/install/ros2_agv_robot:/home/rm/ros2_ws/install/rm_driver:/home/rm/ros2_ws/install/dual_rm_control:/home/rm/ros2_ws/install/rm_ros_interfaces:/home/rm/ros2_ws/install/realsense2_description:/home/rm/ros2_ws/install/realsense2_camera:/home/rm/ros2_ws/install/realsense2_camera_msgs:/home/rm/ros2_ws/install/dual_rm_moveit_demo:/home/rm/ros2_ws/install/dual_rm_install:/home/rm/ros2_ws/install/dual_rm_gazebo:/home/rm/ros2_ws/install/dual_rm_75b_rmg24_gripper_moveit_config:/home/rm/ros2_ws/install/dual_rm_75b_moveit_config:/home/rm/ros2_ws/install/dual_rm_75b_description:/home/rm/ros2_ws/install/dual_rm_65b_rmg24_gripper_moveit_config:/home/rm/ros2_ws/install/dual_rm_65b_moveit_config:/home/rm/ros2_ws/install/dual_rm_65b_description:/home/rm/ros2_ws/install/rm_camera_demo:/opt/ros/foxy'), ('JETSON_P_NUMBER', 'p3701-0005')]), 'shell': False}
+[0.099399] (-) TimerEvent: {}
+[0.200193] (-) TimerEvent: {}
+[0.218243] (ros2_total_demo) StdoutLine: {'line': b'-- The C compiler identification is GNU 9.4.0\n'}
+[0.300370] (-) TimerEvent: {}
+[0.379518] (ros2_total_demo) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 9.4.0\n'}
+[0.391194] (ros2_total_demo) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc\n'}
+[0.400445] (-) TimerEvent: {}
+[0.501023] (-) TimerEvent: {}
+[0.544568] (ros2_total_demo) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc -- works\n'}
+[0.548619] (ros2_total_demo) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.601199] (-) TimerEvent: {}
+[0.701980] (-) TimerEvent: {}
+[0.716802] (ros2_total_demo) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.735652] (ros2_total_demo) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.736350] (ros2_total_demo) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.742168] (ros2_total_demo) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++\n'}
+[0.802150] (-) TimerEvent: {}
+[0.902807] (-) TimerEvent: {}
+[0.910038] (ros2_total_demo) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ -- works\n'}
+[0.912555] (ros2_total_demo) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[1.002979] (-) TimerEvent: {}
+[1.085642] (ros2_total_demo) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[1.103116] (-) TimerEvent: {}
+[1.117425] (ros2_total_demo) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[1.118392] (ros2_total_demo) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.126672] (ros2_total_demo) StdoutLine: {'line': b'-- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)\n'}
+[1.187406] (ros2_total_demo) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") \n'}
+[1.188030] (ros2_total_demo) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[1.203228] (-) TimerEvent: {}
+[1.303805] (-) TimerEvent: {}
+[1.404544] (-) TimerEvent: {}
+[1.505304] (-) TimerEvent: {}
+[1.606142] (-) TimerEvent: {}
+[1.703618] (ros2_total_demo) StdoutLine: {'line': b'-- Found rclpy: 1.0.13 (/opt/ros/foxy/share/rclpy/cmake)\n'}
+[1.706199] (-) TimerEvent: {}
+[1.717290] (ros2_total_demo) StdoutLine: {'line': b'-- Found rclcpp: 2.4.3 (/opt/ros/foxy/share/rclcpp/cmake)\n'}
+[1.806410] (-) TimerEvent: {}
+[1.844984] (ros2_total_demo) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.868108] (ros2_total_demo) StdoutLine: {'line': b'-- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)\n'}
+[1.906553] (-) TimerEvent: {}
+[2.007223] (-) TimerEvent: {}
+[2.098436] (ros2_total_demo) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "1.1.1f")  \n'}
+[2.107315] (-) TimerEvent: {}
+[2.164667] (ros2_total_demo) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/foxy/include  \n'}
+[2.207519] (-) TimerEvent: {}
+[2.308187] (-) TimerEvent: {}
+[2.349861] (ros2_total_demo) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[2.408370] (-) TimerEvent: {}
+[2.479578] (ros2_total_demo) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 1.0.4 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)\n'}
+[2.483664] (ros2_total_demo) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[2.494569] (ros2_total_demo) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[2.508440] (-) TimerEvent: {}
+[2.608963] (-) TimerEvent: {}
+[2.663828] (ros2_total_demo) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[2.664355] (ros2_total_demo) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[2.709126] (-) TimerEvent: {}
+[2.809804] (-) TimerEvent: {}
+[2.827370] (ros2_total_demo) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed\n'}
+[2.827884] (ros2_total_demo) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads\n'}
+[2.909978] (-) TimerEvent: {}
+[2.972012] (ros2_total_demo) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads - not found\n'}
+[2.972831] (ros2_total_demo) StdoutLine: {'line': b'-- Looking for pthread_create in pthread\n'}
+[3.010153] (-) TimerEvent: {}
+[3.110813] (-) TimerEvent: {}
+[3.138848] (ros2_total_demo) StdoutLine: {'line': b'-- Looking for pthread_create in pthread - found\n'}
+[3.140801] (ros2_total_demo) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[3.210997] (-) TimerEvent: {}
+[3.311788] (-) TimerEvent: {}
+[3.412595] (-) TimerEvent: {}
+[3.450049] (ros2_total_demo) StdoutLine: {'line': b'-- Found sensor_msgs: 2.0.5 (/opt/ros/foxy/share/sensor_msgs/cmake)\n'}
+[3.512798] (-) TimerEvent: {}
+[3.613597] (-) TimerEvent: {}
+[3.668136] (ros2_total_demo) StdoutLine: {'line': b'-- Found rm_ros_interfaces: 0.0.0 (/home/rm/ros2_ws/install/rm_ros_interfaces/share/rm_ros_interfaces/cmake)\n'}
+[3.713809] (-) TimerEvent: {}
+[3.799376] (ros2_total_demo) StdoutLine: {'line': b'-- Found servo_interfaces: 0.0.0 (/home/rm/ros2_ws/install/servo_interfaces/share/servo_interfaces/cmake)\n'}
+[3.813866] (-) TimerEvent: {}
+[3.865381] (ros2_total_demo) StdoutLine: {'line': b'-- Found cv_bridge: 3.0.7 (/opt/ros/foxy/share/cv_bridge/cmake)\n'}
+[3.911204] (ros2_total_demo) StdoutLine: {'line': b'-- Found CUDA: /usr/local/cuda-11.4 (found suitable exact version "11.4") \n'}
+[3.913962] (-) TimerEvent: {}
+[4.008017] (ros2_total_demo) StdoutLine: {'line': b'-- Found OpenCV: /usr/local (found version "4.5.3") \n'}
+[4.014063] (-) TimerEvent: {}
+[4.015212] (ros2_total_demo) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.0.1 (/opt/ros/foxy/share/rosidl_default_generators/cmake)\n'}
+[4.097241] (ros2_total_demo) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found version "3.8.10") \n'}
+[4.114215] (-) TimerEvent: {}
+[4.214784] (-) TimerEvent: {}
+[4.315347] (-) TimerEvent: {}
+[4.373631] (ros2_total_demo) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.9.2 (/opt/ros/foxy/share/ament_cmake_ros/cmake)\n'}
+[4.415482] (-) TimerEvent: {}
+[4.516170] (-) TimerEvent: {}
+[4.617218] (-) TimerEvent: {}
+[4.617846] (ros2_total_demo) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[4.636223] (ros2_total_demo) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[4.693399] (ros2_total_demo) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3.5") \n'}
+[4.699476] (ros2_total_demo) StdoutLine: {'line': b'-- Found python_cmake_module: 0.8.1 (/opt/ros/foxy/share/python_cmake_module/cmake)\n'}
+[4.717366] (-) TimerEvent: {}
+[4.769616] (ros2_total_demo) StdoutLine: {'line': b'-- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.8.so (found suitable version "3.8.10", minimum required is "3.5") \n'}
+[4.770367] (ros2_total_demo) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[4.770678] (ros2_total_demo) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.8\n'}
+[4.770958] (ros2_total_demo) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.8.so\n'}
+[4.817568] (-) TimerEvent: {}
+[4.821470] (ros2_total_demo) StdoutLine: {'line': b'-- Found PythonExtra: .so  \n'}
+[4.917750] (-) TimerEvent: {}
+[4.973227] (ros2_total_demo) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.9.8 (/opt/ros/foxy/share/ament_lint_auto/cmake)\n'}
+[5.017885] (-) TimerEvent: {}
+[5.043118] (ros2_total_demo) StdoutLine: {'line': b"-- Added test 'copyright' to check source files copyright and LICENSE\n"}
+[5.060782] (ros2_total_demo) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[5.065870] (ros2_total_demo) StdoutLine: {'line': b'-- Configured cppcheck include dirs: /home/rm/ros2_ws/src/ros2_total_demo/include;/home/rm/ros2_ws/src/ros2_total_demo/include/ros2_total_demo;$<BUILD_INTERFACE:/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo/rosidl_generator_c>;/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo/rosidl_generator_c;/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo/rosidl_generator_cpp;/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo/rosidl_typesupport_fastrtps_c;/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo/rosidl_typesupport_fastrtps_cpp;$<BUILD_INTERFACE:/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo/rosidl_typesupport_introspection_c>;$<BUILD_INTERFACE:/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo/rosidl_typesupport_c>;$<BUILD_INTERFACE:/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo/rosidl_generator_cpp>;/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo/rosidl_generator_py;$<BUILD_INTERFACE:/home/rm/ros2_ws/src/ros2_total_demo/include>\n'}
+[5.066166] (ros2_total_demo) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[5.083447] (ros2_total_demo) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[5.083686] (ros2_total_demo) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[5.087032] (ros2_total_demo) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[5.092418] (ros2_total_demo) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[5.095835] (ros2_total_demo) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the style conventions in PEP 257\n"}
+[5.112996] (ros2_total_demo) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[5.113204] (ros2_total_demo) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[5.116354] (ros2_total_demo) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[5.117926] (-) TimerEvent: {}
+[5.130798] (ros2_total_demo) StdoutLine: {'line': b'-- Configuring done\n'}
+[5.218130] (-) TimerEvent: {}
+[5.236078] (ros2_total_demo) StdoutLine: {'line': b'-- Generating done\n'}
+[5.286760] (ros2_total_demo) StdoutLine: {'line': b'-- Build files have been written to: /home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo\n'}
+[5.318269] (-) TimerEvent: {}
+[5.321014] (ros2_total_demo) CommandEnded: {'returncode': 0}
+[5.323838] (ros2_total_demo) JobProgress: {'identifier': 'ros2_total_demo', 'progress': 'build'}
+[5.325930] (ros2_total_demo) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo', '--', '-j12', '-l12'], 'cwd': '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US:en'), ('USER', 'rm'), ('LC_TIME', 'zh_CN.UTF-8'), ('BUILD_VERSION', '0.16.0'), ('SSH_AGENT_PID', '3145'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/rm/ros2_ws/install/ros2_total_demo/lib:/home/rm/ros2_ws/install/servo_interfaces/lib:/home/rm/ros2_ws/install/serial/lib:/home/rm/ros2_ws/install/rm_ros_interfaces/lib:/home/rm/ros2_ws/install/realsense2_camera/lib:/home/rm/ros2_ws/install/realsense2_camera_msgs/lib:/home/rm/ros2_ws/install/dual_rm_gazebo/lib:/usr/lib/aarch64-linux-gnu/gazebo-11/plugins:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib:/usr/local/cuda-11.4/lib64:'), ('HOME', '/home/rm'), ('OLDPWD', '/home/rm/ros2_ws/src'), ('DESKTOP_SESSION', 'ubuntu'), ('JETSON_L4T', '35.4.1'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/terminator.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('JETSON_MODEL', 'Jetson AGX Orin Developer Kit'), ('LC_MONETARY', 'zh_CN.UTF-8'), ('MANAGERPID', '2023'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator21a9d5db22c73a993ff0b42f64b396873'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '8930'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/rm/ros2_ws/install'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'rm'), ('JETSON_MODULE', 'NVIDIA Jetson AGX Orin (64GB ram)'), ('JETSON_SERIAL_NUMBER', '1423725017385'), ('JOURNAL_STREAM', '8:65201'), ('_', '/usr/local/bin/colcon'), ('ROS_VERSION', '2'), ('JETSON_CODENAME', 'Concord'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'rm'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/foxy/bin:/usr/local/cuda-11.4/bin:/home/rm/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/ubuntu:@/tmp/.ICE-unix/3180,unix/ubuntu:/tmp/.ICE-unix/3180'), ('INVOCATION_ID', 'a8addbb995d7480eb449a2e696b7f0a8'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'zh_CN.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'zh_CN.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('JETSON_SOC', 'tegra23x'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/rm/ros2_ws/install/servo_example:/home/rm/ros2_ws/install/servo_driver:/home/rm/ros2_ws/install/ros2_total_demo:/home/rm/ros2_ws/install/servo_interfaces:/home/rm/ros2_ws/install/serial:/home/rm/ros2_ws/install/ros2_agv_robot:/home/rm/ros2_ws/install/rm_driver:/home/rm/ros2_ws/install/dual_rm_control:/home/rm/ros2_ws/install/rm_ros_interfaces:/home/rm/ros2_ws/install/rm_camera_demo:/home/rm/ros2_ws/install/realsense2_description:/home/rm/ros2_ws/install/realsense2_camera:/home/rm/ros2_ws/install/realsense2_camera_msgs:/home/rm/ros2_ws/install/dual_rm_moveit_demo:/home/rm/ros2_ws/install/dual_rm_install:/home/rm/ros2_ws/install/dual_rm_gazebo:/home/rm/ros2_ws/install/dual_rm_75b_rmg24_gripper_moveit_config:/home/rm/ros2_ws/install/dual_rm_75b_moveit_config:/home/rm/ros2_ws/install/dual_rm_75b_description:/home/rm/ros2_ws/install/dual_rm_65b_rmg24_gripper_moveit_config:/home/rm/ros2_ws/install/dual_rm_65b_moveit_config:/home/rm/ros2_ws/install/dual_rm_65b_description:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('LC_NAME', 'zh_CN.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:1764ec84-1406-47bf-8523-d061579a1958'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'zh_CN.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('LC_IDENTIFICATION', 'zh_CN.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('JETSON_CUDA_ARCH_BIN', '8.7'), ('PWD', '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/rm/ros2_ws/install/ros2_total_demo/lib/python3.8/site-packages:/home/rm/ros2_ws/install/servo_interfaces/lib/python3.8/site-packages:/home/rm/ros2_ws/install/rm_ros_interfaces/lib/python3.8/site-packages:/home/rm/ros2_ws/install/rm_camera_demo/lib/python3.8/site-packages:/home/rm/ros2_ws/install/realsense2_camera_msgs/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('LC_NUMERIC', 'zh_CN.UTF-8'), ('LC_PAPER', 'zh_CN.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('JETSON_JETPACK', '5.1.2'), ('CMAKE_PREFIX_PATH', '/home/rm/ros2_ws/install/servo_example:/home/rm/ros2_ws/install/servo_driver:/home/rm/ros2_ws/install/ros2_total_demo:/home/rm/ros2_ws/install/servo_interfaces:/home/rm/ros2_ws/install/serial:/home/rm/ros2_ws/install/ros2_agv_robot:/home/rm/ros2_ws/install/rm_driver:/home/rm/ros2_ws/install/dual_rm_control:/home/rm/ros2_ws/install/rm_ros_interfaces:/home/rm/ros2_ws/install/realsense2_description:/home/rm/ros2_ws/install/realsense2_camera:/home/rm/ros2_ws/install/realsense2_camera_msgs:/home/rm/ros2_ws/install/dual_rm_moveit_demo:/home/rm/ros2_ws/install/dual_rm_install:/home/rm/ros2_ws/install/dual_rm_gazebo:/home/rm/ros2_ws/install/dual_rm_75b_rmg24_gripper_moveit_config:/home/rm/ros2_ws/install/dual_rm_75b_moveit_config:/home/rm/ros2_ws/install/dual_rm_75b_description:/home/rm/ros2_ws/install/dual_rm_65b_rmg24_gripper_moveit_config:/home/rm/ros2_ws/install/dual_rm_65b_moveit_config:/home/rm/ros2_ws/install/dual_rm_65b_description:/home/rm/ros2_ws/install/rm_camera_demo:/opt/ros/foxy'), ('JETSON_P_NUMBER', 'p3701-0005')]), 'shell': False}
+[5.418494] (-) TimerEvent: {}
+[5.432656] (ros2_total_demo) StdoutLine: {'line': b'[  2%] \x1b[34m\x1b[1mGenerating C code for ROS interfaces\x1b[0m\n'}
+[5.433280] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo__cpp\x1b[0m\n'}
+[5.433485] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target total_demo_node\x1b[0m\n'}
+[5.459465] (ros2_total_demo) StdoutLine: {'line': b'[  5%] \x1b[34m\x1b[1mGenerating C++ code for ROS interfaces\x1b[0m\n'}
+[5.518622] (-) TimerEvent: {}
+[5.597125] (ros2_total_demo) StdoutLine: {'line': b'[  8%] \x1b[32mBuilding CXX object CMakeFiles/total_demo_node.dir/src/dual_arm.cpp.o\x1b[0m\n'}
+[5.597735] (ros2_total_demo) StdoutLine: {'line': b'[ 11%] \x1b[32mBuilding CXX object CMakeFiles/total_demo_node.dir/src/total_demo_node.cpp.o\x1b[0m\n'}
+[5.618783] (-) TimerEvent: {}
+[5.719395] (-) TimerEvent: {}
+[5.820023] (-) TimerEvent: {}
+[5.914946] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo__rosidl_generator_c\x1b[0m\n'}
+[5.920088] (-) TimerEvent: {}
+[5.932977] (ros2_total_demo) StdoutLine: {'line': b'[ 11%] Built target ros2_total_demo__cpp\n'}
+[5.944551] (ros2_total_demo) StdoutLine: {'line': b'[ 14%] \x1b[32mBuilding C object CMakeFiles/ros2_total_demo__rosidl_generator_c.dir/rosidl_generator_c/ros2_total_demo/msg/detail/object_pose__functions.c.o\x1b[0m\n'}
+[5.958050] (ros2_total_demo) StdoutLine: {'line': b'[ 17%] \x1b[34m\x1b[1mGenerating C++ introspection for ROS interfaces\x1b[0m\n'}
+[5.958734] (ros2_total_demo) StdoutLine: {'line': b'[ 23%] \x1b[34m\x1b[1mGenerating C++ type support for eProsima Fast-RTPS\x1b[0m\n'}
+[5.959008] (ros2_total_demo) StdoutLine: {'line': b'[ 23%] \x1b[34m\x1b[1mGenerating C++ type support dispatch for ROS interfaces\x1b[0m\n'}
+[6.020281] (-) TimerEvent: {}
+[6.060540] (ros2_total_demo) StdoutLine: {'line': b'[ 26%] \x1b[32m\x1b[1mLinking C shared library libros2_total_demo__rosidl_generator_c.so\x1b[0m\n'}
+[6.120485] (-) TimerEvent: {}
+[6.143823] (ros2_total_demo) StdoutLine: {'line': b'[ 26%] Built target ros2_total_demo__rosidl_generator_c\n'}
+[6.170863] (ros2_total_demo) StdoutLine: {'line': b'[ 32%] \x1b[34m\x1b[1mGenerating C introspection for ROS interfaces\x1b[0m\n'}
+[6.171428] (ros2_total_demo) StdoutLine: {'line': b'[ 32%] \x1b[34m\x1b[1mGenerating C type support dispatch for ROS interfaces\x1b[0m\n'}
+[6.220634] (-) TimerEvent: {}
+[6.321325] (-) TimerEvent: {}
+[6.388726] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo__rosidl_typesupport_cpp\x1b[0m\n'}
+[6.418073] (ros2_total_demo) StdoutLine: {'line': b'[ 35%] \x1b[32mBuilding CXX object CMakeFiles/ros2_total_demo__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/ros2_total_demo/msg/object_pose__type_support.cpp.o\x1b[0m\n'}
+[6.421550] (-) TimerEvent: {}
+[6.430085] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo__rosidl_typesupport_introspection_cpp\x1b[0m\n'}
+[6.441928] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo__rosidl_typesupport_fastrtps_cpp\x1b[0m\n'}
+[6.464160] (ros2_total_demo) StdoutLine: {'line': b'[ 38%] \x1b[32mBuilding CXX object CMakeFiles/ros2_total_demo__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/ros2_total_demo/msg/detail/object_pose__type_support.cpp.o\x1b[0m\n'}
+[6.479643] (ros2_total_demo) StdoutLine: {'line': b'[ 41%] \x1b[32mBuilding CXX object CMakeFiles/ros2_total_demo__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/ros2_total_demo/msg/detail/dds_fastrtps/object_pose__type_support.cpp.o\x1b[0m\n'}
+[6.521659] (-) TimerEvent: {}
+[6.603546] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo__rosidl_typesupport_c\x1b[0m\n'}
+[6.621853] (-) TimerEvent: {}
+[6.635585] (ros2_total_demo) StdoutLine: {'line': b'[ 44%] \x1b[32mBuilding CXX object CMakeFiles/ros2_total_demo__rosidl_typesupport_c.dir/rosidl_typesupport_c/ros2_total_demo/msg/object_pose__type_support.cpp.o\x1b[0m\n'}
+[6.644941] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo__rosidl_typesupport_introspection_c\x1b[0m\n'}
+[6.679752] (ros2_total_demo) StdoutLine: {'line': b'[ 47%] \x1b[32mBuilding C object CMakeFiles/ros2_total_demo__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/ros2_total_demo/msg/detail/object_pose__type_support.c.o\x1b[0m\n'}
+[6.713814] (ros2_total_demo) StdoutLine: {'line': b'[ 50%] \x1b[32m\x1b[1mLinking CXX shared library libros2_total_demo__rosidl_typesupport_c.so\x1b[0m\n'}
+[6.722535] (-) TimerEvent: {}
+[6.759196] (ros2_total_demo) StdoutLine: {'line': b'[ 52%] \x1b[32m\x1b[1mLinking C shared library libros2_total_demo__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[6.814392] (ros2_total_demo) StdoutLine: {'line': b'[ 52%] Built target ros2_total_demo__rosidl_typesupport_c\n'}
+[6.822684] (-) TimerEvent: {}
+[6.834348] (ros2_total_demo) StdoutLine: {'line': b'[ 52%] Built target ros2_total_demo__rosidl_typesupport_introspection_c\n'}
+[6.922859] (-) TimerEvent: {}
+[7.023688] (-) TimerEvent: {}
+[7.070303] (ros2_total_demo) StdoutLine: {'line': b'[ 55%] \x1b[32m\x1b[1mLinking CXX shared library libros2_total_demo__rosidl_typesupport_cpp.so\x1b[0m\n'}
+[7.122153] (ros2_total_demo) StdoutLine: {'line': b'[ 58%] \x1b[32m\x1b[1mLinking CXX shared library libros2_total_demo__rosidl_typesupport_introspection_cpp.so\x1b[0m\n'}
+[7.123769] (-) TimerEvent: {}
+[7.151316] (ros2_total_demo) StdoutLine: {'line': b'[ 58%] Built target ros2_total_demo__rosidl_typesupport_cpp\n'}
+[7.209887] (ros2_total_demo) StdoutLine: {'line': b'[ 58%] Built target ros2_total_demo__rosidl_typesupport_introspection_cpp\n'}
+[7.223970] (-) TimerEvent: {}
+[7.324956] (-) TimerEvent: {}
+[7.424651] (ros2_total_demo) StdoutLine: {'line': b'[ 61%] \x1b[32m\x1b[1mLinking CXX shared library libros2_total_demo__rosidl_typesupport_fastrtps_cpp.so\x1b[0m\n'}
+[7.425173] (-) TimerEvent: {}
+[7.525835] (-) TimerEvent: {}
+[7.598470] (ros2_total_demo) StdoutLine: {'line': b'[ 61%] Built target ros2_total_demo__rosidl_typesupport_fastrtps_cpp\n'}
+[7.623643] (ros2_total_demo) StdoutLine: {'line': b'[ 64%] \x1b[34m\x1b[1mGenerating C type support for eProsima Fast-RTPS\x1b[0m\n'}
+[7.625908] (-) TimerEvent: {}
+[7.726398] (-) TimerEvent: {}
+[7.827026] (-) TimerEvent: {}
+[7.927688] (-) TimerEvent: {}
+[8.028392] (-) TimerEvent: {}
+[8.076042] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo__rosidl_typesupport_fastrtps_c\x1b[0m\n'}
+[8.108549] (ros2_total_demo) StdoutLine: {'line': b'[ 67%] \x1b[32mBuilding CXX object CMakeFiles/ros2_total_demo__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/ros2_total_demo/msg/detail/object_pose__type_support_c.cpp.o\x1b[0m\n'}
+[8.128563] (-) TimerEvent: {}
+[8.229444] (-) TimerEvent: {}
+[8.330177] (-) TimerEvent: {}
+[8.430865] (-) TimerEvent: {}
+[8.531553] (-) TimerEvent: {}
+[8.632242] (-) TimerEvent: {}
+[8.732935] (-) TimerEvent: {}
+[8.833655] (-) TimerEvent: {}
+[8.879327] (ros2_total_demo) StdoutLine: {'line': b'[ 70%] \x1b[32m\x1b[1mLinking CXX shared library libros2_total_demo__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[8.933801] (-) TimerEvent: {}
+[9.034507] (-) TimerEvent: {}
+[9.052951] (ros2_total_demo) StdoutLine: {'line': b'[ 70%] Built target ros2_total_demo__rosidl_typesupport_fastrtps_c\n'}
+[9.081992] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo\x1b[0m\n'}
+[9.107795] (ros2_total_demo) StdoutLine: {'line': b'[ 70%] Built target ros2_total_demo\n'}
+[9.133574] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo__py\x1b[0m\n'}
+[9.134572] (-) TimerEvent: {}
+[9.159187] (ros2_total_demo) StdoutLine: {'line': b'[ 73%] \x1b[34m\x1b[1mGenerating Python code for ROS interfaces\x1b[0m\n'}
+[9.234742] (-) TimerEvent: {}
+[9.335338] (-) TimerEvent: {}
+[9.435931] (-) TimerEvent: {}
+[9.536545] (-) TimerEvent: {}
+[9.637208] (-) TimerEvent: {}
+[9.737920] (-) TimerEvent: {}
+[9.838667] (-) TimerEvent: {}
+[9.895533] (ros2_total_demo) StdoutLine: {'line': b'[ 73%] Built target ros2_total_demo__py\n'}
+[9.921361] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo__python\x1b[0m\n'}
+[9.938778] (-) TimerEvent: {}
+[9.980950] (ros2_total_demo) StdoutLine: {'line': b'[ 76%] \x1b[32mBuilding C object CMakeFiles/ros2_total_demo__python.dir/rosidl_generator_py/ros2_total_demo/msg/_object_pose_s.c.o\x1b[0m\n'}
+[10.038968] (-) TimerEvent: {}
+[10.139661] (-) TimerEvent: {}
+[10.175078] (ros2_total_demo) StdoutLine: {'line': b'[ 79%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/ros2_total_demo/libros2_total_demo__python.so\x1b[0m\n'}
+[10.239827] (-) TimerEvent: {}
+[10.253434] (ros2_total_demo) StdoutLine: {'line': b'[ 79%] Built target ros2_total_demo__python\n'}
+[10.280200] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo__rosidl_typesupport_fastrtps_c__pyext\x1b[0m\n'}
+[10.280691] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo__rosidl_typesupport_introspection_c__pyext\x1b[0m\n'}
+[10.283803] (ros2_total_demo) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target ros2_total_demo__rosidl_typesupport_c__pyext\x1b[0m\n'}
+[10.322913] (ros2_total_demo) StdoutLine: {'line': b'[ 85%] \x1b[32mBuilding C object CMakeFiles/ros2_total_demo__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/ros2_total_demo/_ros2_total_demo_s.ep.rosidl_typesupport_introspection_c.c.o\x1b[0m\n'}
+[10.323575] (ros2_total_demo) StdoutLine: {'line': b'[ 85%] \x1b[32mBuilding C object CMakeFiles/ros2_total_demo__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/ros2_total_demo/_ros2_total_demo_s.ep.rosidl_typesupport_fastrtps_c.c.o\x1b[0m\n'}
+[10.329666] (ros2_total_demo) StdoutLine: {'line': b'[ 88%] \x1b[32mBuilding C object CMakeFiles/ros2_total_demo__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/ros2_total_demo/_ros2_total_demo_s.ep.rosidl_typesupport_c.c.o\x1b[0m\n'}
+[10.340017] (-) TimerEvent: {}
+[10.441006] (-) TimerEvent: {}
+[10.497051] (ros2_total_demo) StdoutLine: {'line': b'[ 94%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/ros2_total_demo/ros2_total_demo_s__rosidl_typesupport_c.cpython-38-aarch64-linux-gnu.so\x1b[0m\n'}
+[10.497611] (ros2_total_demo) StdoutLine: {'line': b'[ 94%] \x1b[32m\x1b[1mLinking CXX shared library rosidl_generator_py/ros2_total_demo/ros2_total_demo_s__rosidl_typesupport_fastrtps_c.cpython-38-aarch64-linux-gnu.so\x1b[0m\n'}
+[10.500862] (ros2_total_demo) StdoutLine: {'line': b'[ 97%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/ros2_total_demo/ros2_total_demo_s__rosidl_typesupport_introspection_c.cpython-38-aarch64-linux-gnu.so\x1b[0m\n'}
+[10.541218] (-) TimerEvent: {}
+[10.571821] (ros2_total_demo) StdoutLine: {'line': b'[ 97%] Built target ros2_total_demo__rosidl_typesupport_c__pyext\n'}
+[10.582293] (ros2_total_demo) StdoutLine: {'line': b'[ 97%] Built target ros2_total_demo__rosidl_typesupport_introspection_c__pyext\n'}
+[10.618677] (ros2_total_demo) StdoutLine: {'line': b'[ 97%] Built target ros2_total_demo__rosidl_typesupport_fastrtps_c__pyext\n'}
+[10.641400] (-) TimerEvent: {}
+[10.742159] (-) TimerEvent: {}
+[10.842850] (-) TimerEvent: {}
+[10.943528] (-) TimerEvent: {}
+[11.044225] (-) TimerEvent: {}
+[11.144916] (-) TimerEvent: {}
+[11.245599] (-) TimerEvent: {}
+[11.346276] (-) TimerEvent: {}
+[11.446947] (-) TimerEvent: {}
+[11.547627] (-) TimerEvent: {}
+[11.648304] (-) TimerEvent: {}
+[11.749007] (-) TimerEvent: {}
+[11.849669] (-) TimerEvent: {}
+[11.950334] (-) TimerEvent: {}
+[12.050993] (-) TimerEvent: {}
+[12.151637] (-) TimerEvent: {}
+[12.252272] (-) TimerEvent: {}
+[12.352915] (-) TimerEvent: {}
+[12.453595] (-) TimerEvent: {}
+[12.554264] (-) TimerEvent: {}
+[12.654923] (-) TimerEvent: {}
+[12.755577] (-) TimerEvent: {}
+[12.856215] (-) TimerEvent: {}
+[12.956888] (-) TimerEvent: {}
+[13.057587] (-) TimerEvent: {}
+[13.158245] (-) TimerEvent: {}
+[13.258900] (-) TimerEvent: {}
+[13.359554] (-) TimerEvent: {}
+[13.460190] (-) TimerEvent: {}
+[13.560842] (-) TimerEvent: {}
+[13.661482] (-) TimerEvent: {}
+[13.762181] (-) TimerEvent: {}
+[13.862808] (-) TimerEvent: {}
+[13.963543] (-) TimerEvent: {}
+[14.064239] (-) TimerEvent: {}
+[14.164920] (-) TimerEvent: {}
+[14.265617] (-) TimerEvent: {}
+[14.366305] (-) TimerEvent: {}
+[14.466966] (-) TimerEvent: {}
+[14.567642] (-) TimerEvent: {}
+[14.668309] (-) TimerEvent: {}
+[14.768977] (-) TimerEvent: {}
+[14.869646] (-) TimerEvent: {}
+[14.970301] (-) TimerEvent: {}
+[15.070986] (-) TimerEvent: {}
+[15.171656] (-) TimerEvent: {}
+[15.272324] (-) TimerEvent: {}
+[15.372989] (-) TimerEvent: {}
+[15.473661] (-) TimerEvent: {}
+[15.574325] (-) TimerEvent: {}
+[15.674983] (-) TimerEvent: {}
+[15.775632] (-) TimerEvent: {}
+[15.876288] (-) TimerEvent: {}
+[15.976956] (-) TimerEvent: {}
+[16.077637] (-) TimerEvent: {}
+[16.178311] (-) TimerEvent: {}
+[16.278961] (-) TimerEvent: {}
+[16.379632] (-) TimerEvent: {}
+[16.480284] (-) TimerEvent: {}
+[16.580948] (-) TimerEvent: {}
+[16.681604] (-) TimerEvent: {}
+[16.782234] (-) TimerEvent: {}
+[16.882898] (-) TimerEvent: {}
+[16.983573] (-) TimerEvent: {}
+[17.084260] (-) TimerEvent: {}
+[17.184918] (-) TimerEvent: {}
+[17.285590] (-) TimerEvent: {}
+[17.386207] (-) TimerEvent: {}
+[17.486827] (-) TimerEvent: {}
+[17.587450] (-) TimerEvent: {}
+[17.688077] (-) TimerEvent: {}
+[17.788734] (-) TimerEvent: {}
+[17.889369] (-) TimerEvent: {}
+[17.990029] (-) TimerEvent: {}
+[18.090649] (-) TimerEvent: {}
+[18.191281] (-) TimerEvent: {}
+[18.291920] (-) TimerEvent: {}
+[18.392535] (-) TimerEvent: {}
+[18.493164] (-) TimerEvent: {}
+[18.593820] (-) TimerEvent: {}
+[18.694442] (-) TimerEvent: {}
+[18.795072] (-) TimerEvent: {}
+[18.895706] (-) TimerEvent: {}
+[18.996331] (-) TimerEvent: {}
+[19.096974] (-) TimerEvent: {}
+[19.197600] (-) TimerEvent: {}
+[19.298224] (-) TimerEvent: {}
+[19.398855] (-) TimerEvent: {}
+[19.499499] (-) TimerEvent: {}
+[19.600160] (-) TimerEvent: {}
+[19.700810] (-) TimerEvent: {}
+[19.801500] (-) TimerEvent: {}
+[19.902264] (-) TimerEvent: {}
+[20.003037] (-) TimerEvent: {}
+[20.103700] (-) TimerEvent: {}
+[20.204346] (-) TimerEvent: {}
+[20.305044] (-) TimerEvent: {}
+[20.405837] (-) TimerEvent: {}
+[20.506612] (-) TimerEvent: {}
+[20.607385] (-) TimerEvent: {}
+[20.708077] (-) TimerEvent: {}
+[20.808743] (-) TimerEvent: {}
+[20.909378] (-) TimerEvent: {}
+[21.010088] (-) TimerEvent: {}
+[21.110758] (-) TimerEvent: {}
+[21.211419] (-) TimerEvent: {}
+[21.312085] (-) TimerEvent: {}
+[21.412728] (-) TimerEvent: {}
+[21.513364] (-) TimerEvent: {}
+[21.614041] (-) TimerEvent: {}
+[21.714691] (-) TimerEvent: {}
+[21.815334] (-) TimerEvent: {}
+[21.915986] (-) TimerEvent: {}
+[22.016641] (-) TimerEvent: {}
+[22.117309] (-) TimerEvent: {}
+[22.217992] (-) TimerEvent: {}
+[22.318638] (-) TimerEvent: {}
+[22.419283] (-) TimerEvent: {}
+[22.519923] (-) TimerEvent: {}
+[22.620544] (-) TimerEvent: {}
+[22.721165] (-) TimerEvent: {}
+[22.821843] (-) TimerEvent: {}
+[22.922515] (-) TimerEvent: {}
+[23.023167] (-) TimerEvent: {}
+[23.123821] (-) TimerEvent: {}
+[23.224464] (-) TimerEvent: {}
+[23.325097] (-) TimerEvent: {}
+[23.425754] (-) TimerEvent: {}
+[23.526389] (-) TimerEvent: {}
+[23.627030] (-) TimerEvent: {}
+[23.727760] (-) TimerEvent: {}
+[23.828535] (-) TimerEvent: {}
+[23.929231] (-) TimerEvent: {}
+[24.030146] (-) TimerEvent: {}
+[24.130815] (-) TimerEvent: {}
+[24.231490] (-) TimerEvent: {}
+[24.332187] (-) TimerEvent: {}
+[24.432987] (-) TimerEvent: {}
+[24.533672] (-) TimerEvent: {}
+[24.634369] (-) TimerEvent: {}
+[24.735216] (-) TimerEvent: {}
+[24.836027] (-) TimerEvent: {}
+[24.936843] (-) TimerEvent: {}
+[25.037706] (-) TimerEvent: {}
+[25.138556] (-) TimerEvent: {}
+[25.239310] (-) TimerEvent: {}
+[25.242156] (ros2_total_demo) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable total_demo_node\x1b[0m\n'}
+[25.339495] (-) TimerEvent: {}
+[25.440222] (-) TimerEvent: {}
+[25.540884] (-) TimerEvent: {}
+[25.641648] (-) TimerEvent: {}
+[25.742362] (-) TimerEvent: {}
+[25.843115] (-) TimerEvent: {}
+[25.943884] (-) TimerEvent: {}
+[26.044593] (-) TimerEvent: {}
+[26.145256] (-) TimerEvent: {}
+[26.245950] (-) TimerEvent: {}
+[26.346659] (-) TimerEvent: {}
+[26.447314] (-) TimerEvent: {}
+[26.451004] (ros2_total_demo) StdoutLine: {'line': b'[100%] Built target total_demo_node\n'}
+[26.483843] (ros2_total_demo) CommandEnded: {'returncode': 0}
+[26.487068] (ros2_total_demo) JobProgress: {'identifier': 'ros2_total_demo', 'progress': 'install'}
+[26.517369] (ros2_total_demo) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo'], 'cwd': '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US:en'), ('USER', 'rm'), ('LC_TIME', 'zh_CN.UTF-8'), ('BUILD_VERSION', '0.16.0'), ('SSH_AGENT_PID', '3145'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/rm/ros2_ws/install/ros2_total_demo/lib:/home/rm/ros2_ws/install/servo_interfaces/lib:/home/rm/ros2_ws/install/serial/lib:/home/rm/ros2_ws/install/rm_ros_interfaces/lib:/home/rm/ros2_ws/install/realsense2_camera/lib:/home/rm/ros2_ws/install/realsense2_camera_msgs/lib:/home/rm/ros2_ws/install/dual_rm_gazebo/lib:/usr/lib/aarch64-linux-gnu/gazebo-11/plugins:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib:/usr/local/cuda-11.4/lib64:'), ('HOME', '/home/rm'), ('OLDPWD', '/home/rm/ros2_ws/src'), ('DESKTOP_SESSION', 'ubuntu'), ('JETSON_L4T', '35.4.1'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/terminator.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('JETSON_MODEL', 'Jetson AGX Orin Developer Kit'), ('LC_MONETARY', 'zh_CN.UTF-8'), ('MANAGERPID', '2023'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator21a9d5db22c73a993ff0b42f64b396873'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '8930'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/rm/ros2_ws/install'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'rm'), ('JETSON_MODULE', 'NVIDIA Jetson AGX Orin (64GB ram)'), ('JETSON_SERIAL_NUMBER', '1423725017385'), ('JOURNAL_STREAM', '8:65201'), ('_', '/usr/local/bin/colcon'), ('ROS_VERSION', '2'), ('JETSON_CODENAME', 'Concord'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'rm'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/foxy/bin:/usr/local/cuda-11.4/bin:/home/rm/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/ubuntu:@/tmp/.ICE-unix/3180,unix/ubuntu:/tmp/.ICE-unix/3180'), ('INVOCATION_ID', 'a8addbb995d7480eb449a2e696b7f0a8'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'zh_CN.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'zh_CN.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('JETSON_SOC', 'tegra23x'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/rm/ros2_ws/install/servo_example:/home/rm/ros2_ws/install/servo_driver:/home/rm/ros2_ws/install/ros2_total_demo:/home/rm/ros2_ws/install/servo_interfaces:/home/rm/ros2_ws/install/serial:/home/rm/ros2_ws/install/ros2_agv_robot:/home/rm/ros2_ws/install/rm_driver:/home/rm/ros2_ws/install/dual_rm_control:/home/rm/ros2_ws/install/rm_ros_interfaces:/home/rm/ros2_ws/install/rm_camera_demo:/home/rm/ros2_ws/install/realsense2_description:/home/rm/ros2_ws/install/realsense2_camera:/home/rm/ros2_ws/install/realsense2_camera_msgs:/home/rm/ros2_ws/install/dual_rm_moveit_demo:/home/rm/ros2_ws/install/dual_rm_install:/home/rm/ros2_ws/install/dual_rm_gazebo:/home/rm/ros2_ws/install/dual_rm_75b_rmg24_gripper_moveit_config:/home/rm/ros2_ws/install/dual_rm_75b_moveit_config:/home/rm/ros2_ws/install/dual_rm_75b_description:/home/rm/ros2_ws/install/dual_rm_65b_rmg24_gripper_moveit_config:/home/rm/ros2_ws/install/dual_rm_65b_moveit_config:/home/rm/ros2_ws/install/dual_rm_65b_description:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('LC_NAME', 'zh_CN.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:1764ec84-1406-47bf-8523-d061579a1958'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'zh_CN.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('LC_IDENTIFICATION', 'zh_CN.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('JETSON_CUDA_ARCH_BIN', '8.7'), ('PWD', '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/rm/ros2_ws/install/ros2_total_demo/lib/python3.8/site-packages:/home/rm/ros2_ws/install/servo_interfaces/lib/python3.8/site-packages:/home/rm/ros2_ws/install/rm_ros_interfaces/lib/python3.8/site-packages:/home/rm/ros2_ws/install/rm_camera_demo/lib/python3.8/site-packages:/home/rm/ros2_ws/install/realsense2_camera_msgs/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('LC_NUMERIC', 'zh_CN.UTF-8'), ('LC_PAPER', 'zh_CN.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('JETSON_JETPACK', '5.1.2'), ('CMAKE_PREFIX_PATH', '/home/rm/ros2_ws/install/servo_example:/home/rm/ros2_ws/install/servo_driver:/home/rm/ros2_ws/install/ros2_total_demo:/home/rm/ros2_ws/install/servo_interfaces:/home/rm/ros2_ws/install/serial:/home/rm/ros2_ws/install/ros2_agv_robot:/home/rm/ros2_ws/install/rm_driver:/home/rm/ros2_ws/install/dual_rm_control:/home/rm/ros2_ws/install/rm_ros_interfaces:/home/rm/ros2_ws/install/realsense2_description:/home/rm/ros2_ws/install/realsense2_camera:/home/rm/ros2_ws/install/realsense2_camera_msgs:/home/rm/ros2_ws/install/dual_rm_moveit_demo:/home/rm/ros2_ws/install/dual_rm_install:/home/rm/ros2_ws/install/dual_rm_gazebo:/home/rm/ros2_ws/install/dual_rm_75b_rmg24_gripper_moveit_config:/home/rm/ros2_ws/install/dual_rm_75b_moveit_config:/home/rm/ros2_ws/install/dual_rm_75b_description:/home/rm/ros2_ws/install/dual_rm_65b_rmg24_gripper_moveit_config:/home/rm/ros2_ws/install/dual_rm_65b_moveit_config:/home/rm/ros2_ws/install/dual_rm_65b_description:/home/rm/ros2_ws/install/rm_camera_demo:/opt/ros/foxy'), ('JETSON_P_NUMBER', 'p3701-0005')]), 'shell': False}
+[26.544466] (ros2_total_demo) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[26.545016] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ament_index/resource_index/rosidl_interfaces/ros2_total_demo\n'}
+[26.545252] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo\n'}
+[26.545455] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg\n'}
+[26.545813] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail\n'}
+[26.546252] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__functions.h\n'}
+[26.546539] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__functions.c\n'}
+[26.546823] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__struct.h\n'}
+[26.547031] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__type_support.h\n'}
+[26.547209] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/rosidl_generator_c__visibility_control.h\n'}
+[26.547349] (-) TimerEvent: {}
+[26.547673] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/object_pose.h\n'}
+[26.547902] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/library_path.sh\n'}
+[26.548165] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/library_path.dsv\n'}
+[26.548645] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_generator_c.so\n'}
+[26.549369] (ros2_total_demo) StdoutLine: {'line': b'-- Set runtime path of "/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_generator_c.so" to ""\n'}
+[26.549632] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo\n'}
+[26.549918] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg\n'}
+[26.550101] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail\n'}
+[26.550249] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__rosidl_typesupport_fastrtps_c.h\n'}
+[26.550380] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[26.550544] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_fastrtps_c.so\n'}
+[26.551140] (ros2_total_demo) StdoutLine: {'line': b'-- Set runtime path of "/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_fastrtps_c.so" to ""\n'}
+[26.551482] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo\n'}
+[26.551715] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg\n'}
+[26.551895] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail\n'}
+[26.552050] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[26.552180] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/dds_fastrtps\n'}
+[26.552360] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[26.552492] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_fastrtps_cpp.so\n'}
+[26.552986] (ros2_total_demo) StdoutLine: {'line': b'-- Set runtime path of "/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_fastrtps_cpp.so" to ""\n'}
+[26.553314] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo\n'}
+[26.553500] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg\n'}
+[26.553720] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail\n'}
+[26.553933] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__rosidl_typesupport_introspection_c.h\n'}
+[26.554066] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__type_support.c\n'}
+[26.554195] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[26.554400] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_introspection_c.so\n'}
+[26.554891] (ros2_total_demo) StdoutLine: {'line': b'-- Set runtime path of "/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_introspection_c.so" to ""\n'}
+[26.555107] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_c.so\n'}
+[26.555744] (ros2_total_demo) StdoutLine: {'line': b'-- Set runtime path of "/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_c.so" to ""\n'}
+[26.555925] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo\n'}
+[26.556111] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg\n'}
+[26.556241] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/object_pose.hpp\n'}
+[26.556456] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail\n'}
+[26.556617] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__traits.hpp\n'}
+[26.556744] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__struct.hpp\n'}
+[26.556895] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__type_support.hpp\n'}
+[26.557060] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__builder.hpp\n'}
+[26.557225] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[26.557597] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo\n'}
+[26.557941] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg\n'}
+[26.558147] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail\n'}
+[26.558299] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__rosidl_typesupport_introspection_cpp.hpp\n'}
+[26.558445] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__type_support.cpp\n'}
+[26.558666] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_introspection_cpp.so\n'}
+[26.559185] (ros2_total_demo) StdoutLine: {'line': b'-- Set runtime path of "/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_introspection_cpp.so" to ""\n'}
+[26.559436] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_cpp.so\n'}
+[26.560066] (ros2_total_demo) StdoutLine: {'line': b'-- Set runtime path of "/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_cpp.so" to ""\n'}
+[26.560266] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/pythonpath.sh\n'}
+[26.560494] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/pythonpath.dsv\n'}
+[26.561006] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/__init__.py\n'}
+[26.632009] (ros2_total_demo) StdoutLine: {'line': b"Compiling '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/__init__.py'...\n"}
+[26.642589] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/msg\n'}
+[26.642884] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/msg/__init__.py\n'}
+[26.643110] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/msg/_object_pose.py\n'}
+[26.643356] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/msg/_object_pose_s.c\n'}
+[26.643984] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/ros2_total_demo_s__rosidl_typesupport_fastrtps_c.cpython-38-aarch64-linux-gnu.so\n'}
+[26.644979] (ros2_total_demo) StdoutLine: {'line': b'-- Set runtime path of "/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/ros2_total_demo_s__rosidl_typesupport_fastrtps_c.cpython-38-aarch64-linux-gnu.so" to ""\n'}
+[26.645423] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/ros2_total_demo_s__rosidl_typesupport_introspection_c.cpython-38-aarch64-linux-gnu.so\n'}
+[26.646356] (ros2_total_demo) StdoutLine: {'line': b'-- Set runtime path of "/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/ros2_total_demo_s__rosidl_typesupport_introspection_c.cpython-38-aarch64-linux-gnu.so" to ""\n'}
+[26.646788] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/ros2_total_demo_s__rosidl_typesupport_c.cpython-38-aarch64-linux-gnu.so\n'}
+[26.647428] (-) TimerEvent: {}
+[26.647762] (ros2_total_demo) StdoutLine: {'line': b'-- Set runtime path of "/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/ros2_total_demo_s__rosidl_typesupport_c.cpython-38-aarch64-linux-gnu.so" to ""\n'}
+[26.648006] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__python.so\n'}
+[26.648535] (ros2_total_demo) StdoutLine: {'line': b'-- Set runtime path of "/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__python.so" to ""\n'}
+[26.648790] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/msg/ObjectPose.idl\n'}
+[26.649071] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/msg/ObjectPose.msg\n'}
+[26.649532] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/total_demo_node\n'}
+[26.660170] (ros2_total_demo) StdoutLine: {'line': b'-- Set runtime path of "/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/total_demo_node" to ""\n'}
+[26.660650] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo\n'}
+[26.660920] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/__init__.py\n'}
+[26.731013] (ros2_total_demo) StdoutLine: {'line': b"Listing '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo'...\n"}
+[26.731491] (ros2_total_demo) StdoutLine: {'line': b"Compiling '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/__init__.py'...\n"}
+[26.731692] (ros2_total_demo) StdoutLine: {'line': b"Listing '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/msg'...\n"}
+[26.731861] (ros2_total_demo) StdoutLine: {'line': b"Compiling '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/msg/__init__.py'...\n"}
+[26.732008] (ros2_total_demo) StdoutLine: {'line': b"Compiling '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/msg/_object_pose.py'...\n"}
+[26.742034] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/camera_0.py\n'}
+[26.742548] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/camera_1.py\n'}
+[26.742750] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/realsense_camera_0.py\n'}
+[26.742978] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/realsense_camera_1.py\n'}
+[26.743176] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/realsense_camera_2.py\n'}
+[26.743353] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/detect_object.py\n'}
+[26.743501] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/catch2object_65_aoyi_agv.py\n'}
+[26.743673] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/catch2object_65_gripper_agv.py\n'}
+[26.743854] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/aoyi_hand.py\n'}
+[26.744120] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/shu_demo.py\n'}
+[26.744425] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/weight\n'}
+[26.744641] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/weight/best.pt\n'}
+[26.747515] (-) TimerEvent: {}
+[26.764155] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/config\n'}
+[26.764619] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/config/config.yaml\n'}
+[26.764924] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/launch\n'}
+[26.765129] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/launch/start_65_agv.launch.py\n'}
+[26.765353] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/launch/total_demo.launch.py\n'}
+[26.765565] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/msg\n'}
+[26.765716] (ros2_total_demo) StdoutLine: {'line': b'-- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/msg/ObjectPose.msg\n'}
+[26.765912] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts\n'}
+[26.766086] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/catch2object_65_gripper_agv.py\n'}
+[26.766259] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/realsense_camera_0.py\n'}
+[26.766421] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/1.py\n'}
+[26.766560] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/catch2object_65_aoyi_agv.py\n'}
+[26.766746] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/detect_object.py\n'}
+[26.766916] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/shu_demo.py\n'}
+[26.767075] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/camera_1.py\n'}
+[26.767208] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/camera_0.py\n'}
+[26.767361] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/aoyi_hand.py\n'}
+[26.767515] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/realsense_camera_2.py\n'}
+[26.767679] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/realsense_camera_1.py\n'}
+[26.768065] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ament_index/resource_index/package_run_dependencies/ros2_total_demo\n'}
+[26.768467] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ament_index/resource_index/parent_prefix_path/ros2_total_demo\n'}
+[26.768824] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/ament_prefix_path.sh\n'}
+[26.769107] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/ament_prefix_path.dsv\n'}
+[26.769412] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/path.sh\n'}
+[26.769781] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/path.dsv\n'}
+[26.770012] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/local_setup.bash\n'}
+[26.770309] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/local_setup.sh\n'}
+[26.770593] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/local_setup.zsh\n'}
+[26.770911] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/local_setup.dsv\n'}
+[26.771177] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.dsv\n'}
+[26.771543] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ament_index/resource_index/packages/ros2_total_demo\n'}
+[26.772028] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_generator_cExport.cmake\n'}
+[26.772332] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_generator_cExport-noconfig.cmake\n'}
+[26.772744] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_introspection_cExport.cmake\n'}
+[26.773096] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[26.773468] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_cExport.cmake\n'}
+[26.773797] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[26.774219] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_generator_cppExport.cmake\n'}
+[26.774597] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[26.774943] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[26.775343] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_cppExport.cmake\n'}
+[26.775636] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[26.775955] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/rosidl_cmake-extras.cmake\n'}
+[26.776244] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[26.776520] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[26.776829] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[26.777118] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[26.777426] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[26.777714] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[26.778012] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demoConfig.cmake\n'}
+[26.778215] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demoConfig-version.cmake\n'}
+[26.778513] (ros2_total_demo) StdoutLine: {'line': b'-- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.xml\n'}
+[26.784341] (ros2_total_demo) CommandEnded: {'returncode': 0}
+[26.847839] (-) TimerEvent: {}
+[26.852139] (ros2_total_demo) JobEnded: {'identifier': 'ros2_total_demo', 'rc': 0}
+[26.853790] (-) EventReactorShutdown: {}

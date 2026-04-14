@@ -1,0 +1,154 @@
+[0.031s] Invoking command in '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/rm/ros2_ws/install/rm_camera_demo:/opt/ros/foxy /usr/bin/cmake --build /home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo -- -j12 -l12
+[0.184s] [  2%] Built target ros2_total_demo__cpp
+[0.202s] [ 11%] Built target ros2_total_demo__rosidl_generator_c
+[0.236s] [ 20%] Built target total_demo_node
+[0.264s] [ 47%] Built target ros2_total_demo__rosidl_typesupport_c
+[0.264s] [ 47%] Built target ros2_total_demo__rosidl_typesupport_introspection_c
+[0.264s] [ 47%] Built target ros2_total_demo__rosidl_typesupport_introspection_cpp
+[0.271s] [ 64%] Built target ros2_total_demo__rosidl_typesupport_cpp
+[0.271s] [ 64%] Built target ros2_total_demo__rosidl_typesupport_fastrtps_cpp
+[0.335s] [ 73%] Built target ros2_total_demo__rosidl_typesupport_fastrtps_c
+[0.387s] [ 73%] Built target ros2_total_demo
+[0.438s] [ 76%] Built target ros2_total_demo__py
+[0.498s] [ 82%] Built target ros2_total_demo__python
+[0.561s] [100%] Built target ros2_total_demo__rosidl_typesupport_c__pyext
+[0.561s] [100%] Built target ros2_total_demo__rosidl_typesupport_fastrtps_c__pyext
+[0.561s] [100%] Built target ros2_total_demo__rosidl_typesupport_introspection_c__pyext
+[0.594s] Invoked command in '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/rm/ros2_ws/install/rm_camera_demo:/opt/ros/foxy /usr/bin/cmake --build /home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo -- -j12 -l12
+[0.629s] Invoking command in '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/rm/ros2_ws/install/rm_camera_demo:/opt/ros/foxy /usr/bin/cmake --install /home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo
+[0.652s] -- Install configuration: ""
+[0.653s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ament_index/resource_index/rosidl_interfaces/ros2_total_demo
+[0.653s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo
+[0.654s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg
+[0.654s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail
+[0.654s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__functions.h
+[0.654s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__functions.c
+[0.655s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__struct.h
+[0.655s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__type_support.h
+[0.655s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/rosidl_generator_c__visibility_control.h
+[0.655s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/object_pose.h
+[0.656s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/library_path.sh
+[0.656s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/library_path.dsv
+[0.656s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_generator_c.so
+[0.656s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo
+[0.657s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg
+[0.657s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail
+[0.657s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__rosidl_typesupport_fastrtps_c.h
+[0.657s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[0.658s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_fastrtps_c.so
+[0.658s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo
+[0.658s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg
+[0.658s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail
+[0.658s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__rosidl_typesupport_fastrtps_cpp.hpp
+[0.658s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/dds_fastrtps
+[0.659s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[0.659s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_fastrtps_cpp.so
+[0.659s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo
+[0.659s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg
+[0.659s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail
+[0.660s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__rosidl_typesupport_introspection_c.h
+[0.660s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__type_support.c
+[0.660s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[0.660s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_introspection_c.so
+[0.661s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_c.so
+[0.661s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo
+[0.661s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg
+[0.661s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/object_pose.hpp
+[0.661s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail
+[0.661s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__traits.hpp
+[0.662s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__struct.hpp
+[0.662s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__type_support.hpp
+[0.662s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__builder.hpp
+[0.662s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/rosidl_generator_cpp__visibility_control.hpp
+[0.662s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo
+[0.662s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg
+[0.662s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail
+[0.662s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__rosidl_typesupport_introspection_cpp.hpp
+[0.663s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/include/ros2_total_demo/msg/detail/object_pose__type_support.cpp
+[0.663s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_introspection_cpp.so
+[0.663s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__rosidl_typesupport_cpp.so
+[0.663s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/pythonpath.sh
+[0.663s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/pythonpath.dsv
+[0.664s] -- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/__init__.py
+[0.734s] Compiling '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/__init__.py'...
+[0.744s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/msg
+[0.744s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/msg/__init__.py
+[0.745s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/msg/_object_pose.py
+[0.745s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/msg/_object_pose_s.c
+[0.745s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/ros2_total_demo_s__rosidl_typesupport_fastrtps_c.cpython-38-aarch64-linux-gnu.so
+[0.747s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/ros2_total_demo_s__rosidl_typesupport_introspection_c.cpython-38-aarch64-linux-gnu.so
+[0.748s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/ros2_total_demo_s__rosidl_typesupport_c.cpython-38-aarch64-linux-gnu.so
+[0.749s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/libros2_total_demo__python.so
+[0.749s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/msg/ObjectPose.idl
+[0.750s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/msg/ObjectPose.msg
+[0.750s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/total_demo_node
+[0.751s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo
+[0.751s] -- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/__init__.py
+[0.821s] Listing '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo'...
+[0.821s] Compiling '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/__init__.py'...
+[0.822s] Listing '/home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/python3.8/site-packages/ros2_total_demo/msg'...
+[0.831s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/camera_0.py
+[0.832s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/camera_1.py
+[0.832s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/realsense_camera_0.py
+[0.832s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/realsense_camera_1.py
+[0.832s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/realsense_camera_2.py
+[0.832s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/detect_object.py
+[0.833s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/catch2object_65_aoyi_agv.py
+[0.833s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/catch2object_65_gripper_agv.py
+[0.833s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/aoyi_hand.py
+[0.833s] -- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/shu_demo.py
+[0.833s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/weight
+[0.834s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/weight/best.pt
+[0.834s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/config
+[0.834s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/lib/ros2_total_demo/config/config.yaml
+[0.834s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/launch
+[0.835s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/launch/start_65_agv.launch.py
+[0.835s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/launch/total_demo.launch.py
+[0.835s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/msg
+[0.835s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/msg/ObjectPose.msg
+[0.835s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts
+[0.836s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/catch2object_65_gripper_agv.py
+[0.836s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/realsense_camera_0.py
+[0.836s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/1.py
+[0.836s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/catch2object_65_aoyi_agv.py
+[0.836s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/detect_object.py
+[0.836s] -- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/shu_demo.py
+[0.836s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/camera_1.py
+[0.837s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/camera_0.py
+[0.837s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/aoyi_hand.py
+[0.837s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/realsense_camera_2.py
+[0.837s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/scripts/realsense_camera_1.py
+[0.837s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ament_index/resource_index/package_run_dependencies/ros2_total_demo
+[0.838s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ament_index/resource_index/parent_prefix_path/ros2_total_demo
+[0.838s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/ament_prefix_path.sh
+[0.838s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/ament_prefix_path.dsv
+[0.838s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/path.sh
+[0.838s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/environment/path.dsv
+[0.839s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/local_setup.bash
+[0.839s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/local_setup.sh
+[0.839s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/local_setup.zsh
+[0.839s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/local_setup.dsv
+[0.839s] -- Installing: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.dsv
+[0.839s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ament_index/resource_index/packages/ros2_total_demo
+[0.840s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_generator_cExport.cmake
+[0.840s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_generator_cExport-noconfig.cmake
+[0.840s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_introspection_cExport.cmake
+[0.840s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[0.840s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_cExport.cmake
+[0.840s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_cExport-noconfig.cmake
+[0.840s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_generator_cppExport.cmake
+[0.841s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_introspection_cppExport.cmake
+[0.841s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[0.841s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_cppExport.cmake
+[0.841s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demo__rosidl_typesupport_cppExport-noconfig.cmake
+[0.841s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/rosidl_cmake-extras.cmake
+[0.841s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.841s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ament_cmake_export_libraries-extras.cmake
+[0.842s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ament_cmake_export_targets-extras.cmake
+[0.842s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.842s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[0.842s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[0.842s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demoConfig.cmake
+[0.842s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/cmake/ros2_total_demoConfig-version.cmake
+[0.842s] -- Up-to-date: /home/rm/ros2_ws/src/ros2_total_demo/install/ros2_total_demo/share/ros2_total_demo/package.xml
+[0.846s] Invoked command in '/home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/rm/ros2_ws/install/rm_camera_demo:/opt/ros/foxy /usr/bin/cmake --install /home/rm/ros2_ws/src/ros2_total_demo/build/ros2_total_demo

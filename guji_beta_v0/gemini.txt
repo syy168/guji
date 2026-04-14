@@ -1,0 +1,4 @@
+https://gemini.google.com/share/0ba7d70117c6
+
+ros2 launch rm_driver dual_rm_65_driver.launch.py
+
