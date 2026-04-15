@@ -1,0 +1,110 @@
+# Demo 默认配置。
+# 安全优先：dry_run=true 时仅打印日志，不发送真实运动指令。
+
+dry_run: true
+loop_forever: false
+
+motion:
+  speed: 20.0
+  block: true
+  timeout_sec: 15.0
+  post_step_wait_sec: 1.0
+
+safety:
+  max_force_n: 35.0
+  emergency_error_codes: [4109]  # 0x100D: 机械臂发生碰撞
+
+arms:
+  left:
+    controller_ns: left_arm_controller
+    joint_state_topic: /left_arm_controller/joint_states
+    movej_topic: /left_arm_controller/rm_driver/movej_cmd
+    movel_topic: /left_arm_controller/rm_driver/movel_cmd
+    gripper_pick_topic: /left_arm_controller/rm_driver/set_gripper_pick_cmd
+    move_stop_topic: /left_arm_controller/rm_driver/move_stop_cmd
+    six_force_topic: /left_arm_controller/rm_driver/udp_six_force
+    arm_error_topic: /left_arm_controller/rm_driver/udp_arm_err
+
+  right:
+    controller_ns: right_arm_controller
+    joint_state_topic: /right_arm_controller/joint_states
+    movej_topic: /right_arm_controller/rm_driver/movej_cmd
+    movel_topic: /right_arm_controller/rm_driver/movel_cmd
+    gripper_pick_topic: /right_arm_controller/rm_driver/set_gripper_pick_cmd
+    move_stop_topic: /right_arm_controller/rm_driver/move_stop_cmd
+    six_force_topic: /right_arm_controller/rm_driver/udp_six_force
+    arm_error_topic: /right_arm_controller/rm_driver/udp_arm_err
+
+# 项目描述中的 0-11 工作流。
+# 机械臂动作建议使用 trajectory_movej：
+# 每个动作对应一个录制轨迹文件，程序按分段中点执行，减少大跨度直达碰撞风险。
+sequence:
+  - action_type: trajectory_movej
+    arm: right
+    description: "0. 右臂移动到识别 ArUco 的姿态"
+    trajectory_file: trajectories/right_step_00_scan_pose.csv
+    segment_count: 5
+
+  - action_type: trajectory_movej
+    arm: left
+    description: "1. 左臂移动到电池包堆上方接触位"
+    trajectory_file: trajectories/left_step_01_contact_pose.csv
+    segment_count: 5
+
+  - action_type: trajectory_movej
+    arm: left
+    description: "2. 左臂保持接触并上挑"
+    trajectory_file: trajectories/left_step_02_lift_pose.csv
+    segment_count: 6
+
+  - action_type: trajectory_movej
+    arm: right
+    description: "3. 右臂移动到预插入位"
+    trajectory_file: trajectories/right_step_03_insert_prepare.csv
+    segment_count: 5
+
+  - action_type: gripper_pick
+    arm: right
+    description: "4. 右臂插入后力控夹取"
+    gripper_speed: 300
+    gripper_force: 250
+
+  - action_type: trajectory_movej
+    arm: right
+    description: "5. 右臂转动至水平"
+    trajectory_file: trajectories/right_step_05_rotate_horizontal.csv
+    segment_count: 5
+
+  - action_type: trajectory_movej
+    arm: right
+    description: "6. 右臂移动到导航安全位"
+    trajectory_file: trajectories/right_step_06_nav_safe_pose.csv
+    segment_count: 5
+
+  - action_type: trajectory_movej
+    arm: left
+    description: "7. 左臂移动到导航安全位"
+    trajectory_file: trajectories/left_step_07_nav_safe_pose.csv
+    segment_count: 5
+
+  - action_type: pause
+    arm: right
+    description: "8. 执行导航（此演示仅预留暂停占位）"
+    pause_sec: 3.0
+
+  - action_type: pause
+    arm: right
+    description: "9. 导航完成（此演示仅预留暂停占位）"
+    pause_sec: 1.0
+
+  - action_type: trajectory_movej
+    arm: right
+    description: "10. 右臂再次移动到识别 ArUco 位"
+    trajectory_file: trajectories/right_step_10_rescan_pose.csv
+    segment_count: 5
+
+  - action_type: trajectory_movej
+    arm: right
+    description: "11. 右臂移动到放料限位器上方"
+    trajectory_file: trajectories/right_step_11_place_limit_top.csv
+    segment_count: 5
