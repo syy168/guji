@@ -3,3 +3,4 @@ robot_run   在机器人上实际成功运行的代码文件夹
 tmp     本地为robot_run编写用到的临时文件夹
 ros2_ws     机器人上实际使用的功能包文件夹
 Warehouse_handling_robot    可供参考的相似项目实现
+doc     文档文件夹

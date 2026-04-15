@@ -1,0 +1,4 @@
+启动右臂腕部相机
+ros2 launch realsense2_camera rs_launch.py camera_name:=camera_right serial_no:="'401522071650'" align_depth.enable:=true
+启动双臂驱动
+ros2 launch rm_driver dual_rm_65_driver.launch.py
