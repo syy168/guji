@@ -48,6 +48,7 @@ class DemoConfig:
     config_dir: str
     dry_run: bool
     loop_forever: bool
+    confirm_before_motion: bool
     motion: MotionConfig
     safety: SafetyConfig
     arms: Dict[str, ArmConfig]

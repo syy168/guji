@@ -73,6 +73,7 @@ def load_demo_config(config_path: str) -> DemoConfig:
         config_dir=str(path.parent),
         dry_run=bool(raw.get("dry_run", True)),
         loop_forever=bool(raw.get("loop_forever", False)),
+        confirm_before_motion=bool(raw.get("confirm_before_motion", False)),
         motion=motion,
         safety=safety,
         arms=arms,

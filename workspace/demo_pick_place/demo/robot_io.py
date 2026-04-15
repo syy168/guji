@@ -30,12 +30,14 @@ class RobotIO(Node):
         safety: SafetyConfig,
         ros_types: RosTypes,
         dry_run: bool,
+        confirm_before_motion: bool,
     ) -> None:
         super().__init__("demo_robot_io")
         self._arms = arms
         self._motion = motion
         self._safety = safety
         self._dry_run = dry_run
+        self._confirm_before_motion = confirm_before_motion
         self._types = ros_types
 
         self._state: Dict[str, ArmRuntimeState] = {name: ArmRuntimeState() for name in arms.keys()}
@@ -121,6 +123,12 @@ class RobotIO(Node):
         if self._dry_run:
             return
 
+        self._confirm_motion_if_needed(
+            arm=arm,
+            command_name="MoveJ",
+            detail=f"joints_deg={joints_deg}, speed={self._motion.speed}, block={self._motion.block}",
+        )
+
         cmd = self._types.Movej()
         cmd.joint = [math.radians(v) for v in joints_deg]
         cmd.speed = float(self._motion.speed)
@@ -132,6 +140,12 @@ class RobotIO(Node):
         if self._dry_run:
             return
 
+        self._confirm_motion_if_needed(
+            arm=arm,
+            command_name="MoveL",
+            detail=f"pose_xyzrpy={pose_xyzrpy}, speed={self._motion.speed}, block={self._motion.block}",
+        )
+
         cmd = self._types.Movel()
         cmd.pose = list(pose_xyzrpy)
         cmd.speed = float(self._motion.speed)
@@ -142,6 +156,15 @@ class RobotIO(Node):
         self.get_logger().info(f"[{arm}] 力控夹爪 speed={speed}, force={force}")
         if self._dry_run:
             return
+
+        self._confirm_motion_if_needed(
+            arm=arm,
+            command_name="GripperPick",
+            detail=(
+                f"speed={speed}, force={force}, block={self._motion.block}, "
+                f"timeout_ms={int(self._motion.timeout_sec * 1000)}"
+            ),
+        )
 
         cmd = self._types.Gripperpick()
         cmd.speed = int(speed)
@@ -155,3 +178,23 @@ class RobotIO(Node):
         end = self.get_clock().now().nanoseconds + int(sec * 1e9)
         while self.get_clock().now().nanoseconds < end:
             rclpy.spin_once(self, timeout_sec=0.1)
+
+    def _confirm_motion_if_needed(self, arm: str, command_name: str, detail: str) -> None:
+        if not self._confirm_before_motion:
+            return
+
+        self.get_logger().info(
+            f"[{arm}] 准备发送 {command_name} 指令，等待终端确认: {detail}"
+        )
+        prompt = (
+            f"[CONFIRM] arm={arm} cmd={command_name}\\n"
+            f"{detail}\\n"
+            "输入 y/yes 或直接回车继续，输入其他内容取消: "
+        )
+        try:
+            answer = input(prompt).strip().lower()
+        except EOFError as exc:
+            raise RuntimeError("确认模式已开启，但当前终端无法读取输入（EOF）") from exc
+
+        if answer not in {"", "y", "yes"}:
+            raise RuntimeError(f"用户取消发送指令: arm={arm}, cmd={command_name}")

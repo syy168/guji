@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Optional
+
 import rclpy
 from rclpy.node import Node
 
@@ -12,13 +14,19 @@ from .sequence_runner import SequenceRunner
 class DemoMain(Node):
     """取放 Demo 主节点：负责加载配置并启动流程。"""
 
-    def __init__(self, config_path: str) -> None:
+    def __init__(self, config_path: str, confirm_before_motion_override: Optional[bool] = None) -> None:
         super().__init__("demo_main")
         self._cfg = load_demo_config(config_path)
         self._types = import_rm_ros_types()
+        self._confirm_before_motion = (
+            self._cfg.confirm_before_motion
+            if confirm_before_motion_override is None
+            else bool(confirm_before_motion_override)
+        )
 
         self.get_logger().info(f"已加载配置: {config_path}")
         self.get_logger().info(f"机械臂列表: {list(self._cfg.arms.keys())}")
+        self.get_logger().info(f"confirm_before_motion={self._confirm_before_motion}")
 
         self._io = RobotIO(
             arms=self._cfg.arms,
@@ -26,6 +34,7 @@ class DemoMain(Node):
             safety=self._cfg.safety,
             ros_types=self._types,
             dry_run=self._cfg.dry_run,
+            confirm_before_motion=self._confirm_before_motion,
         )
         self._runner = SequenceRunner(self, self._io, self._cfg)
 
@@ -40,9 +49,9 @@ class DemoMain(Node):
             self._runner.run_once()
 
 
-def run_demo(config_path: str) -> None:
+def run_demo(config_path: str, confirm_before_motion_override: Optional[bool] = None) -> None:
     rclpy.init()
-    app = DemoMain(config_path)
+    app = DemoMain(config_path, confirm_before_motion_override=confirm_before_motion_override)
     try:
         app.run()
     finally:

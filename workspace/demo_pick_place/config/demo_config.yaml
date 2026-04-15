@@ -3,6 +3,7 @@
 
 dry_run: true
 loop_forever: false
+confirm_before_motion: false
 
 motion:
   speed: 20.0

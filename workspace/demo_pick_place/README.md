@@ -7,6 +7,7 @@
 
 - 配置、ROS IO、流程编排模块解耦，便于排查。
 - 默认安全行为：`dry_run: true`（仅日志，不发运动指令）。
+- 可选人工确认模式：每次发送运动指令前在终端打印指令详情并等待确认。
 - 每个步骤前后输出清晰日志。
 - 每个动作前后执行力阈值/错误码安全检查。
 - 支持“轨迹分段中点运动”，降低大跨度直达导致的碰撞风险。
@@ -37,6 +38,14 @@ python3 run_demo.py
 - `trajectory_file`: 对应轨迹文件
 - `segment_count`: 分段数（每段取中点执行）
 5. 验证无误后再将 `dry_run` 改为 `false`。
+6. 如需每条运动指令前人工确认，可在 `config/demo_config.yaml` 设置 `confirm_before_motion: true`。
+
+也可通过命令行覆盖配置：
+
+```bash
+python3 run_demo.py --confirm-before-motion
+python3 run_demo.py --no-confirm-before-motion
+```
 
 ## 轨迹格式
 
