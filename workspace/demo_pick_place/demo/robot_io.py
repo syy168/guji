@@ -20,6 +20,7 @@ class ArmRuntimeState:
     latest_pose: Optional[Pose] = None
     latest_force_norm: float = 0.0
     latest_error_code: int = 0
+    force_alarm_latched: bool = False
 
 
 class RobotIO(Node):
@@ -91,7 +92,12 @@ class RobotIO(Node):
         fx = float(getattr(msg, "force_fx", 0.0))
         fy = float(getattr(msg, "force_fy", 0.0))
         fz = float(getattr(msg, "force_fz", 0.0))
-        self._state[arm].latest_force_norm = math.sqrt(fx * fx + fy * fy + fz * fz)
+        state = self._state[arm]
+        state.latest_force_norm = math.sqrt(fx * fx + fy * fy + fz * fz)
+
+        # 在力回调中即时判定阈值并急停，缩短碰撞到停机的响应路径。
+        if state.latest_force_norm > self._safety.max_force_n:
+            self._latch_force_alarm_and_stop(arm, state)
 
     def arm_state(self, arm: str) -> ArmRuntimeState:
         return self._state[arm]
@@ -105,13 +111,26 @@ class RobotIO(Node):
             self.stop_arm(arm)
             return False
 
+        # 兜底：即使回调路径未及时触发，这里仍会补做阈值判定与急停。
         if state.latest_force_norm > self._safety.max_force_n:
-            self.get_logger().error(
-                f"[{arm}] 力阈值超限: {state.latest_force_norm:.2f}N > {self._safety.max_force_n:.2f}N，触发急停"
-            )
-            self.stop_arm(arm)
+            self._latch_force_alarm_and_stop(arm, state)
+            return False
+
+        # 力告警一旦锁存，后续流程检查持续返回失败，直到进程重启或显式复位。
+        if state.force_alarm_latched:
             return False
         return True
+
+    def _latch_force_alarm_and_stop(self, arm: str, state: ArmRuntimeState) -> None:
+        # 锁存后不重复下发 stop，避免日志和控制命令风暴。
+        if state.force_alarm_latched:
+            return
+
+        state.force_alarm_latched = True
+        self.get_logger().error(
+            f"[{arm}] 力阈值超限: {state.latest_force_norm:.2f}N > {self._safety.max_force_n:.2f}N，触发急停并锁存"
+        )
+        self.stop_arm(arm)
 
     def stop_arm(self, arm: str) -> None:
         msg = Bool()
