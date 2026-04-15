@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>woosh_nav_feedback</name>
+  <version>0.0.1</version>
+  <description>Woosh navigation feedback demo for ROS2 Foxy</description>
+  <maintainer email="feiguang@local">feiguang</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>woosh_robot_msgs</depend>
+  <depend>woosh_task_msgs</depend>
+
+  <exec_depend>ros2launch</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
