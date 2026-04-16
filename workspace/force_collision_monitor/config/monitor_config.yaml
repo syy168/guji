@@ -1,0 +1,19 @@
+# 力碰撞监控配置（不发送运动指令）
+
+monitor:
+  mode: query
+  query_hz: 50.0
+  query_result: raw
+  print_hz: 10.0
+  release_ratio: 0.8
+
+arms:
+  left:
+    # 外力监控建议使用 udp_six_zero_force（系统外受力）
+    six_force_topic: /left_arm_controller/rm_driver/udp_six_zero_force
+    threshold_n: 35.0
+
+  right:
+    # 如需原始六维力可改回 udp_six_force
+    six_force_topic: /right_arm_controller/rm_driver/udp_six_zero_force
+    threshold_n: 35.0
