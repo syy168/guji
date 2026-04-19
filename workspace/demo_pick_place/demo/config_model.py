@@ -13,6 +13,7 @@ class ArmConfig:
     move_stop_topic: str
     six_force_topic: str
     arm_error_topic: str
+    threshold_n: float = 35.0
 
 
 @dataclass
@@ -26,6 +27,10 @@ class MotionConfig:
 @dataclass
 class SafetyConfig:
     max_force_n: float = 35.0
+    release_ratio: float = 0.8
+    force_mode: str = "query"
+    force_query_hz: float = 50.0
+    force_query_result: str = "raw"
     emergency_error_codes: List[int] = field(default_factory=lambda: [0x100D])
 
 

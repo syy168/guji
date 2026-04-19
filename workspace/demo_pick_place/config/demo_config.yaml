@@ -12,7 +12,11 @@ motion:
   post_step_wait_sec: 1.0
 
 safety:
-  max_force_n: 35.0
+  max_force_n: 35.0  # 兼容兜底值，优先使用各机械臂 threshold_n
+  release_ratio: 0.8
+  force_mode: query
+  force_query_hz: 50.0
+  force_query_result: raw
   emergency_error_codes: [4109]  # 0x100D: 机械臂发生碰撞
 
 arms:
@@ -23,8 +27,9 @@ arms:
     movel_topic: /left_arm_controller/rm_driver/movel_cmd
     gripper_pick_topic: /left_arm_controller/rm_driver/set_gripper_pick_cmd
     move_stop_topic: /left_arm_controller/rm_driver/move_stop_cmd
-    six_force_topic: /left_arm_controller/rm_driver/udp_six_force
+    six_force_topic: /left_arm_controller/rm_driver/get_force_data_result
     arm_error_topic: /left_arm_controller/rm_driver/udp_arm_err
+    threshold_n: 35.0
 
   right:
     controller_ns: right_arm_controller
@@ -33,8 +38,9 @@ arms:
     movel_topic: /right_arm_controller/rm_driver/movel_cmd
     gripper_pick_topic: /right_arm_controller/rm_driver/set_gripper_pick_cmd
     move_stop_topic: /right_arm_controller/rm_driver/move_stop_cmd
-    six_force_topic: /right_arm_controller/rm_driver/udp_six_force
+    six_force_topic: /right_arm_controller/rm_driver/get_force_data_result
     arm_error_topic: /right_arm_controller/rm_driver/udp_arm_err
+    threshold_n: 35.0
 
 # 项目描述中的 0-11 工作流。
 # 机械臂动作建议使用 trajectory_movej：

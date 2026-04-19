@@ -33,6 +33,10 @@ def load_demo_config(config_path: str) -> DemoConfig:
     safety_raw = raw.get("safety", {})
     safety = SafetyConfig(
         max_force_n=float(safety_raw.get("max_force_n", 35.0)),
+        release_ratio=float(safety_raw.get("release_ratio", 0.8)),
+        force_mode=str(safety_raw.get("force_mode", "query")),
+        force_query_hz=float(safety_raw.get("force_query_hz", 50.0)),
+        force_query_result=str(safety_raw.get("force_query_result", "raw")),
         emergency_error_codes=list(safety_raw.get("emergency_error_codes", [0x100D])),
     )
 
@@ -49,6 +53,7 @@ def load_demo_config(config_path: str) -> DemoConfig:
             move_stop_topic=str(_required(cfg, "move_stop_topic")),
             six_force_topic=str(_required(cfg, "six_force_topic")),
             arm_error_topic=str(_required(cfg, "arm_error_topic")),
+            threshold_n=float(cfg.get("threshold_n", safety.max_force_n)),
         )
 
     sequence_raw = _required(raw, "sequence")

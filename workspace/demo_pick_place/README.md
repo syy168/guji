@@ -57,3 +57,21 @@ python3 run_demo.py --no-confirm-before-motion
 - 默认话题命名适配 `left_arm_controller` / `right_arm_controller`。
 - 若命名空间不同，仅需修改 YAML 配置。
 - 步骤 8、9 使用 `pause` 占位，预留导航系统集成。
+
+## 力阈值机制（已验证方案）
+
+当前已对齐 `workspace/force_collision_monitor/run_force_monitor.py` 的阈值方法：
+
+- 采用每臂独立阈值：`arms.<arm>.threshold_n`。
+- 使用释放迟滞：`safety.release_ratio`，释放阈值为 `threshold_n * release_ratio`。
+- 力数据获取改为主动查询：定时发布 `get_force_data_cmd`，订阅 `get_force_data_result`。
+- 力消息字段兼容：优先读取 `force_fx/force_fy/force_fz`，同时兼容 `fx/fy/fz`。
+- 阈值触发后立即 `move_stop_cmd`，并进入锁存；当力降到释放阈值以下自动解除锁存。
+
+建议配置：
+
+- `safety.force_mode` 使用 `query`，`safety.force_query_hz` 使用 `50.0`。
+- `safety.force_query_result` 推荐 `raw`，对应 `get_force_data_result`。
+- `udp_six_force` 与 `udp_six_zero_force` 在当前现场不可用，不作为数据源。
+- `threshold_n` 初始可设 `35.0`，再按现场负载逐步微调。
+- `release_ratio` 推荐 `0.8`，避免阈值边缘抖动反复触发。
