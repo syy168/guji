@@ -10,7 +10,7 @@ def generate_launch_description() -> LaunchDescription:
             name='exec_task_feedback_node',
             output='screen',
             parameters=[{
-                'action_name': 'woosh_robot/robot/ExecTask',
+                'action_name': '/woosh_robot/robot/ExecTask',
                 'operation_state_topic': 'woosh_robot/robot/OperationState',
                 'go_mark_topic': '/navigation/go_mark',
                 'feedback_topic': '/navigation/feedback',

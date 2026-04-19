@@ -15,7 +15,7 @@ class ExecTaskFeedbackNode(Node):
     def __init__(self) -> None:
         super().__init__('exec_task_feedback_node')
 
-        self.declare_parameter('action_name', 'woosh_robot/robot/ExecTask')
+        self.declare_parameter('action_name', '/woosh_robot/robot/ExecTask')
         self.declare_parameter('operation_state_topic', 'woosh_robot/robot/OperationState')
         self.declare_parameter('go_mark_topic', '/navigation/go_mark')
         self.declare_parameter('feedback_topic', '/navigation/feedback')
@@ -27,7 +27,9 @@ class ExecTaskFeedbackNode(Node):
         self.declare_parameter('direction', 0)
         self.declare_parameter('task_type_no', 0)
 
-        action_name = self.get_parameter('action_name').value
+        action_name = str(self.get_parameter('action_name').value).strip()
+        if not action_name:
+            action_name = '/woosh_robot/robot/ExecTask'
         operation_state_topic = self.get_parameter('operation_state_topic').value
         go_mark_topic = self.get_parameter('go_mark_topic').value
         self.feedback_topic = self.get_parameter('feedback_topic').value
@@ -56,6 +58,7 @@ class ExecTaskFeedbackNode(Node):
             self._startup_timer = self.create_timer(2.0, lambda: self._startup_once(startup_mark_no))
 
         self.get_logger().info('exec_task_feedback_node ready.')
+        self.get_logger().info(f'action name: {action_name}')
         self.get_logger().info(f'listen go mark topic: {go_mark_topic}')
         self.get_logger().info(f'publish feedback topic: {self.feedback_topic}')
 

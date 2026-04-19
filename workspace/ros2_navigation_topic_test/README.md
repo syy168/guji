@@ -27,6 +27,10 @@
 - `END_CONFIRMED`
 - `TIMEOUT`
 
+Action 名称（实测确认）：
+- 必须使用 `/woosh_robot/robot/ExecTask`
+- 不是 `/woosh_robot/exec_task`
+
 ## 2. 编译
 
 在该目录作为 ROS2 工作区根目录使用：
@@ -39,11 +43,27 @@ source install/setup.bash
 
 ## 3. 运行
 
-先启动 Woosh ROS2 Agent（示例）：
+处理导航服务前，必须先启动 Woosh ROS2 Agent：
 
 ```bash
-ros2 run woosh_robot_agent agent --ros-args -r __ns:=/woosh_robot -p ip:="169.254.128.2"
+ros2 run woosh_robot_agent agent --ros-args -r __ns:=/woosh_robot -p ip:="192.168.150.118"
 ```
+
+当前环境按以上 IP 写法直接执行即可。
+
+确认 Action Server 已上线：
+
+```bash
+ros2 action list
+```
+
+期望输出中包含：
+
+```text
+/woosh_robot/robot/ExecTask
+```
+
+如果看不到该 Action，说明 Agent 还没成功就绪（例如 IP 未连通），此时启动客户端会停在等待服务器阶段。
 
 再启动反馈节点：
 

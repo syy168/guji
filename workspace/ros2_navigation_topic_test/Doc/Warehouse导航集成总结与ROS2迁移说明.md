@@ -50,13 +50,19 @@ ROS1（Warehouse）常见写法：
 - `/robot_status`：Topic
 
 ROS2 Foxy（你当前工程已有示例）：
-- `woosh_robot/robot/ExecTask`：Action（目标、反馈、结果三段式）
+- `/woosh_robot/robot/ExecTask`：Action（目标、反馈、结果三段式）
 - `woosh_robot/robot/TaskProc`：任务进度 Topic
 - `woosh_robot/robot/OperationState`：机器人是否可接任务等运行状态 Topic
 
 因此不能简单平移 ROS1 代码，需要改为 Action Client 模式。
 
-## 3.2 任务完成判定变化
+## 3.2 接口名实测结论与排障
+
+- 通过 `ros2 action list` 实测确认，导航 Action 名称为 `/woosh_robot/robot/ExecTask`。
+- 不应写成 `/woosh_robot/exec_task`，否则客户端会一直等待服务器。
+- 若列表中没有 `/woosh_robot/robot/ExecTask`，说明 Woosh Agent 尚未成功运行或尚未连通底盘。
+
+## 3.3 任务完成判定变化
 
 ROS1 中你看到的是 `task_state == 7`。
 ROS2 中建议用 Woosh 消息定义常量判定，例如：
@@ -64,7 +70,7 @@ ROS2 中建议用 Woosh 消息定义常量判定，例如：
 - `K_FAILED`
 - `K_CANCELED`
 
-## 3.3 建议保留的业务抽象
+## 3.4 建议保留的业务抽象
 
 虽然接口变了，但业务抽象可保持一致：
 
@@ -77,7 +83,7 @@ ROS2 中建议用 Woosh 消息定义常量判定，例如：
 只做底盘导航闭环，节点职责如下：
 
 1. 订阅目标点位命令（例如 `/navigation/go_mark`，消息 `std_msgs/String`）。
-2. Action 客户端连接 `woosh_robot/robot/ExecTask`。
+2. Action 客户端连接 `/woosh_robot/robot/ExecTask`。
 3. 订阅 `woosh_robot/robot/OperationState`，判断是否可接任务。
 4. 发布统一反馈主题（例如 `/navigation/feedback`）：
 - `START_REQUEST`

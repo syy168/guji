@@ -59,7 +59,8 @@
    - IN_PROGRESS
    - END_CONFIRMED
    - TIMEOUT
-4. 出错处理必须明确：
+4. Action 名称必须使用 `/woosh_robot/robot/ExecTask`（已实测），不要写成 `/woosh_robot/exec_task`。
+5. 出错处理必须明确：
    - 目标无效
    - 服务器不可用
    - 导航失败
